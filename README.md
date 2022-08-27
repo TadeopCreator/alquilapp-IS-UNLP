@@ -1,24 +1,23 @@
-# README
+# Alquilapp
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Colab
 
-Things you may want to cover:
+Comandos
+> En el directorio de trabajo:
 
-* Ruby version
+`git clone https://github.com/TadeopCreator/alquilapp-IS-UNLP`
+*Clona el repositorio*
 
-* System dependencies
+`git branch [NOMBRE_BRANCH]`
+*Crea una nueva rama*
 
-* Configuration
+`git checkout [NOMBRE_BRANCH]`
+*Cambia a la nueva rama*
 
-* Database creation
+`git branch`
+*Para verificar el cambio*
 
-* Database initialization
+`git push --set-upstream origin [NOMBRE_BRANCH]`
+*Envia la rama creada al repositorio en GitHub*
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Ya podes trabajar normalmente :grinning:
