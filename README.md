@@ -36,3 +36,5 @@ git push --set-upstream origin [NOMBRE_BRANCH]
 *Envia la rama creada al repositorio en GitHub*
 
 Ya podes trabajar normalmente :grinning:
+
+Zucchini gang
