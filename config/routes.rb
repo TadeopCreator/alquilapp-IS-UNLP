@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :supervisors
   #get 'home/index'
 
   # rails routes to seee all the routes in the app
