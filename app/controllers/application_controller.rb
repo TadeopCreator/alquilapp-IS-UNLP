@@ -10,12 +10,17 @@ class ApplicationController < ActionController::Base
     else
         :edit_user_password
     end
-  end
+  end  
 
   def after_sign_out_path_for(scope)
     # return the path based on scope
     root_path
   end
+
+    # POST /resource
+    def create(scope)
+        puts('Hola desde controller')        
+    end
 
   # To reset the db: rake db:reset db:migrate
 
