@@ -8,6 +8,21 @@
     <%= text_field_tag "name", nil %>
   </div>
 
+  <div class="field">    
+  <%= label_tag "lastn" %>
+  <%= text_field_tag "lastn", nil %>
+  </div>
+
+  <div class="field">    
+  <%= label_tag "dni" %>
+  <%= text_field_tag "dni", nil %>
+  </div>
+
+  <div class="field">    
+  <%= label_tag "phone" %>
+  <%= phone_field "phone", nil %>
+  </div>
+
   <div class="field">
     <%= f.label :email %><br />
     <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
