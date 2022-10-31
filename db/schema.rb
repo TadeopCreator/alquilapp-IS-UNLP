@@ -28,6 +28,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_31_183517) do
     t.string "surname"
     t.string "dni"
     t.string "email"
+    t.boolean "habilitado"
+    t.boolean "borrado"
   end
 
   create_table "users", force: :cascade do |t|

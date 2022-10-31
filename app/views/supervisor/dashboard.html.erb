@@ -1,5 +1,8 @@
 <h1>Supervisor Dashboard</h1>
 
+<%= link_to 'Reportes', reportes_path %>
+<%= link_to 'Licencia', licencias_path %>
+
 <% @autos.each do |auto| %>
  <%= render auto %> <!-- Tengo que ver si se pueden usar render de otras clases --> 
 <% end %> 
