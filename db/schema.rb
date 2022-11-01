@@ -68,7 +68,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_01_000001) do
     t.string "email"
     t.boolean "habilitado"
     t.boolean "borrado"
-
+  end
+  
   create_table "autos", force: :cascade do |t|
     t.integer "num_rel"
     t.string "patente"
