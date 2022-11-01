@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :autos
   devise_for :users, :controllers => {:registrations => "registrations"}
 
   get 'admin/dashboard'
