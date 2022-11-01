@@ -10,12 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_10_26_232026) do
+ActiveRecord::Schema[7.0].define(version: 2022_10_31_202048) do
   create_table "admins", force: :cascade do |t|
     t.string "name"
     t.string "lastname"
     t.string "dni"
-    t.string "mail"
+    t.string "email"
     t.string "phone"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -32,6 +32,21 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_26_232026) do
     t.integer "role"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  end
+
+  create_table "vehicles", force: :cascade do |t|
+    t.integer "IdInt"
+    t.string "Patente"
+    t.string "Marca"
+    t.string "Modelo"
+    t.string "Color"
+    t.boolean "Alquilado"
+    t.boolean "Enabled"
+    t.boolean "Deleted"
+    t.float "PointX"
+    t.float "PointY"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 end

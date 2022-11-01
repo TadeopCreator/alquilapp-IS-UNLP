@@ -4,8 +4,9 @@ class RegistrationsController < Devise::RegistrationsController
     end
   
     def create
-      admin = Admin.create!(:name => params[:name],:lastname => params[:lastn],:dni => params[:dni],:mail => params[:email],:phone => params[:phone])
-      puts('Creado!!!!!!!!!!!!!!!!!!!!!!!!!!!!', admin.name)
+      puts(params.inspect)
+      usuario = Usuario.create!(:name => params[:name], :lastname => params[:lastname], :dni => params[:dni], :email => params[:user][:email], :phone => params[:phone])
+      #puts('Creado!!!!!!!!!!!!!!!!!!!!!!!!!!!!', admin.name)
       super
       #redirect_to new_admin_path, params => 'hola' and return            
     end
