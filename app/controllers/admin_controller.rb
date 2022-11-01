@@ -1,6 +1,8 @@
 class AdminController < ApplicationController
   def dashboards
-    
+    @autos = Auto.all
+
+    puts("kahdfjasdhfasdhfjklasdhfjkashdkfhjkajhkdfjasdfkj: ", @autos)
   end
 
   def add_supervisor

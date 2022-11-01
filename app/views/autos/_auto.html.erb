@@ -1,0 +1,21 @@
+<div id="<%= dom_id auto %>">
+  
+    <tr>
+      <td><%= auto.num_rel %></td>
+      <td><%= auto.patente %></td>
+      <td><%= auto.marca %></td>
+      <td><%= auto.modelo %></td>
+      <td><%= auto.color %></td>
+      <td><%= auto.alquilado %></td>
+      <td><%= auto.habilitado %></td>
+      <td><%= auto.borrado %></td>
+      <td><%= auto.lon %></td>
+      <td><%= auto.lat %></td>
+      <td>
+        <%= link_to "Show this car", auto_path(auto), class:"btn btn-dark" %>
+        <%= link_to "Edit this car", edit_auto_path(auto), class:"btn btn-dark" %>
+      </td>
+    </tr>
+</div>
+
+
