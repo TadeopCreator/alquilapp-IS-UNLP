@@ -1,0 +1,25 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  num_rel: 1
+  patente: MyString
+  marca: MyString
+  modelo: MyString
+  color: MyString
+  alquilado: false
+  habilitado: false
+  borrado: false
+  lon: 9.99
+  lat: 9.99
+
+two:
+  num_rel: 1
+  patente: MyString
+  marca: MyString
+  modelo: MyString
+  color: MyString
+  alquilado: false
+  habilitado: false
+  borrado: false
+  lon: 9.99
+  lat: 9.99

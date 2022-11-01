@@ -1,8 +1,6 @@
-<h1>Admin Dashboard</h1>
+<p style="color: green"><%= notice %></p>
 
-Email:  <%= current_user.id  %>
-
- <%= link_to 'Add supervisor', admin_add_supervisor_path %>
+<h1>Autos</h1>
 
 <div id="autos" class="m-3">
   <table class="table">
@@ -21,10 +19,12 @@ Email:  <%= current_user.id  %>
       </tr>
     </thead>
     <tbody>
-    <% @data = Auto.all %>
-    <% @data.each do |auto| %>      
-      <%= render Auto.all %>
+    <%= @data %>
+    <% @autos.each do |auto| %>      
+      <%= render auto %>
     <% end %>
     </tbody>
 </table>
 </div>
+
+<%= link_to "New auto", new_auto_path %>

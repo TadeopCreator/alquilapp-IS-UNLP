@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   resources :reports
   resources :supervisors
+  resources :autos
+  
   devise_for :users, :controllers => {:registrations => "registrations"}
 
   get 'admin/dashboard'
