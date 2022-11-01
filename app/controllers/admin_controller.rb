@@ -5,7 +5,7 @@ class AdminController < ApplicationController
 
   def add_supervisor
     #generated_password = Devise.friendly_token.first(8)
-    user = User.create!(:email => 'ss@s.com', :password => 'asdasd', :role => :supervisor)
+    user = User.create!(:email => 'supervisor@supervisor.com', :password => 'supervisor123', :role => :supervisor)
 
     puts('Supervisor added')
   end

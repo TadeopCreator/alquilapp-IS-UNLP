@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
     if current_user.admin?
         :admin_dashboard
     elsif current_user.supervisor?
-        :supervisor_dashboard
+        :supervisors
     else
         :edit_user_password
     end
