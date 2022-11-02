@@ -15,7 +15,6 @@
         <!-- SimpleLightbox plugin JS-->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/SimpleLightbox/2.1.0/simpleLightbox.min.js"></script>
         <!-- Core theme JS-->
-        <script src="js/scripts.js"></script>
         <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
@@ -29,16 +28,18 @@
     
     <div class='container mt-4'><br><br></div>
     
-    <div class='container-fluid mt-4'>
-      <% if notice or alert %>
-        <%= render 'layouts/messages' %>
-      <% end %>
-    </div>
+    <% if !(current_page?('/')) %>
+      <div class='container mt-4'>
+        <% if notice or alert %>
+          <%= render 'layouts/messages' %>
+        <% end %>
+      </div>
+    <% end %>
     
-      <% if (current_page?(root_path)) %>
+      <% if (current_page?('/')) %>
         <%= yield %>
       <% else %>
-        <div class='container-fluid mt-4'>
+        <div class='container mt-4'>
           <%= yield %>
         </div>
       <% end %>

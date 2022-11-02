@@ -1,7 +1,6 @@
-<p style="color: green"><%= notice %></p>
+<h1>Vehículos</h1>
 
-<h1>Autos</h1>
-
+<% if (@autos != []) %>
 <div id="autos" class="m-3">
   <table class="table">
     <thead>
@@ -26,5 +25,10 @@
     </tbody>
 </table>
 </div>
+<% else %>
+  <div class="alert alert-warning" role="alert">
+    Aún no hay vehículos
+  </div>
+<% end %>
 
-<%= link_to "New auto", new_auto_path %>
+<%= link_to "Nuevo vehículo", new_auto_path, class:'btn bg-color-alquilapp text-white' %>
