@@ -1,0 +1,29 @@
+<div id="<%= dom_id report %>">
+  <p>
+    <strong>Title:</strong>
+    <%= report.title %>
+  </p>
+
+  <p>
+    <strong>Description:</strong>
+    <%= report.description %>
+  </p>
+
+  <p>
+    <strong>Patente:</strong>
+    <%= report.patente %>
+  </p>
+
+  <p>
+    <strong>Date:</strong>
+    <%= report.date %>
+  </p>
+
+  <p>
+    <strong>Image:</strong>
+    <% if report.image.attached? %>
+      <%= image_tag report.image %>
+    <% end %>
+  </p>
+
+</div>
