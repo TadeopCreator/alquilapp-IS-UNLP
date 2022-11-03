@@ -1,14 +1,14 @@
 class AdminController < ApplicationController
   def dashboards
-    @autos = Auto.all
-
-    puts("kahdfjasdhfasdhfjklasdhfjkashdkfhjkajhkdfjasdfkj: ", @autos)
   end
 
   def add_supervisor
     #generated_password = Devise.friendly_token.first(8)
-    user = User.create!(:email => 'supervisor@supervisor.com', :password => 'supervisor123', :role => :supervisor)
 
-    puts('Supervisor added')
+      # Crea el user del devise con el rol de admin
+      user = User.create!(:email => 'admin1@admin.com', :password => 'admin123', :role => :admin)
+
+      #admin = Amin.create!(:name => params[:name],:lastname => params[:lastn],:dni => params[:dni],:mail => params[:email],:phone => params[:phone])
+      puts('Admin added')
   end
 end
