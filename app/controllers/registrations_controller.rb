@@ -4,13 +4,17 @@ class RegistrationsController < Devise::RegistrationsController
     end
   
     def create
+
+      super
       usuario = Usuario.create!(:name => params[:name], :lastname => params[:lastname], 
                 :dni => params[:dni], :contact => params[:phone])
-      puts('Creado!!!!!!!!!!!!!!!!!!!!!!!!!!!!', usuario[:id])
-      super
-      #redirect_to new_admin_path, params => 'hola' and return
+      puts('Usuario creado: ID: ', usuario[:id])
+      
+      # Actuliza el User del devise con el id_rol correspondiente
+      @user = User.last
+      @user.update_attribute(:id_rol, usuario[:id])
     end
-  
+    
     def update
       super
     end

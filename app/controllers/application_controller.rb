@@ -24,9 +24,7 @@ class ApplicationController < ActionController::Base
 
   def after_sign_out_path_for(scope)
     # return the path based on scope
-
-    :root
-    return
+    :terminos_condiciones_show
   end
 
     # POST /resource
