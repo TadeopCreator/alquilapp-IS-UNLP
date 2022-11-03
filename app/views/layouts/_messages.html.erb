@@ -1,8 +1,6 @@
-<div class="card">
-    <h5 class="card-header">Mensaje</h5>
-    <% flash.each do |key, value| %>
-        <div class="card-body">
-            <p class="card-text"><%= value %></p>
-        </div>
-    <% end %>
+<% flash.each do |key, value| %>
+    <div class="alert alert-secondary alert-dismissible fade show" role="alert">
+        <%= value %>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 </div>
+<% end %>
