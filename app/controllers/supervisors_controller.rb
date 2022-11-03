@@ -21,24 +21,27 @@ class SupervisorsController < ApplicationController
 
   # POST /supervisors or /supervisors.json
   def create
-    @supervisor = Supervisor.new(supervisor_params)
+    @supervisor = Supervisor.new(:name => supervisor_params[:name], :surname => supervisor_params[:surname], :dni => supervisor_params[:dni], :email => supervisor_params[:email])
 
     respond_to do |format|
       if @supervisor.save
-        format.html { redirect_to supervisor_url(@supervisor), notice: "Supervisor was successfully created." }
+        format.html { redirect_to supervisor_url(@supervisor), notice: "Supervisor creado correctamente. Su contraseña de ingreso es: 'abc123'. Podrá cambiarla iniciando sesión" }
         format.json { render :show, status: :created, location: @supervisor }
       else
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @supervisor.errors, status: :unprocessable_entity }
       end
     end
+
+    # Crea el user del devise con el rol de supervisor
+    user = User.create!(:email => @supervisor.email, :password => 'abc123', :role => :supervisor, :id_rol => @supervisor.id)
   end
 
   # PATCH/PUT /supervisors/1 or /supervisors/1.json
   def update
     respond_to do |format|
       if @supervisor.update(supervisor_params)
-        format.html { redirect_to supervisor_url(@supervisor), notice: "Supervisor was successfully updated." }
+        format.html { redirect_to supervisor_url(@supervisor), notice: "Supervisor actualizado correctamente" }
         format.json { render :show, status: :ok, location: @supervisor }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -52,7 +55,7 @@ class SupervisorsController < ApplicationController
     @supervisor.destroy
 
     respond_to do |format|
-      format.html { redirect_to supervisors_url, notice: "Supervisor was successfully destroyed." }
+      format.html { redirect_to supervisors_url, notice: "Supervisor eliminado correctamente" }
       format.json { head :no_content }
     end
   end
