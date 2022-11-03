@@ -7,7 +7,6 @@ Rails.application.routes.draw do
   
   get 'admin/dashboard'
   get 'admin/add_supervisor'
-  get 'supervisor/dashboard'
   get 'terminos_condiciones/show'
 
   # rails routes to seee all the routes in the app
