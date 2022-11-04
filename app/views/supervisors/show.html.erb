@@ -1,10 +1,8 @@
-<p style="color: green"><%= notice %></p>
-
 <%= render @supervisor %>
 
 <div>
-  <%= link_to "Edit this supervisor", edit_supervisor_path(@supervisor) %> |
-  <%= link_to "Back to supervisors", supervisors_path %>
+  <%= link_to "Editar el supervisor", edit_supervisor_path(@supervisor) %> |
+  <%= link_to "Atrás", admin_dashboard_path %>
 
-  <%= button_to "Destroy this supervisor", @supervisor, method: :delete %>
+  <%= button_to "Eliminar el supervisor", @supervisor, method: :delete %>
 </div>

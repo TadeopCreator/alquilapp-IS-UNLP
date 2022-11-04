@@ -1,30 +1,28 @@
-<p style="color: green"><%= notice %></p>
+<h2>Vehículos</h2>
 
-<h1>Autos</h1>
-
-<div id="autos" class="m-3">
+<% if (@autos != []) %>
+<div id="autos" class="m-3 p-4 border border-2 border-dark rounded">
   <table class="table">
     <thead>
       <tr>
-        <th scope="col">Numero relativo</th>
         <th scope="col">Patente</th>
         <th scope="col">Marca</th>
         <th scope="col">Modelo</th>
         <th scope="col">Color</th>
-        <th scope="col">Alquilado</th>
-        <th scope="col">Habilitado</th>
-        <th scope="col">Borrado</th>
         <th scope="col">Longitud</th>
         <th scope="col">Latitud</th>
+        <th scope="col"></th>
       </tr>
     </thead>
     <tbody>
-    <%= @data %>
     <% @autos.each do |auto| %>      
       <%= render auto %>
     <% end %>
     </tbody>
 </table>
 </div>
-
-<%= link_to "New auto", new_auto_path %>
+<% else %>
+  <div class="alert alert-warning" role="alert">
+    Aún no hay vehículos
+  </div>
+<% end %>
