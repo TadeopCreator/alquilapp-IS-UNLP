@@ -1,0 +1,21 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  lastname: MyString
+  dni: 1
+  contact: MyString
+  lon: 9.99
+  lat: 9.99
+  deleted: false
+  enable: false
+
+two:
+  name: MyString
+  lastname: MyString
+  dni: 1
+  contact: MyString
+  lon: 9.99
+  lat: 9.99
+  deleted: false
+  enable: false

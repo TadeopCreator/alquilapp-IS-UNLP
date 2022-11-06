@@ -1,0 +1,8 @@
+<%= render @supervisor %>
+
+<div>
+  <%= link_to "Editar el supervisor", edit_supervisor_path(@supervisor) %> |
+  <%= link_to "Atrás", admin_dashboard_path %>
+
+  <%= button_to "Eliminar el supervisor", @supervisor, method: :delete %>
+</div>

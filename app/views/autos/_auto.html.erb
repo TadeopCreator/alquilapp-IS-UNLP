@@ -1,0 +1,46 @@
+<div id="<%= dom_id auto %>">
+  
+    <tr>
+    <% if user_signed_in? && current_user.admin? %>
+      <td><%= auto.num_rel %></td>
+    <% end %>
+      <td><%= auto.patente %></td>
+      <td><%= auto.marca %></td>
+      <td><%= auto.modelo %></td>
+      <td><%= auto.color %></td>
+      <% if user_signed_in? && current_user.admin? %>
+        <td>
+          <% if auto.alquilado %>
+            ALQUILADO
+          <% else %>
+            SIN ALQUILAR
+          <% end %>
+        </td>
+        <td>
+          <% if auto.habilitado %>
+            HABILITADO
+          <% else %>
+            NO HABILITADO
+          <% end %>
+        </td>
+        <td>
+          <% if auto.borrado %>
+            BORRADO
+          <% else %>
+            NO
+          <% end %>
+        </td>
+      <% end %>
+      <td><%= auto.lon %></td>
+      <td><%= auto.lat %></td>
+      <td>
+      <button disabled <%= link_to "Detalles", auto_path(auto), class:"btn btn-dark" %>
+      <% if user_signed_in? && current_user.admin? %>
+        <button <%= link_to "Editar", edit_auto_path(auto), class:"btn btn-dark ms-1" %>
+      </td>
+      <% end %>
+      </td>
+    </tr>
+</div>
+
+

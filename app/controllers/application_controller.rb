@@ -1,20 +1,30 @@
 class ApplicationController < ActionController::Base
 
   protected
-
   def after_sign_in_path_for(resource)
     if current_user.admin?
         :admin_dashboard
     elsif current_user.supervisor?
-        :supervisor_dashboard
+        :supervisors
     else
-        :edit_user_password
+        :autos
     end
-  end  
+  end
+
+  protected
+  def after_sign_up_path_for(resource)
+    if current_user.admin?
+        :admin_dashboard
+    elsif current_user.supervisor?
+        :supervisors
+    else
+        :user_session
+    end
+  end
 
   def after_sign_out_path_for(scope)
     # return the path based on scope
-    root_path
+    :terminos_condiciones_show
   end
 
     # POST /resource

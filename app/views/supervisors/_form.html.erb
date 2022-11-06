@@ -1,0 +1,21 @@
+<%= form_with(model: supervisor) do |form| %>
+  <% if supervisor.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(supervisor.errors.count, "error") %> prohibited this supervisor from being saved:</h2>
+
+      <ul>
+        <% supervisor.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="col-6">
+    <%= form.label :'Nombre'%><%= form.text_field :name,  class: "form-control mb-2" %>
+    <%= form.label :'Apellido'%><%= form.text_field :surname,  class: "form-control mb-2" %>
+    DNI<% form.label :'DNI:'%><%= form.text_field :dni,  class: "form-control mb-2" %>
+    <%= form.label :'Email'%><%= form.text_field :email,  class: "form-control mb-2" %>
+    <button class='btn bg-color-alquilapp text-white' <%= form.submit %>Guardar</button>
+  </div>
+<% end %>

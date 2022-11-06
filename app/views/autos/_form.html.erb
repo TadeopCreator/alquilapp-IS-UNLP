@@ -1,0 +1,95 @@
+<%= form_with(model: auto) do |form| %>
+  <% if auto.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(auto.errors.count, "error") %> prohibited this auto from being saved:</h2>
+
+      <ul>
+        <% auto.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+<div class="row">
+<div class="col-4">
+
+<div class="col-md-8 mb-3">
+  <div>
+    Numero relativo <% form.label :num_rel, style: "display: block" %>
+    <%= form.number_field :num_rel, class:"form-control" %>
+  </div>
+</div>
+
+<div class="col-md-8 mb-3">
+  <div>
+    <%= form.label :patente, style: "display: block" %>
+    <%= form.text_field :patente, class:"form-control" %>
+  </div>
+</div>
+
+<div class="col-md-8 mb-3">
+  <div>
+    <%= form.label :marca, style: "display: block" %>
+    <%= form.text_field :marca, class:"form-control" %>
+  </div>
+</div>
+
+<div class="col-md-8 mb-3">
+  <div>
+    <%= form.label :modelo, style: "display: block" %>
+    <%= form.text_field :modelo, class:"form-control" %>
+</div>
+</div>
+
+<div class="col-md-8 mb-3">
+  <div>
+    <%= form.label :color, style: "display: block" %>
+    <%= form.text_field :color, class:"form-control" %>
+  </div>
+</div>
+
+</div>
+<div class="col-6">
+
+<div class="col-md-6 mb-3">
+  <div>
+    <%= form.label :habilitado, style: "display: block", class:"form-check-label" %>
+    <%= form.check_box :habilitado, class:"form-check-input" %>
+  </div>
+</div>
+
+<div class="col-md-6 mb-3">
+  <div>
+    <%= form.label :borrado, style: "display: block", class:"form-check-label" %>
+    <%= form.check_box :borrado, class:"form-check-input" %>
+  </div>
+</div>
+
+<div class="col-md-6 mb-3">
+  <div>
+    Longitud<% form.label :lon, style: "display: block" %>
+    <%= form.text_field :lon, class:"form-control" %>
+  </div>
+</div>
+
+<div class="col-md-6 mb-3">
+  <div>
+    Latitud<% form.label :lat, style: "display: block" %>
+    <%= form.text_field :lat, class:"form-control" %>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-2">
+      <button class='btn bg-color-alquilapp text-white' <%= form.submit %>Guardar</button>
+  </div>
+    <div class="col-2">
+      <button class='btn btn-danger text-white' <% button_to "Destroy this auto", @auto, method: :delete %>>Eliminar</button>
+    </div>
+</div>
+
+</div>
+</div>
+
+<% end %>

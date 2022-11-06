@@ -1,9 +1,13 @@
 Rails.application.routes.draw do
-  devise_for :users, :controllers => {:registrations => "registrations"}
-
+  resources :reports
+  resources :supervisors
+  resources :autos
+  
+  devise_for :users, controllers: {registrations: 'registrations', sessions: 'users/sessions'}
+  
   get 'admin/dashboard'
   get 'admin/add_supervisor'
-  get 'supervisor/dashboard'
+  get 'terminos_condiciones/show'
 
   # rails routes to seee all the routes in the app
   root 'home#index'

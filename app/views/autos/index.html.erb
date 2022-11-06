@@ -1,0 +1,28 @@
+<h2>Vehículos</h2>
+
+<% if (@autos != []) %>
+<div id="autos" class="m-3 p-4 border border-2 border-dark rounded">
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Patente</th>
+        <th scope="col">Marca</th>
+        <th scope="col">Modelo</th>
+        <th scope="col">Color</th>
+        <th scope="col">Longitud</th>
+        <th scope="col">Latitud</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+    <% @autos.each do |auto| %>      
+      <%= render auto %>
+    <% end %>
+    </tbody>
+</table>
+</div>
+<% else %>
+  <div class="alert alert-warning" role="alert">
+    Aún no hay vehículos
+  </div>
+<% end %>
