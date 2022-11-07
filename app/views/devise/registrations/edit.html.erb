@@ -41,6 +41,6 @@
 
 <h3>Borrar mi cuenta</h3>
 
-<p> Si desea borra su cuenta permanentemente, aprete el botón a continuación:  <%= button_to "Borrar cuenta", registration_path(resource_name), data: { confirm: "¿Esta seguro?" }, method: :delete, class: "btn btn-danger"   %></p>
+<p> Si desea borra su cuenta permanentemente, aprete el botón a continuación:  <%= button_to "Borrar cuenta", registration_path(resource_name), form: {data: { turbo_confirm: "¿Esta seguro?" }}, method: :delete, class: "btn btn-danger",  #problema con esto %></p>
 
 <%= link_to "Back", :back %>

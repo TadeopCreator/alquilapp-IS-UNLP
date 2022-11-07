@@ -55,7 +55,7 @@ class SupervisorsController < ApplicationController
     @supervisor.destroy
 
     respond_to do |format|
-      format.html { redirect_to supervisors_url, notice: "Supervisor eliminado correctamente" }
+      format.html { redirect_to :admin_dashboard, notice: "Supervisor eliminado correctamente" } 
       format.json { head :no_content }
     end
   end
