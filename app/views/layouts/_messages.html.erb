@@ -1,6 +1,16 @@
 <% flash.each do |key, value| %>
     <div class="alert alert-secondary alert-dismissible fade show" role="alert">
-        <%= value %>
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-</div>
+        <% if value == "Invalid Email or password." %>
+            Email o contraseña inválidos        
+        <% elsif value == "Signed out successfully." %>
+            Cerraste sesión exitosamente
+        <% elsif value == "Welcome! You have signed up successfully." %>
+            ¡Bienvenido!. Se ha creado la cuenta exitosamente
+        <% elsif value == "You are already signed in." %>
+            Ya has iniciado sesión
+        <% else %>
+            <%= value %>
+        <% end %>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>    
 <% end %>
