@@ -4,21 +4,21 @@
       <td><%= supervisor.surname %></td>
       <td><%= supervisor.dni %></td>
       <td><%= supervisor.email %></td>
-      <td>
+      <%#%<td>
           <% if supervisor.habilitado %>
-            HABILITADO
+     <%#%       HABILITADO
           <% else %>
-            NO HABILITADO
+      <%#%      NO HABILITADO
           <% end %>
-        </td>
-      <td>
+     <%#%   </td>
+    <%#%  <td>
           <% if supervisor.borrado %>
-            HABILITADO
-          <% else %>
-            NO HABILITADO
+       <%#%     HABILITADO
+      <%#%    <% else %>
+        <%#%    NO HABILITADO
           <% end %>
-        </td>
-      <td>
+     <%#%   </td> %>
+      <td> 
         <%= link_to "Detalles", supervisor_path(supervisor), class:"btn btn-dark" %>
         <%= link_to "Editar", edit_supervisor_path(supervisor), class:"btn btn-dark" %>
       </td>

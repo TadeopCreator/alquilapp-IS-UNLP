@@ -22,16 +22,20 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def after_sign_out_path_for(scope)
+  #def after_sign_out_path_for(scope)
     # return the path based on scope
-    :terminos_condiciones_show
-  end
+   # :terminos_condiciones_show
+  #end
 
     # POST /resource
     def create(scope)
         puts('Hola desde controller')        
     end
-
+  
+   # def after_sign_out_path_for(resource)
+    #  request.referrer
+    #end
+    
   # To reset the db: rake db:reset db:migrate
 
 end
