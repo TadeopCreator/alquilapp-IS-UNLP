@@ -1,5 +1,4 @@
 <h2>Registrarse</h2>
-
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
   <%= render "devise/shared/error_messages", resource: resource %>
 
@@ -31,6 +30,13 @@
     </div>
   </div>
 
+    <div class="col-md-3 mb-3">
+    <div class="field"> 
+    Edad<% label_tag "Edad" %><br />
+    <input id="edad-field" required <%= text_field_tag "edad", nil, autofocus: true, placeholder:"Edad", class:"form-control" %>
+    </div>
+  </div>
+
   <div class="col-md-3 mb-3">
     <div class="field">
       <%= f.label :email %><br />
@@ -42,8 +48,8 @@
     <div class="field">
       Contraseña<% f.label :password %>
       <% if @minimum_password_length %>
-      <em>(<%= @minimum_password_length %> carácteres mínimo)</em>
-      <% end %><br />
+      <p>(<%= @minimum_password_length %> carácteres mínimo)</p>
+      <% end %>
       <input required <%= f.password_field :password, autocomplete: "new-password", autofocus: true, placeholder:"Confirmacion contraseña", class:"form-control" %>
     </div>
   </div>
@@ -81,6 +87,7 @@
     // Loop over them and prevent submission
     var validation = Array.prototype.filter.call(forms, function(form) {
       form.addEventListener('submit', function(event) {
+        
         if (form.checkValidity() === false) {
           event.preventDefault();
           event.stopPropagation();
