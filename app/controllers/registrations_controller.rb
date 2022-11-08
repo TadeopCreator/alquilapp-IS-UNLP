@@ -17,5 +17,7 @@ class RegistrationsController < Devise::RegistrationsController
     
     def update
       super
+      #Actualizar para que borre no solo borre el user, sino que tambien su borre en la tabla correspondiente (usuario, admin o supervisor)
     end
+
 end 

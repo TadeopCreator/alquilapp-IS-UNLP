@@ -73,8 +73,8 @@
         <th scope="col">Apellido</th>
         <th scope="col">DNI</th>
         <th scope="col">Email</th>
-        <th scope="col">Habilitado</th>
-        <th scope="col">Borrado</th>
+        <%#%<th scope="col">Habilitado</th> %>
+       <%#% <th scope="col">Borrado</th> %>
         <th scope="col"></th>
         <th scope="col"></th>
       </tr>
@@ -82,7 +82,7 @@
     <tbody>
     <% @supervisors = Supervisor.all %>
     <% @supervisors.each do |supervisor| %>      
-      <%= render Supervisor.all %>
+      <%= render Supervisor.all %> <%# Debemos de cambiar esto, ya que solo me interesa en a lista dos cosas pero me cabia todo en detalles%>
     <% end %>
     </tbody>
 </table>
