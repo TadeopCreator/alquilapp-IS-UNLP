@@ -12,6 +12,10 @@
             Ya has iniciado sesión
         <% elsif value == "Current password can't be blank" %>
             Debe colocar la contraseña actual
+        <% elsif value == "You need to sign in or sign up before continuing." %>
+            Necesitas iniciar sesión antes de continuar
+        <% elsif value == "Bye! Your account has been successfully cancelled. We hope to see you again soon." %>
+            Cuenta borrada exitosamente
         <% else %>
             <%= value %>
         <% end %>

@@ -4,11 +4,11 @@
                 <%= image_tag "favicon.png", width: 24, height: 24, class:"m-2 d-inline-block align-text-top" %></a>
                 <% if (user_signed_in?) %>
                   <% if (current_user.user?) %>
-                    <a><%= link_to "AlquilAPP", autos_path, class:"no-deco fw-bold text-color-alquilapp" %></a>    
+                    <a class="fw-bold text-color-alquilapp" <%= link_to "AlquilAPP", autos_path %></a>    
                   <% elsif (current_user.admin?) %>
-                    <a><%= link_to "AlquilAPP", admin_dashboard_path, class:"no-deco fw-bold text-color-alquilapp" %></a>
+                    <a class="fw-bold text-color-alquilapp" <%= link_to "AlquilAPP", admin_dashboard_path %></a>         
                   <% elsif (current_user.supervisor?) %>
-                    <a><%= link_to "AlquilAPP", supervisors_path, class:"no-deco fw-bold text-color-alquilapp" %></a>
+                    <a class="fw-bold text-color-alquilapp" <%= link_to "AlquilAPP", supervisors_path %></a>                    
                   <% end %>
                 <% else %>
                     <a class="fw-bold text-color-alquilapp" href="/">AlquilAPP</a>
