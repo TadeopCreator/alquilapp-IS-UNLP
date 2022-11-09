@@ -17,7 +17,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # GET /resource/edit
   # def edit
   #   super
-  # end
+      # filtrar por cada rol
+  # end 
 
   # PUT /resource
   # def update

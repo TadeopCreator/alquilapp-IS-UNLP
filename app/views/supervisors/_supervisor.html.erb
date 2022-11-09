@@ -18,9 +18,11 @@
         <%#%    NO HABILITADO
           <% end %>
      <%#%   </td> %>
-      <td> 
-        <%= link_to "Detalles", supervisor_path(supervisor), class:"btn btn-dark" %>
-        <%= link_to "Editar", edit_supervisor_path(supervisor), class:"btn btn-dark" %>
+      <td>
+      <a <%= link_to "Detalles", supervisor_path(supervisor), class:"btn btn-outline-dark" %> 
+      </a>
+      <a <%= link_to "Editar", edit_supervisor_path(supervisor), class:"btn btn-outline-dark" %>
+      </a>
       </td>
     </tr>
 </div>
