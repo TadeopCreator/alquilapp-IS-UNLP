@@ -1,14 +1,20 @@
 class RegistrationsController < Devise::RegistrationsController
     def new
-      super
+      super      
     end
   
     def create
-
+      edad = params[:edad].to_i
+      if (edad < 17)
+        flash[:notice] = 'No cuentas con la edad mínima para conducir en la Argentina'
+        redirect_to(:new_user_registration) and return
+        return
+      end
       super
+      
       usuario = Usuario.create!(:name => params[:name], :lastname => params[:lastname], 
                 :dni => params[:dni], :contact => params[:phone])
-      puts('Usuario creado: ID: ', usuario[:id])
+      puts('Usuario creado: ID: ', usuario[:id])      
       
       # Actuliza el User del devise con el id_rol correspondiente
       @user = User.last

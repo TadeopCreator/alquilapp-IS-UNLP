@@ -1,8 +1,12 @@
-<%= render @supervisor %>
+      <h3><%= @supervisor.name %></h3>
+      <h3><%= @supervisor.surname %></h3>
+      <h3><%= @supervisor.dni %></h3>
+      <h3><%= @supervisor.email %></h3>
+
 
 <div>
   <%= link_to "Editar el supervisor", edit_supervisor_path(@supervisor) %> |
-  <%= link_to "Atrás", admin_dashboard_path %>
+  <%= link_to "Atrás", :back, class:"btn btn-outline-primary" %>
 
   <%= button_to "Eliminar el supervisor", @supervisor, method: :delete %>
 </div>
