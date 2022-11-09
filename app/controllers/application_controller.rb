@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
         :admin_dashboard
     elsif current_user.supervisor?
         :supervisors
-    else
+    else        
         :autos
     end
   end
@@ -23,18 +23,13 @@ class ApplicationController < ActionController::Base
   end
 
   #def after_sign_out_path_for(scope)
-    # return the path based on scope
-   # :terminos_condiciones_show
+  #  redirect_to(:root) and return    
   #end
 
     # POST /resource
     def create(scope)
         puts('Hola desde controller')        
     end
-  
-   # def after_sign_out_path_for(resource)
-    #  request.referrer
-    #end
     
   # To reset the db: rake db:reset db:migrate
 

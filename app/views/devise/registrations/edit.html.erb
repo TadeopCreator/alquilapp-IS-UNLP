@@ -1,46 +1,90 @@
-<h2>Editar <%= resource_name.to_s.humanize %></h2>
-
+<h2>Editar Perfil</h2>
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
   <%= render "devise/shared/error_messages", resource: resource %>
-
-  <div class="field">
-    <%= f.label :correo %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control mb-2"  %>
-  </div>
-
-  <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-    <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :contraseña_actual %> <i>(Necesitamos tu contraseña actual para poder confirmar los cambios.)</i><br />
-    <%= f.password_field :current_password, autocomplete: "current-password", class: "form-control mb-2"  %>
-  </div>
-
-  <div class="field">
-    <%= f.label :contraseña %> <i>(Dejelo en blanco si no lo quiere cambiar)</i>
-     <% if @minimum_password_length %>
-      <em>(Mínimo <%= @minimum_password_length %> carateres)</em>
-    <% end %>
-    <%= f.password_field :password, autocomplete: "new-password", class: "form-control mb-2"  %>
    
+   <div class="col-md-6 mb-3">
+    <div class="field">    
+      Nombre<% label_tag "name" %><br />
+      <input required <%= text_field_tag "name", nil, autofocus: true, placeholder:"Nombre", class:"form-control" %>
+    </div>
   </div>
 
-  <div class="field">
-    <%= f.label :confirmar_contraseña %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control mb-2"  %>
+  <div class="col-md-6 mb-3">
+    <div class="field">    
+    Apellido<% label_tag "lastname" %><br />
+    <input required <%= text_field_tag "lastname", nil, autofocus: true, placeholder:"Apellido", class:"form-control" %>
+    </div>
   </div>
 
-  <div class="actions">
-    <%= f.submit "Actualizar", class: "btn btn-secondary"  %>
+  <div class="col-md-6 mb-3">
+    <div class="field"> 
+    DNI<% label_tag "DNI" %><br />
+    <input required <%= text_field_tag "dni", nil, autofocus: true, placeholder:"DNI", class:"form-control" %>
+    </div>
+  </div>
+
+  <div class="col-md-6 mb-3">
+    <div class="field">    
+    Teléfono<% label_tag "phone" %><br />
+    <input required <%= phone_field "phone", nil, autofocus: true, placeholder:"Teléfono", class:"form-control" %>
+    </div>    
+  </div>
+
+  <div class="col-md-6 mb-3">
+    <div class="field">
+      <%= f.label :correo %><br />
+      <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control mb-2"  %>
+    </div>
+  </div>
+
+  <div class="col-md-6 mb-3">
+    <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+      <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+    <% end %>
+  </div>
+
+  <div class="col-md-6 mb-3">
+    <div class="field">
+      <%= f.label :contraseña_actual %> <i>(Necesitamos tu contraseña actual para poder confirmar los cambios.)</i><br />
+      <%= f.password_field :current_password, autocomplete: "current-password", class: "form-control mb-2"  %>
+    </div>
+  </div>
+
+  <div class="col-md-6 mb-3">
+    <div class="field">
+      <%= f.label :contraseña %> <i>(Dejelo en blanco si no lo quiere cambiar)</i>
+      <% if @minimum_password_length %>
+        <em>(Mínimo <%= @minimum_password_length %> carateres)</em>
+      <% end %>
+      <%= f.password_field :password, autocomplete: "new-password", class: "form-control mb-2"  %>
+    </div>
+  </div>
+
+  <div class="col-md-6 mb-3">
+    <div class="field">
+      <%= f.label :confirmar_contraseña %><br />
+      <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control mb-2"  %>
+    </div>
+  </div>
+
+  <div class="col-md-6 mb-3">
+    <div class="actions">
+      <%= f.submit "Actualizar", class: "btn btn-secondary"  %>
+    </div>
   </div>
 <% end %>
 
-<br>
+<br/>
 
-<h3>Borrar mi cuenta</h3>
-
-<p> Si desea borra su cuenta permanentemente, aprete el botón a continuación:  <%= button_to "Borrar cuenta", registration_path(resource_name), form: {data: { turbo_confirm: "¿Esta seguro?" }}, method: :delete, class: "btn btn-danger",  #problema con esto %></p>
-
-<%= link_to "Back", :back %>
+<div class="card col-6">
+  <div class="card-header">
+    Borrar mi cuenta
+  </div>
+  <div class="card-body">
+    <p class="card-text">Si desea borra su cuenta permanentemente, presione el botón a continuación </p>
+    <%= button_to "Borrar cuenta", registration_path(resource_name), form: {data: { turbo_confirm: "¿Esta seguro?" }}, method: :delete, class: "btn btn-danger" %>
+  </div>
+</div>
+<br/>
+<%= link_to "Atrás", :back, class:"btn btn-outline-primary" %>
