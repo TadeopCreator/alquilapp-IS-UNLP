@@ -21,6 +21,16 @@ class SupervisorsController < ApplicationController
 
   # POST /supervisors or /supervisors.json
   def create
+
+    sql = "SELECT * FROM supervisors WHERE email='" + supervisor_params[:email] + "'"
+    records_array = ActiveRecord::Base.connection.execute(sql)
+
+    if (records_array != [])
+      flash[:notice] = 'El supervisor ya se encuentra cargado'
+      redirect_to new_supervisor_path
+      return
+    end
+
     @supervisor = Supervisor.new(:name => supervisor_params[:name], :surname => supervisor_params[:surname], :dni => supervisor_params[:dni], :email => supervisor_params[:email])
 
     respond_to do |format|
@@ -55,7 +65,7 @@ class SupervisorsController < ApplicationController
     @supervisor.destroy
 
     respond_to do |format|
-      format.html { redirect_to supervisors_url, notice: "Supervisor eliminado correctamente" }
+      format.html { redirect_to :admin_dashboard, notice: "Supervisor eliminado correctamente" } 
       format.json { head :no_content }
     end
   end

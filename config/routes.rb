@@ -6,6 +6,8 @@ Rails.application.routes.draw do
   devise_for :users, controllers: {registrations: 'registrations', sessions: 'users/sessions'}
   
   get 'admin/dashboard'
+  get 'admin/supervisores'
+  get 'admin/vehiculos'
   get 'admin/add_supervisor'
   get 'terminos_condiciones/show'
 

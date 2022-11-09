@@ -14,14 +14,35 @@
  *= require_self
  */
 
+ .btn-outline-primary:hover { 
+    background-color: #FCBD58;
+    border-color: #FCBD58;
+ }
+ .btn-outline-primary { 
+  color: #FCBD58;
+  border-color: #FCBD58;
+ }
+
+ a {
+  color: #FCBD58;
+}
+
+ a:active {
+    color: #FCBD58;
+  }
+
+.no-deco {
+  text-decoration: none;
+}
+
  .bgimage {
-    background-image: url('bg-masthead.jpg');
+    background-image: url('bgMasthead.jpg');
     background-repeat:no-repeat;
     -webkit-background-size:cover;
     -moz-background-size:cover;
     -o-background-size:cover;
     background-size:cover;
-    background-position:center;    
+    background-position:center;
 }
 
 .bg-color-alquilapp {
@@ -53,4 +74,4 @@ body {
       transform: scale(1);
     }
   }
-  
+
