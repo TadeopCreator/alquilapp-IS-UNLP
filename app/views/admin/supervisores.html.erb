@@ -1,0 +1,56 @@
+<h2>Panel de control</h2>
+
+<ul class="nav nav-tabs">
+  <li class="nav-item">
+    <a class="nav-link text-color-alquilapp" href="/admin/dashboard">Inicio</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link text-color-alquilapp" href="/admin/vehiculos">Vehículos</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link active" href="/admin/supervisores">Supervisores</a>
+  </li>
+</ul>
+
+<br/>
+<h4>Supervisores</h4>
+
+
+<div><%= link_to 'Añadir supervisor', new_supervisor_path, class:"btn btn-outline-primary" %></div>
+
+
+<% if Supervisor.all == [] %>
+  <div class="my-3 p-4 border border-2 border-dark rounded">
+    <div class="col-12 text-start">
+      <div class="text-start">
+        Aún no hay supervisores
+      </div>
+      <div class="row text-start">
+        <%= link_to 'Añadir supervisor', new_supervisor_path %>
+      </div>
+    </div>
+  </div>
+<% else %>
+  <div id="autos" class="my-3 p-4 border border-2 border-dark rounded">
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Nombre</th>
+        <th scope="col">Apellido</th>
+        <th scope="col">DNI</th>
+        <th scope="col">Email</th>
+        <%#%<th scope="col">Habilitado</th> %>
+       <%#% <th scope="col">Borrado</th> %>
+        <th scope="col"></th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+    <% @supervisors = Supervisor.all %>
+    <% @supervisors.each do |supervisor| %>      
+      <%= render Supervisor.all %> <%# Debemos de cambiar esto, ya que solo me interesa en a lista dos cosas pero me cabia todo en detalles%>
+    <% end %>
+    </tbody>
+</table>
+</div>
+<% end %>
