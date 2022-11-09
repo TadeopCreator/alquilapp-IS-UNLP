@@ -42,8 +42,8 @@
     <div class="row justify-content-center">
     <div class="col-4">
     <div class="field"> 
-    Edad<% label_tag "edad" %><br />
-    <input id="edad-field" required <%= text_field_tag "edad", nil, autofocus: true, placeholder:"Edad", class:"form-control" %>
+    Fecha de cumpleaños<% label_tag "birthday" %><br />
+    <input id="birthday-field" required <%= date_field "birthday", nil, autofocus: true, class:"form-control" %>
     </div>
     </div>
   </div>

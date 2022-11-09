@@ -83,7 +83,7 @@
   </div>
   <div class="card-body">
     <p class="card-text">Si desea borra su cuenta permanentemente, presione el botón a continuación </p>
-    <%= button_to "Borrar cuenta", registration_path(resource_name), form: {data: { turbo_confirm: "¿Esta seguro?" }}, method: :delete, class: "btn btn-danger" %>
+    <%= button_to "Borrar cuenta", registration_path(resource_name), form: {data: { turbo: false }}, method: :delete, class: "btn btn-danger" %>
   </div>
 </div>
 <br/>
