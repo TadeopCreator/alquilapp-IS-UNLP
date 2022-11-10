@@ -1,3 +1,3 @@
 class Usuario < ApplicationRecord
-    has_one billetera
+    has_one :billetera
 end

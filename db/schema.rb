@@ -10,12 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_06_223952) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_10_024637) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
-    t.bigint "record_id", null: false
-    t.bigint "blob_id", null: false
+    t.integer "record_id", null: false
+    t.integer "blob_id", null: false
     t.datetime "created_at", null: false
     t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
     t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
@@ -34,7 +34,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_06_223952) do
   end
 
   create_table "active_storage_variant_records", force: :cascade do |t|
-    t.bigint "blob_id", null: false
+    t.integer "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
@@ -60,6 +60,23 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_06_223952) do
     t.boolean "borrado"
     t.decimal "lon"
     t.decimal "lat"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "billeteras", force: :cascade do |t|
+    t.float "saldo"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "card_id", null: false
+    t.index ["card_id"], name: "index_billeteras_on_card_id"
+  end
+
+  create_table "cards", force: :cascade do |t|
+    t.string "name"
+    t.integer "number"
+    t.date "vto"
+    t.integer "cvv"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -113,4 +130,5 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_06_223952) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "billeteras", "cards"
 end

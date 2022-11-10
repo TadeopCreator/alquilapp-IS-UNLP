@@ -26,10 +26,9 @@ class RegistrationsController < Devise::RegistrationsController
         return
       end
       super
-      
+      w = Billetera.new(saldo:0)
       usuario = Usuario.create!(:name => params[:name], :lastname => params[:lastname], 
                 :dni => params[:dni], :contact => params[:phone])
-      puts('Usuario creado: ID: ', usuario[:id])      
       
       # Actuliza el User del devise con el id_rol correspondiente
       @user = User.last
