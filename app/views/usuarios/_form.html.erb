@@ -5,66 +5,81 @@
     <div class="field"> 
       <div>
         Nombre<% form.label :name %> <br/>
-        <input required <%= form.text_field :name %></input>
+        <input required <%= form.text_field :name, class:"form-control"%></input>
       </div>
     </div>
   </div>
   </div>
 
-  <div>
-    <%= form.label :lastname, style: "display: block" %>
-    <%= form.text_field :lastname %>
+<br/>
+<div class="row justify-content-center">
+  <div class="col-4">
+    <div class="field"> 
+      <div>
+    Apellido<% form.label :lastname %> <br/>
+    <%= form.text_field :lastname, class:"form-control" %>
+      </div>
+    </div>
+  </div>
   </div>
 
-  <div>
-    <%= form.label :dni, style: "display: block" %>
-    <%= form.text_field :dni %>
+<br/>
+<div class="row justify-content-center">
+  <div class="col-4">
+    <div class="field"> 
+      <div>
+    DNI<% form.label :dni %> <br/>
+    <%= form.text_field :dni, class:"form-control" %>
+      </div>
+    </div>
+  </div>
+  </div>
+<br/>
+<div class="row justify-content-center">
+  <div class="col-4">
+    <div class="field"> 
+      <div>
+      Contacto<% form.label :contact %> <br/>
+      <%= form.text_field :contact, class:"form-control" %>
+      </div>
+    </div>
+  </div>
   </div>
 
-  <div>
-    <%= form.label :contact, style: "display: block" %>
-    <%= form.text_field :contact %>
+<br/>
+<div class="row justify-content-center">
+  <div class="col-4">
+    <div class="field"> 
+      <div>
+      Fecha de nacimiento<% form.label :birthdate %> <br/>
+      <input required <%= form.date_field :birthdate, class:"form-control"%></input>
+      </div>
+    </div>
+  </div>
   </div>
 
-  <div>
-    <%= form.label :lon, style: "display: block" %>
-    <%= form.text_field :lon %>
+<br/>
+<div class="row justify-content-center">
+  <div class="col-4">
+    <div class="field"> 
+      <div>
+        Licencia de conducir<% form.label :image %> <br/>
+        <%= form.file_field :image, class:"form-control" %>
+      </div>
+    </div>
+  </div>
   </div>
 
-  <div>
-    <%= form.label :lat, style: "display: block" %>
-    <%= form.text_field :lat %>
+<br/>
+<div class="row justify-content-center">
+  <div class="col-4">
+    <div class="field"> 
+      <div>
+      Vencimiento de la licencia de conducir<% form.label :date_licence %> <br/>
+     <input required <%= form.date_field :date_licence, class:"form-control" %></input>
+      </div>
+    </div>
   </div>
-
-  <div>
-    <%= form.label :deleted, style: "display: block" %>
-    <%= form.check_box :deleted %>
-  </div>
-
-  <div>
-    <%= form.label :enable, style: "display: block" %>
-    <%= form.check_box :enable %>
-  </div>
-
-  <div>
-    <%= form.label :birthdate, style: "display: block" %>
-    <%= form.date_field :birthdate %>
-  </div>
-
-
-  <div class="field">
-    <%= form.label :image %>
-    <%= form.file_field :image %>
-  </div>
-
-  <div>
-    <%= form.label :date_licence, style: "display: block" %>
-    <%= form.date_field :date_licence %>
-  </div>
-
-  <div>
-    <%= form.label :id_wallet, style: "display: block" %>
-    <%= form.number_field :id_wallet %>
   </div>
 
   <div class="actions text-center"><br />
