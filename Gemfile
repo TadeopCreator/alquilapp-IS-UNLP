@@ -12,6 +12,9 @@ gem "sprockets-rails"
 # Use sqlite3 as the database for Active Record
 gem "sqlite3", "~> 1.4"
 
+gem 'shrine', '~> 3.3'
+gem 'image_processing', '~> 1.12', '>= 1.12.1'
+
 gem "devise", github: "heartcombo/devise", ref: "f8d1ea90bc3"
 
 # Use the Puma web server [https://github.com/puma/puma]
