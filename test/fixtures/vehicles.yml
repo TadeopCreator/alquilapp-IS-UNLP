@@ -1,0 +1,25 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  IdInt: 1
+  Patente: MyString
+  Marca: MyString
+  Modelo: MyString
+  Color: MyString
+  Alquilado: false
+  Enabled: false
+  Deleted: false
+  PointX: 1.5
+  PointY: 1.5
+
+two:
+  IdInt: 1
+  Patente: MyString
+  Marca: MyString
+  Modelo: MyString
+  Color: MyString
+  Alquilado: false
+  Enabled: false
+  Deleted: false
+  PointX: 1.5
+  PointY: 1.5
