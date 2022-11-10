@@ -8,9 +8,7 @@ class RegistrationsController < Devise::RegistrationsController
 
       super
       
-      usuario = Usuario.create!(:name => params[:name], :lastname => params[:lastname], 
-                :dni => params[:dni], :contact => params[:phone])
-      puts('Usuario creado: ID: ', usuario[:id])      
+      usuario = Usuario.last
       
       # Actuliza el User del devise con el id_rol correspondiente
       @user = User.last
@@ -25,6 +23,7 @@ class RegistrationsController < Devise::RegistrationsController
       sql = "SELECT * FROM users WHERE id='" + user_ID.to_s + "'"
       records_array = ActiveRecord::Base.connection.execute(sql)
       id_rol = records_array[0]["id_rol"]
+      
 
       # Tomo al usuario de acuerdo al rol_ID del User
       @usuario = Usuario.find(id_rol.to_s)
