@@ -5,26 +5,7 @@ class RegistrationsController < Devise::RegistrationsController
     
   
     def create 
-      birth = params[:birthday]
 
-      # Tomo el birthday ingresado y el dia de hoy
-      birthday = birth[0][8] + birth[0][9]
-      birthmonth = birth[0][5] + birth[0][6]
-      birthyear = birth[0][0, 4]
-      d = DateTime.now
-      d.strftime("%Y/%m/%d")
-
-      # Calculo de la edad
-      edad = d.year - birthyear.to_i
-      if (d.month < birthmonth.to_i && d.day < birthday.to_i)
-        edad = edad - 1
-      end
-
-      if (edad.to_i < 17)
-        flash[:notice] = 'No cuentas con la edad mínima para conducir en la Argentina'
-        redirect_to(:new_user_registration) and return
-        return
-      end
       super
       
       usuario = Usuario.create!(:name => params[:name], :lastname => params[:lastname], 
@@ -53,6 +34,7 @@ class RegistrationsController < Devise::RegistrationsController
       attributes[:lastname] = params[:lastname]
       attributes[:dni] = params[:dni]
       attributes[:contact] = params[:phone]
+      attributes[:image_data] = params[:image]
 
       @usuario.update(attributes)            
     end

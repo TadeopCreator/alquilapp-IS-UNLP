@@ -1,5 +1,9 @@
 <h2>Editar Perfil</h2>
 
+<%= render "usuarios/form", usuario: @usuario %>
+
+<br/>
+
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
   <%= render "devise/shared/error_messages", resource: resource %>
    
@@ -29,6 +33,13 @@
     Teléfono<% label_tag "phone" %><br />
     <input required <%= phone_field "phone", nil, autofocus: true, placeholder:"Teléfono", class:"form-control" %>
     </div>    
+  </div>
+
+  <div class="col-md-6 mb-3">
+    <div class="field">    
+      Nombre<% label_tag "name" %><br />
+      <input required <%= text_field_tag "name", nil, autofocus: true, placeholder:"Nombre", class:"form-control" %>
+    </div>
   </div>
 
   <div class="col-md-6 mb-3">

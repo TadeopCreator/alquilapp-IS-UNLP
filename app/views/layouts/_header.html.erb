@@ -18,14 +18,18 @@
                     <ul class="navbar-nav ms-auto my-2 my-lg-0">
                       <% if (current_page?('/')) %>
                         <li class="nav-item"><a class="nav-link m-1 text-center" href="#services">Servicio</a></li>
-                        <li class="nav-item"><a class="nav-link btn btn-outline-primary m-1" href="/users/sign_up">Registrarse</a></li>
+                        <li class="nav-item"><a class="nav-link btn btn-outline-primary m-1" href="/usuarios/new">Registrarse</a></li>
                         <li class="nav-item"><a class="nav-link btn bg-color-alquilapp text-white m-1" href="/users/sign_in">Iniciar Sesión</a></li>
                       <% elsif (user_signed_in?) %>
                           <li class="nav-item ps-2 m-2">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
                             </svg>
-                            <a class="d-inline-block nav-link" href="/users/edit">Editar Perfil</a>
+                            <% user_ID = current_user.id
+                            sql = "SELECT * FROM users WHERE id='" + user_ID.to_s + "'"
+                            records_array = ActiveRecord::Base.connection.execute(sql)
+                            @id_rol = records_array[0]["id_rol"] %>
+                            <a class="d-inline-block nav-link" href="usuarios/<%= @id_rol %>/edit">Editar Perfil</a>
                           </li>
                           <% if (current_user.user?) %>
                             <li class="nav-item ps-2 m-2">
