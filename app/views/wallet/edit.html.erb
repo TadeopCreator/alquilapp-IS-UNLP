@@ -1,0 +1,121 @@
+<div class="col-md-7 col-lg-8">       
+      <form <%= form_with scope: "wallet", url: wallet_edit_path, method: :post do |form| %>  
+        <h4 class="mb-3">Datos personales</h4>
+
+        <div class="row g-3">
+            <div class="col-sm-6">
+              <label for="firstName" class="form-label">Nombre</label></br>
+              <input id="firstName" required <%= form.text_field :name, class:"form-control" %>
+              <div class="invalid-feedback">
+                El nombre es requerido.
+              </div>
+            </div>          
+
+          <div class="col-sm-6">
+              <label for="lastName" class="form-label">Apellido</label>
+              <input id="lastName" placeholder="" value="" required <%= form.text_field :lastname, class:"form-control" %>
+              <div class="invalid-feedback">
+                El apellido es requerido.
+              </div>
+          </div>
+
+          <div class="col-12">
+              <label for="address" class="form-label">Domicilio</label>
+              <input id="address" placeholder="" value="" required <%= form.text_field :address, class:"form-control" %>
+              <div class="invalid-feedback">
+                Por favor ingrese su domicilio.
+              </div>
+          </div>
+
+            <div class="col-md-5">
+              <label for="country" class="form-label">País</label>
+              <input id="country" placeholder="" value="" required <%= form.text_field :country, class:"form-control" %>
+              <div class="invalid-feedback">
+                Por favor selecciona un pais.
+              </div>
+            </div>
+
+             <div class="col-md-4">
+              <label for="state" class="form-label">Provincia</label>
+              <input id="state" placeholder="" value="" required <%= form.text_field :state, class:"form-control" %>
+              <div class="invalid-feedback">
+                Por favor selecciona una provincia
+              </div>
+            </div>
+
+            <div class="col-md-3">
+              <label for="zip" class="form-label">Zip</label>
+              <input id="zip" placeholder="" value="" required <%= form.text_field :zip, class:"form-control" %>
+              <div class="invalid-feedback">
+                Zip code required.
+              </div>
+            </div>
+          </div>
+
+           <hr class="my-4">
+
+          <h4 class="mb-3">Pago</h4>
+
+          <div class="my-3">
+            <div class="form-check">
+              <input id="credit" name="paymentMethod" type="radio" class="form-check-input" checked required>
+              <label class="form-check-label" for="credit">Tarjeta de crédito</label>
+            </div>
+            <div class="form-check">
+              <input id="debit" name="paymentMethod" type="radio" class="form-check-input" required>
+              <label class="form-check-label" for="debit">Tarjeta de débito</label>
+            </div>
+          </div>
+
+          <div class="row gy-3">
+            <div class="col-md-6">
+              <label for="cname" class="form-label">Nombre en la tarjeta</label>
+              <input id="cname" required <%= form.text_field :cname, class:"form-control" %>
+              <small class="text-muted">El nombre completo que se muestra en la tarjeta</small>
+              <div class="invalid-feedback">
+                El nombre en la tarjeta es requerido
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <label for="cnumber" class="form-label">Número de la tarjeta</label>
+              <input id="cnumber" required <%= form.text_field :cnumber, class:"form-control" %>
+              <div class="invalid-feedback">
+                El número de la tarjeta es requerido
+              </div>
+            </div>
+
+            <div class="col-md-3">
+              <label for="cexpiration" class="form-label">Fecha de vencimiento</label>
+              <input id="cexpiration" required <%= form.date_field :cexpiration, class:"form-control" %>
+              <div class="invalid-feedback">
+                La fecha de vencimiento es requerida
+              </div>
+            </div>
+
+            <div class="col-md-3">
+              <label for="ccvv" class="form-label">CVV</label>
+              <input id="ccvv" required <%= form.text_field :ccvv, class:"form-control" %>
+              <div class="invalid-feedback">
+                El número de seguridad es requerido
+              </div>
+            </div>
+
+          <div class="col-md-12">
+              <label for="amount" class="form-label">Monto a añadir</label>
+              <input id="amount" type="float" min="0" required <%= form.number_field :amount, class:"form-control" %>
+              <div class="invalid-feedback">
+                Un monto es requerido
+              </div>
+          </div>
+
+          </div>
+
+
+          <hr class="my-4">
+
+          <button class="w-100 btn bg-color-alquilapp text-white btn-lg" type="submit"<%= form.submit "Añadir saldo" %>Añadir saldo</button>
+          </div>
+        <% end %>  
+      </form>
+</div>
