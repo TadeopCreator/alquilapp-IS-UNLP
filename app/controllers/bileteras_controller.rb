@@ -1,0 +1,2 @@
+class BileterasController < ApplicationController
+end
