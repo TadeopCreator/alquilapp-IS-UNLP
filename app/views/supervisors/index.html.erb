@@ -1,18 +1,18 @@
 <h2>Panel de Control: Supervisor</h2>
 
-<br/>
+<%#<br/>
 
-<%= link_to 'Ver Reportes', reports_url, class:'btn bg-color-alquilapp text-white disabled' %>
+<%#<%= link_to 'Ver Reportes', reports_url, class:'btn bg-color-alquilapp text-white disabled' %>
 
-<br/><br/>
+<%#<br/><br/>
 
-<%= link_to 'Ver Pedidos de validación (no funcional)', reports_url, class:'btn bg-color-alquilapp text-white' %>
+<%#<%= link_to 'Ver Pedidos de validación (no funcional)', reports_url, class:'btn bg-color-alquilapp text-white' %>
 
 <br/><br/>
 <h4>Licencias</h3>
 
 <% if Usuario.all == [] %>
-  <div class="m-3 p-4 border border-2 border-dark rounded">
+  <div class="m-2 p-3 border border-2 border-dark rounded">
     <div class="col-12 text-start">
       <div class="text-start">
         Aún no hay usuarios
@@ -20,7 +20,7 @@
     </div>
   </div>
 <% else %>
-  <div id="autos" class="m-3 p-4 border border-2 border-dark rounded">
+  <div id="autos" class="border border-2 border-dark rounded">
   <table class="table">
     <thead>
       <tr>
@@ -28,8 +28,7 @@
         <th scope="col">Apellido</th>
         <th scope="col">DNI</th>
         <th scope="col">Licencia</th>
-        <%#%<th scope="col">Habilitado</th> %>
-       <%#% <th scope="col">Borrado</th> %>
+        <th scope="col">Fecha</th>
         <th scope="col"></th>
         <th scope="col"></th>
       </tr>
@@ -44,7 +43,10 @@
            <td><%= usuario.name %></td>
            <td><%= usuario.lastname%></td>
            <td><%= usuario.dni %></td>
-           <td><%= image_tag usuario.image_url if usuario.image%></td>  
+           <td><a class="rounded-circle text-white m-1" href=<%= usuario.image_url%> target="_blank"><%= image_tag usuario.image_url, style: 'height:25%;width:10%;', class:"img-responsive"%> </a> </td>
+           <td><%= usuario.date_licence%>
+           <td><a> <%= link_to "Aceptar", method = supervisor_aceptar_path(:id => usuario.id), class:"btn btn-success"%> </a>
+           <td><a> <%= link_to "Rechazar", method = supervisor_rechazar_path(:id => usuario.id), class:"btn btn-danger"%> </a>
         </tr>
       </div> 
        <%end%>

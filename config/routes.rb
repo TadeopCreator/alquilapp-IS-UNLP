@@ -6,6 +6,8 @@ Rails.application.routes.draw do
   
   devise_for :users, controllers: {registrations: 'registrations', sessions: 'users/sessions'}
   
+  get 'supervisor/aceptar'
+  get 'supervisor/rechazar'
   get 'admin/dashboard'
   get 'admin/supervisores'
   get 'admin/vehiculos'
