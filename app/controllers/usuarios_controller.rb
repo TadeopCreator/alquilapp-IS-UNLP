@@ -1,12 +1,5 @@
 class UsuariosController < ApplicationController
   before_action :set_usuario, only: %i[ show edit update destroy ]
-  before_action :license_sent
-
-  def license_sent
-    if @usuario.image_data_changed? 
-      send_license = 0
-    end
-  end
   
 
   # GET /usuarios or /usuarios.json
@@ -25,6 +18,7 @@ class UsuariosController < ApplicationController
 
   # GET /usuarios/1/edit
   def edit
+    
   end
 
   # POST /usuarios or /usuarios.json
@@ -61,6 +55,7 @@ class UsuariosController < ApplicationController
   # PATCH/PUT /usuarios/1 or /usuarios/1.json
   def update
     respond_to do |format|
+      @usuario.send_license = 1 #Establece el valor del status del envio de la licencia
       if @usuario.update(usuario_params)
         format.html { redirect_to usuario_url(@usuario), notice: "Usuario was successfully updated." }
         format.json { render :edit_user_registration, status: :ok, location: @usuario }
@@ -89,6 +84,6 @@ class UsuariosController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def usuario_params
-      params.require(:usuario).permit(:name, :lastname, :dni, :contact, :lon, :lat, :deleted, :enable, :birthdate, :image, :date_licence, :id_wallet)
+      params.require(:usuario).permit(:name, :lastname, :dni, :contact, :lon, :lat, :deleted, :enable, :birthdate, :image, :date_licence, :id_wallet, :send_license)
     end
 end
