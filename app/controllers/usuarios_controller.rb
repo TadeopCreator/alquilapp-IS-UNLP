@@ -54,8 +54,8 @@ class UsuariosController < ApplicationController
   def update
     respond_to do |format|
       if @usuario.update(usuario_params)
-        format.html { redirect_to usuario_url(@usuario), notice: "Usuario was successfully updated." }
-        format.json { render :edit_user_registration, status: :ok, location: @usuario }
+        format.html { redirect_to autos_path, notice: "Perfil actualizado exitosamente" }
+        format.json { render autos_path, status: :ok, location: @usuario }
       else
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @usuario.errors, status: :unprocessable_entity }
