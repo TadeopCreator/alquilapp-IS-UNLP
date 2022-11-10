@@ -1,8 +1,47 @@
 <div class= "w-100 m-auto">
-<h2 class="text-center">Edición avanzada</h2>
+<h2 class="text-center">Editar perfil</h2>
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
   <%= render "devise/shared/error_messages", resource: resource %>
+
+  <% if not (current_user.user?) %>
+<div class="row justify-content-center">
+  <div class="col-4">
+    <div class="field">
+      Nombre<% label_tag "name" %><br />
+      <input <%= text_field_tag "name", nil, autofocus: true, placeholder:"Nombre", class:"form-control" %>
+    </div>
+  </div>
+  </div>
+
+<div class="row justify-content-center">
+  <div class="col-4">
+    <div class="field">
+    Apellido<% label_tag "lastname" %><br />
+    <input <%= text_field_tag "lastname", nil, autofocus: true, placeholder:"Apellido", class:"form-control" %>
+    </div>
+  </div>
+  </div>
+
+<div class="row justify-content-center">
+  <div class="col-4">
+    <div class="field"> 
+    DNI<% label_tag "DNI" %><br />
+    <input <%= text_field_tag "dni", nil, autofocus: true, placeholder:"DNI", class:"form-control" %>
+    </div>
+  </div>
+  </div>
+
+  <div class="row justify-content-center">
+  <div class="col-4">
+    <div class="field">
+    Teléfono/Contacto<% label_tag "phone" %><br />
+    <input <%= phone_field "phone", nil, autofocus: true, placeholder:"Teléfono", class:"form-control" %>
+    </div>
+  </div>
+  </div>
+
+<% end %>
    
 <div class="row justify-content-center">
   <div class="col-4">
@@ -65,7 +104,7 @@
   
 <% end %>
 
-<br/><br/><br/>
+<br/><br/>
 
 <div class="row justify-content-center">
   <div class="card col-4">

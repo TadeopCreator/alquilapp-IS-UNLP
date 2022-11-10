@@ -22,6 +22,10 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def after_update_path_for(resource)
+    :user_session
+  end
+
   #def after_sign_out_path_for(scope)
   #  redirect_to(:root) and return    
   #end

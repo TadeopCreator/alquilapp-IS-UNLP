@@ -8,6 +8,10 @@
               La confirmación de la contraseña no coincide con la contraseña
           <% elsif message == "Password is too short (minimum is 6 characters)" %>
             La contraseña es demasiado corta (el mínimo es de 6 caracteres)
+          <% elsif message == "Current password can't be blank" %>
+            La contraseña actual es requerida
+          <% elsif message == "Current password is invalid" %>
+            Contraseña incorrecta
           <% else %>
               <%= message %>
           <% end %>

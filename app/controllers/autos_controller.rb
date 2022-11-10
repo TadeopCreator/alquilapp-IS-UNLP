@@ -25,7 +25,7 @@ class AutosController < ApplicationController
 
     respond_to do |format|
       if @auto.save
-        format.html { redirect_to auto_url(@auto), notice: "El vehículo ha sido creado" }
+        format.html { redirect_to admin_vehiculos_path, notice: "El vehículo ha sido creado" }
         format.json { render :show, status: :created, location: @auto }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -38,7 +38,7 @@ class AutosController < ApplicationController
   def update
     respond_to do |format|
       if @auto.update(auto_params)
-        format.html { redirect_to auto_url(@auto), notice: "El vehículo ha sido actualizado correctamente" }
+        format.html { redirect_to admin_vehiculos_path, notice: "El vehículo ha sido actualizado correctamente" }
         format.json { render :show, status: :ok, location: @auto }
       else
         format.html { render :edit, status: :unprocessable_entity }
