@@ -31,7 +31,7 @@ class SupervisorsController < ApplicationController
       return
     end
 
-    @supervisor = Supervisor.new(:name => supervisor_params[:name], :surname => supervisor_params[:surname], :dni => supervisor_params[:dni], :contact => supervisor_params[:contact])
+    @supervisor = Supervisor.new(:name => supervisor_params[:name], :surname => supervisor_params[:surname], :dni => supervisor_params[:dni], :contact => supervisor_params[:contact], :borrado => supervisor_params[:borrado], :habilitado => supervisor_params[:habilitado])
 
     respond_to do |format|
       if @supervisor.save
@@ -78,6 +78,6 @@ class SupervisorsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def supervisor_params
-      params.require(:supervisor).permit(:name, :surname, :dni, :contact)
+      params.require(:supervisor).permit(:name, :surname, :dni, :contact, :borrado, :habilitado)
     end
 end

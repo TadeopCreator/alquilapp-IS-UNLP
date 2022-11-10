@@ -16,7 +16,9 @@
     </thead>
     <tbody>
     <% @autos.each do |auto| %>
-      <%= render auto %>
+      <% if (!auto.borrado && auto.habilitado) %>
+        <%= render auto %>
+      <% end %>
     <% end %>
     </tbody>
 </table>

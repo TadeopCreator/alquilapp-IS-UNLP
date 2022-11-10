@@ -16,6 +16,22 @@
     <%= form.label :'Apellido'%><%= form.text_field :surname,  class: "form-control mb-2" %>
     DNI<% form.label :'DNI'%><%= form.text_field :dni,  class: "form-control mb-2" %>
     <%= form.label :'Email'%><%= form.text_field :contact,  class: "form-control mb-2" %>
+
+    <div class="col-md-6 mb-3">
+      <div>
+        <%= form.label :habilitado, style: "display: block", class:"form-check-label" %>
+        <%= form.check_box :habilitado, class:"form-check-input" %>
+      </div>
+    </div>
+
+    <div class="col-md-6 mb-3">
+      <div>
+        <%= form.label :borrado, style: "display: block", class:"form-check-label" %>
+        <%= form.check_box :borrado, class:"form-check-input" %>
+      </div>
+    </div>
+
     <button class='btn bg-color-alquilapp text-white' <%= form.submit %>Guardar</button>
+
   </div>
 <% end %>
