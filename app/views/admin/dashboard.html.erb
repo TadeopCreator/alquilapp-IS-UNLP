@@ -1,90 +1,24 @@
-<h2>Panel de control: Administrador</h2>
+<h2>Panel de control</h2>
 
-<div class="card" style="width: 18rem;">
-  <ul class="list-group list-group-flush">
-    <li class="list-group-item"><%= link_to "Nuevo vehículo", new_auto_path %></li>
-    <li class="list-group-item"><%= link_to 'Añadir supervisor', new_supervisor_path %></li>
-  </ul>
-</div>
-
-<br/>
-<h4>Vehículos</h4>
-
-<% if Auto.all == [] %>
-  <div class="m-3 p-4 border border-2 border-dark rounded">
-    <div class="col-12 text-start">
-        <div class="text-start">
-          Aún no hay vehículos
-        </div>
-        <div class="row text-start">
-          <%= link_to "Nuevo vehículo", new_auto_path %>
-        </div>
-    </div>        
-  </div>
-<% else %>
-  <div id="autos" class="m-3 p-4 border border-2 border-dark rounded">
-    <table class="table">
-      <thead>
-        <tr>
-          <th scope="col">Número relativo</th>
-          <th scope="col">Patente</th>
-          <th scope="col">Marca</th>
-          <th scope="col">Modelo</th>
-          <th scope="col">Color</th>
-          <th scope="col">Alquilado</th>
-          <th scope="col">Habilitado</th>
-          <th scope="col">Borrado</th>
-          <th scope="col">Longitud</th>
-          <th scope="col">Latitud</th>
-          <th scope="col"></th>
-          <th scope="col"></th>
-        </tr>
-      </thead>
-      <tbody>
-      <% @autos = Auto.all %>
-      <% @autos.each do |auto| %>      
-        <%= render Auto.all %>
-      <% end %>
-      </tbody>
-  </table>
-  </div>
-<% end %>
+<ul class="nav nav-tabs">
+  <li class="nav-item">
+    <a class="nav-link active text-color-alquilapp" href="/admin/dashboard">Inicio</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link text-color-alquilapp" href="/admin/vehiculos">Vehículos</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link text-color-alquilapp" href="/admin/supervisores">Supervisores</a>
+  </li>
+</ul>
 
 <br/>
-<h4>Supervisores</h3>
+<h4>Inicio</h3>
 
-<% if Supervisor.all == [] %>
-  <div class="m-3 p-4 border border-2 border-dark rounded">
-    <div class="col-12 text-start">
-      <div class="text-start">
-        Aún no hay supervisores
-      </div>
-      <div class="row text-start">
-        <%= link_to 'Añadir supervisor', new_supervisor_path %>
-      </div>
-    </div>
+<div class="card text-bg-light mb-3" style="max-width: 18rem;">
+  <div class="card-header">¡Bienvenido!</div>
+  <div class="card-body">
+    <h5 class="card-title">Administrardor</h5>
+    <p class="card-text">Aquí podrás administrar los vehículos y supervisores así como generar reportes periódicos del sistema.</p>
   </div>
-<% else %>
-  <div id="autos" class="m-3 p-4 border border-2 border-dark rounded">
-  <table class="table">
-    <thead>
-      <tr>
-        <th scope="col">Nombre</th>
-        <th scope="col">Apellido</th>
-        <th scope="col">DNI</th>
-        <th scope="col">Email</th>
-        <%#%<th scope="col">Habilitado</th> %>
-       <%#% <th scope="col">Borrado</th> %>
-        <th scope="col"></th>
-        <th scope="col"></th>
-      </tr>
-    </thead>
-    <tbody>
-    <% @supervisors = Supervisor.all %>
-    <% @supervisors.each do |supervisor| %>      
-      <%= render Supervisor.all %> <%# Debemos de cambiar esto, ya que solo me interesa en a lista dos cosas pero me cabia todo en detalles%>
-    <% end %>
-    </tbody>
-</table>
 </div>
-<% end %>

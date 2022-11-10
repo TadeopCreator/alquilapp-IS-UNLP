@@ -3,19 +3,27 @@
 one:
   name: MyString
   lastname: MyString
-  dni: 1
+  dni: MyString
   contact: MyString
   lon: 9.99
   lat: 9.99
   deleted: false
   enable: false
+  birthdate: 2022-11-09
+  image_data: MyText
+  date_licence: 2022-11-09
+  id_wallet: 1
 
 two:
   name: MyString
   lastname: MyString
-  dni: 1
+  dni: MyString
   contact: MyString
   lon: 9.99
   lat: 9.99
   deleted: false
   enable: false
+  birthdate: 2022-11-09
+  image_data: MyText
+  date_licence: 2022-11-09
+  id_wallet: 1
