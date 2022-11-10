@@ -6,50 +6,6 @@
 
   <div class="row justify-content-center">
     <div class="col-4">
-    <div class="field">    
-      Nombre<% label_tag "name" %><br />
-      <input required <%= text_field_tag "name", nil, autofocus: true, placeholder:"Nombre", class:"form-control" %>
-    </div>
-    </div>
-  </div>
-
-  <div class="row justify-content-center">
-    <div class="col-4">
-    <div class="field">    
-    Apellido<% label_tag "lastname" %><br />
-    <input required <%= text_field_tag "lastname", nil, autofocus: true, placeholder:"Apellido", class:"form-control" %>
-    </div>
-    </div>
-  </div>
-
-  <div class="row justify-content-center">
-    <div class="col-4">
-    <div class="field"> 
-    DNI<% label_tag "DNI" %><br />
-    <input required <%= text_field_tag "dni", nil, autofocus: true, placeholder:"DNI", class:"form-control" %>
-    </div>
-  </div>
-
-  <div class="row justify-content-center">
-    <div class="col-4">
-    <div class="field">    
-    Teléfono<% label_tag "phone" %><br />
-    <input required <%= phone_field "phone", nil, autofocus: true, placeholder:"Teléfono", class:"form-control" %>
-    </div>
-    </div>
-  </div>
-
-    <div class="row justify-content-center">
-    <div class="col-4">
-    <div class="field"> 
-    Fecha de cumpleaños<% label_tag "birthday" %><br />
-    <input id="birthday-field" required <%= date_field "birthday", nil, autofocus: true, class:"form-control" %>
-    </div>
-    </div>
-  </div>
-
-  <div class="row justify-content-center">
-    <div class="col-4">
     <div class="field">
       <%= f.label :email %><br />
       <input required <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder:"Email", class:"form-control" %>

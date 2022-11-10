@@ -1,0 +1,73 @@
+<%= form_with(model: usuario) do |form| %>
+
+<div class="row justify-content-center">
+  <div class="col-4">
+    <div class="field"> 
+      <div>
+        Nombre<% form.label :name %> <br/>
+        <input required <%= form.text_field :name %></input>
+      </div>
+    </div>
+  </div>
+  </div>
+
+  <div>
+    <%= form.label :lastname, style: "display: block" %>
+    <%= form.text_field :lastname %>
+  </div>
+
+  <div>
+    <%= form.label :dni, style: "display: block" %>
+    <%= form.text_field :dni %>
+  </div>
+
+  <div>
+    <%= form.label :contact, style: "display: block" %>
+    <%= form.text_field :contact %>
+  </div>
+
+  <div>
+    <%= form.label :lon, style: "display: block" %>
+    <%= form.text_field :lon %>
+  </div>
+
+  <div>
+    <%= form.label :lat, style: "display: block" %>
+    <%= form.text_field :lat %>
+  </div>
+
+  <div>
+    <%= form.label :deleted, style: "display: block" %>
+    <%= form.check_box :deleted %>
+  </div>
+
+  <div>
+    <%= form.label :enable, style: "display: block" %>
+    <%= form.check_box :enable %>
+  </div>
+
+  <div>
+    <%= form.label :birthdate, style: "display: block" %>
+    <%= form.date_field :birthdate %>
+  </div>
+
+
+  <div class="field">
+    <%= form.label :image %>
+    <%= form.file_field :image %>
+  </div>
+
+  <div>
+    <%= form.label :date_licence, style: "display: block" %>
+    <%= form.date_field :date_licence %>
+  </div>
+
+  <div>
+    <%= form.label :id_wallet, style: "display: block" %>
+    <%= form.number_field :id_wallet %>
+  </div>
+
+  <div class="actions text-center"><br />
+    <%= form.submit "Continuar", class:'btn bg-color-alquilapp text-white text-center col-4' %>
+  </div>
+<% end %>

@@ -1,7 +1,10 @@
 Rails.application.routes.draw do
+  resources :usuarios
   resources :reports
   resources :supervisors
   resources :autos
+  resources :wallet
+  get '/wallet/edit', to: 'wallet#update'
   
   devise_for :users, controllers: {registrations: 'registrations', sessions: 'users/sessions'}
   

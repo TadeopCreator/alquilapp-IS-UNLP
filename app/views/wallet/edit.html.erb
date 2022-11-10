@@ -1,0 +1,7 @@
+<h2 class="py-2 mb-0">Agregar Saldo</h2>
+<% form_with model: @wallet do |f| %>
+    <%= f.label :actual, "Saldo Actual:" %> 
+    <%= @wallet[:saldo] %>
+    <%= f.number_field :saldo%>
+    <%= f.submit 'Agregar' %>
+<%end%>
