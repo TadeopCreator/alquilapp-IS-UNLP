@@ -77,5 +77,3 @@ group :test do
 end
 
 gem 'active_storage_validations'
-
-gem "countries", "~> 5.2"

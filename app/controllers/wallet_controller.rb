@@ -17,20 +17,37 @@ class WalletController < ApplicationController
     end
 
     def edit
-        user_ID = current_user.id
-        sql = "SELECT * FROM users WHERE id='" + user_ID.to_s + "'"
-        records_array=ActiveRecord::Base.connection.execute(sql)
-        id_rol=records_array[0]["id_rol"]
-        @usuario=Usuario.find(id_rol.to_s)
-        @wallet=Wallet.find(@usuario[:id_wallet])
-    end
-
-    def update
-        @wallet = Wallet.find(params[:id])
-        if @wallet.update(wallet_edit)
-            redirect_to @wallet
-        else
-            render :edit
+        if (params != {"controller"=>"wallet", "action"=>"edit"})
+            fallo = false
+            #puts("Nombre: ", params["wallet"]["name"])
+            
+            current_year = Date.today.year
+    
+            if(params["wallet"]["cexpiration"][0, 4].to_i <= current_year)
+            fallo = true
+            flash[:notice] = "Tarjeta inválida, Tarjeta vencida"                
+            end
+    
+            if(params["wallet"]["cnumber"].to_s.length != 16)
+            fallo = true
+            flash[:notice] = "Tarjeta inválida, Numero de tarjeta invalido"                
+            end 
+            
+            if (fallo)
+            redirect_to(wallet_edit_path)
+            else
+            user_ID = current_user.id
+            sql = "SELECT * FROM users WHERE id='" + user_ID.to_s + "'"
+            records_array=ActiveRecord::Base.connection.execute(sql)
+            id_rol=records_array[0]["id_rol"]
+            @usuario=Usuario.find(id_rol.to_s)
+            @wallet=Wallet.find(@usuario[:id_wallet])
+            attributes = {}
+            attributes[:saldo] = params["wallet"]["amount"].to_s.to_f + @wallet.saldo
+            @wallet.update(attributes)
+            flash[:notice] = "Se ha agregado saldo exitosamente"  
+            redirect_to(wallet_show_path)
+            end
         end
     end
 

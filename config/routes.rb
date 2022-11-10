@@ -3,8 +3,9 @@ Rails.application.routes.draw do
   resources :reports
   resources :supervisors
   resources :autos
-  resources :wallet
-  get '/wallet/edit', to: 'wallet#update'
+  get 'wallet/show'
+  get 'wallet/edit'
+  post 'wallet/edit'
   
   devise_for :users, controllers: {registrations: 'registrations', sessions: 'users/sessions'}
   
