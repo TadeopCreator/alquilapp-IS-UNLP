@@ -8,13 +8,14 @@ class RegistrationsController < Devise::RegistrationsController
 
       super
       
-      usuario = Usuario.create!(:name => params[:name], :lastname => params[:lastname], 
-                :dni => params[:dni], :contact => params[:phone])
-      puts('Usuario creado: ID: ', usuario[:id])      
+      @usuario = Usuario.last
+      wallet= Wallet.create!(:saldo => 0)
+      @usuario.update_attribute(:id_wallet, wallet[:id])
+      puts('Usuario creado: ID: ', @usuario[:id])      
       
       # Actuliza el User del devise con el id_rol correspondiente
       @user = User.last
-      @user.update_attribute(:id_rol, usuario[:id])
+      @user.update_attribute(:id_rol, @usuario[:id])
     end
     
     def update
