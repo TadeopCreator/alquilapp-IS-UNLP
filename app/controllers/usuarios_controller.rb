@@ -17,6 +17,7 @@ class UsuariosController < ApplicationController
 
   # GET /usuarios/1/edit
   def edit
+    @usuario = Usuario.find(params[:id])
   end
 
   # POST /usuarios or /usuarios.json

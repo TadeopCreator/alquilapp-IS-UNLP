@@ -22,20 +22,20 @@ class SupervisorsController < ApplicationController
   # POST /supervisors or /supervisors.json
   def create
 
-    sql = "SELECT * FROM supervisors WHERE email='" + supervisor_params[:email] + "'"
+    sql = "SELECT * FROM supervisors WHERE contact='" + supervisor_params[:contact] + "'"
     records_array = ActiveRecord::Base.connection.execute(sql)
 
     if (records_array != [])
-      flash[:notice] = 'El supervisor ya se encuentra cargado'
+      flash[:notice] = 'Ya existe un supervisor con ese email'
       redirect_to new_supervisor_path
       return
     end
 
-    @supervisor = Supervisor.new(:name => supervisor_params[:name], :surname => supervisor_params[:surname], :dni => supervisor_params[:dni], :email => supervisor_params[:email])
+    @supervisor = Supervisor.new(:name => supervisor_params[:name], :surname => supervisor_params[:surname], :dni => supervisor_params[:dni], :contact => supervisor_params[:contact])
 
     respond_to do |format|
       if @supervisor.save
-        format.html { redirect_to supervisor_url(@supervisor), notice: "Supervisor creado correctamente. Su contraseña de ingreso es: 'abc123'. Podrá cambiarla iniciando sesión" }
+        format.html { redirect_to admin_supervisores_path, notice: "Supervisor creado correctamente. Su contraseña de ingreso es: 'abc123'. Podrá cambiarla iniciando sesión" }
         format.json { render :show, status: :created, location: @supervisor }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -44,14 +44,14 @@ class SupervisorsController < ApplicationController
     end
 
     # Crea el user del devise con el rol de supervisor
-    user = User.create!(:email => @supervisor.email, :password => 'abc123', :role => :supervisor, :id_rol => @supervisor.id)
+    user = User.create!(:email => @supervisor.contact, :password => 'abc123', :role => :supervisor, :id_rol => @supervisor.id)
   end
 
   # PATCH/PUT /supervisors/1 or /supervisors/1.json
   def update
     respond_to do |format|
       if @supervisor.update(supervisor_params)
-        format.html { redirect_to supervisor_url(@supervisor), notice: "Supervisor actualizado correctamente" }
+        format.html { redirect_to admin_supervisores_path, notice: "Supervisor actualizado correctamente" }
         format.json { render :show, status: :ok, location: @supervisor }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -78,6 +78,6 @@ class SupervisorsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def supervisor_params
-      params.fetch(:supervisor, {})
+      params.require(:supervisor).permit(:name, :surname, :dni, :contact)
     end
 end

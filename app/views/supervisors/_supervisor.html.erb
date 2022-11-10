@@ -3,7 +3,7 @@
       <td><%= supervisor.name %></td>
       <td><%= supervisor.surname %></td>
       <td><%= supervisor.dni %></td>
-      <td><%= supervisor.email %></td>
+      <td><%= supervisor.contact %></td>
       <%#%<td>
           <% if supervisor.habilitado %>
      <%#%       HABILITADO
@@ -19,7 +19,7 @@
           <% end %>
      <%#%   </td> %>
       <td>
-      <a <%= link_to "Detalles", supervisor_path(supervisor), class:"btn btn-outline-dark" %> 
+      <a <%= link_to "Detalles", supervisor_path(supervisor), class:"btn btn-outline-dark disabled" %>
       </a>
       <a <%= link_to "Editar", edit_supervisor_path(supervisor), class:"btn btn-outline-dark" %>
       </a>
