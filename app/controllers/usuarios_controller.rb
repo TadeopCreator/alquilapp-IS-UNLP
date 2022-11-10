@@ -1,5 +1,13 @@
 class UsuariosController < ApplicationController
   before_action :set_usuario, only: %i[ show edit update destroy ]
+  before_action :license_sent
+
+  def license_sent
+    if @usuario.image_data_changed? 
+      send_license = 0
+    end
+  end
+  
 
   # GET /usuarios or /usuarios.json
   def index

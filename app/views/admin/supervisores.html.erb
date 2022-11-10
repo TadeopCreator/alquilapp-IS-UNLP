@@ -48,7 +48,7 @@
     <tbody>
     <% @supervisors = Supervisor.all %>
     <% @supervisors.each do |supervisor| %>      
-      <%= render Supervisor.all %> <%# Debemos de cambiar esto, ya que solo me interesa en a lista dos cosas pero me cabia todo en detalles%>
+      <%= render supervisor %> <%# Bug que repite supervisores%>
     <% end %>
     </tbody>
 </table>

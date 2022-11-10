@@ -38,17 +38,16 @@
     <% @usuarios = Usuario.all %>
     <% @usuarios.each do |usuario| %>      
       <%# <%= usuario.name %> <%# Debemos de cambiar esto, ya que solo me interesa en a lista dos cosas pero me cabia todo en detalles%>
+      <% if usuario.send_license = 0%>
       <div id="<%= dom_id usuario %>">
         <tr>
            <td><%= usuario.name %></td>
            <td><%= usuario.lastname %></td>
            <td><%= usuario.dni %></td>
-           <td><% if usuario.image.attached? %>
-                    <%= image_tag usuario.image %>
-                <% end %>
-            </td>
+           <td><%= image_tag usuario.image_url if usuario.image%></td>  
         </tr>
       </div> 
+       <%end%>
     <% end %>
     </tbody>
 </table>

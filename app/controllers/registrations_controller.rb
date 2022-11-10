@@ -8,8 +8,7 @@ class RegistrationsController < Devise::RegistrationsController
 
       super
       
-      usuario = Usuario.create!(:name => params[:name], :lastname => params[:lastname], 
-                :dni => params[:dni], :contact => params[:phone])
+      usuario = Usuario.last
       puts('Usuario creado: ID: ', usuario[:id])      
       
       # Actuliza el User del devise con el id_rol correspondiente

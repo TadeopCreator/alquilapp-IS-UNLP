@@ -78,6 +78,6 @@ class SupervisorsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def supervisor_params
-      params.fetch(:supervisor, {})
+      params.require(:supervisor).permit(:name, :surname, :dni, :email)
     end
 end
