@@ -36,9 +36,11 @@ class AdminController < ApplicationController
       admin = Admin.create!(:name => "Nombre",:lastname => "Apellido",:dni => "123123123123",:phone => "002112312312")        
       
       # Crea el user del devise con el rol de admin
+
       @user = User.create!(:email => 'admin2@admin.com', :password => 'asdasd', :role => :admin)
       
       @user.update_attribute(:id_rol, admin[:id])
+
 
       #admin = Amin.create!(:name => params[:name],:lastname => params[:lastn],:dni => params[:dni],:mail => params[:email],:phone => params[:phone])
       puts('Admin added') #admin2@admin asdasd
