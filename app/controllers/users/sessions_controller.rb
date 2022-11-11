@@ -11,7 +11,6 @@ class Users::SessionsController < Devise::SessionsController
 
   # POST /resource/sign_in
   def create
-    puts("jkdfhjkasdhfasdhfkasdhfajklsdfhjklasdfhjkasdfhjksdahfjkashdfjkasdhkfj; ", params["user"]["email"])
     super
   end
 
