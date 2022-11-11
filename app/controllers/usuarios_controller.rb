@@ -24,31 +24,31 @@ class UsuariosController < ApplicationController
   def create
     @usuario = Usuario.new(usuario_params)    
     #puts("asjkdfhasdjkfhjklasdhfdjkashjkasdfhkldahfjkasdhfjkashdjkfahsdjkfhasdfhaksjdfhkasdfjklasdhfasdfcreate: ", @usuario.to_s)
-    respond_to do |format|
+
       if @usuario.save
-        flash = {}
-        format.html { redirect_to new_user_registration_path }
-        format.json { render :new_user_registration, status: :created, location: @usuario }
-      else
-        error = @usuario.errors.where(:birthdate).last
-        error2 = @usuario.errors.where(:date_licence).last
-
-        if (error != nil)
-          if (error.type == "Es menor de edad")
-            flash[:notice_second] = 'No cuentas con la edad mínima para conducir en la Argentina'
-          end
-        end
-
-        if (error2 != nil)
-          if (error2.type == "Expiro licencia")
-            flash[:notice] = 'Licencia de conducir expirada'
-          end
-        end          
-
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @usuario.errors, status: :unprocessable_entity }
+        redirect_to new_user_registration_path
+      else  
+        
+            error = @usuario.errors.where(:birthdate).last
+            error2 = @usuario.errors.where(:date_licence).last     
+        
+            if (error != nil)
+              if (error.type == "Es menor de edad")
+                flash[:notice] = 'No cuentas con la edad mínima para conducir en la Argentina'
+              end
+            end
+        
+            if (error2 != nil)
+              if (error2.type == "Expiro licencia")
+                flash[:notice] = 'Licencia de conducir expirada'
+              end
+            end
+            
+            redirect_to new_usuario_path
+        #format.html { render :new, status: :unprocessable_entity }
+        #format.json { render json: @usuario.errors, status: :unprocessable_entity }
       end
-    end
+
   end
 
   # PATCH/PUT /usuarios/1 or /usuarios/1.json
