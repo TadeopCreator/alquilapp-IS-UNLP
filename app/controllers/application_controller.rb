@@ -26,10 +26,6 @@ class ApplicationController < ActionController::Base
     :user_session
   end
 
-  #def after_sign_out_path_for(scope)
-  #  redirect_to(:root) and return    
-  #end
-
     # POST /resource
     def create(scope)
         puts('Hola desde controller')        

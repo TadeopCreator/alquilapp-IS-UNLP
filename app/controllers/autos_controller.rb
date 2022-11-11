@@ -1,4 +1,5 @@
 class AutosController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_auto, only: %i[ show edit update destroy ]
 
   # GET /autos or /autos.json

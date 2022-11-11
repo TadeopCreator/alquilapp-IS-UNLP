@@ -1,4 +1,5 @@
 class SupervisorsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_supervisor, only: %i[ show edit update destroy ]
 
   # GET /supervisors or /supervisors.json
