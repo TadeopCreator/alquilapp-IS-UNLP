@@ -1,6 +1,10 @@
 <div class= "w-100 m-auto">
 <h2 class="text-center">Editar Perfil</h2>
 
+<% if @usuario.errors[:image] != []%>
+  <% flash[:notice] = "Formato de archivo de la licencia invalido, formatos validos: .pdf, .jpg, .jpeg, .bmp, .tiff"%>
+<%end %>
+
 <%= render "form", usuario: @usuario %>
 
 <br/>
