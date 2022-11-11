@@ -1,6 +1,6 @@
 <h2>Panel de Control: Supervisor</h2>
 
-<%#<br/>
+<br/>
 
 <%#<%= link_to 'Ver Reportes', reports_url, class:'btn bg-color-alquilapp text-white disabled' %>
 
@@ -8,13 +8,13 @@
 
 <%#<%= link_to 'Ver Pedidos de validación (no funcional)', reports_url, class:'btn bg-color-alquilapp text-white' %>
 
-<ul class="nav nav-tabs">
+<%#<ul class="nav nav-tabs">
   <li class="nav-item">
     <a class="nav-link active text-color-alquilapp" href="/supervisors">Inicio</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link text-color-alquilapp" href="/supervisor/licencias">Licencias</a>
-  </li>
+    <a class="nav-link text-color-alquilapp" href="/supervisor/licencias" id=<% current_user.id%><%#%Licencias</a>
+<%#%  </li>
 </ul>
 
 <br/>
@@ -27,6 +27,53 @@
     <p class="card-text">Aquí podrás administrar los vehículos y validar licencias.</p>
   </div>
 </div>
+%>
+<h4>Licencias</h3>
+
+<% if Usuario.all == [] %>
+  <div class="m-2 p-3 border border-2 border-dark rounded">
+    <div class="col-12 text-start">
+      <div class="text-start">
+        Aún no hay usuarios
+      </div>
+    </div>
+  </div>
+<% else %>
+  <div id="autos" class="border border-2 border-dark rounded">
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Nombre</th>
+        <th scope="col">Apellido</th>
+        <th scope="col">DNI</th>
+        <th scope="col">Licencia</th>
+        <th scope="col">Fecha</th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+    <% @usuarios = Usuario.all %>
+    <% @usuarios.each do |usuario| %>      
+      <%# <%= usuario.name %> <%# Debemos de cambiar esto, ya que solo me interesa en a lista dos cosas pero me cabia todo en detalles%>
+      <% if usuario.send_license == 1%>
+      <div id="<%= dom_id usuario %>">
+        <tr>
+           <td><%= usuario.name %></td>
+           <td><%= usuario.lastname%></td>
+           <td><%= usuario.dni %></td>
+           <td><a class="rounded-circle text-white m-1" href=<%= usuario.image_url%> target="_blank"><%= image_tag usuario.image_url, style: 'height:25%;width:10%;', class:"img-responsive"%> </a> </td>
+           <td><%= usuario.date_licence%>
+           <td><a> <%= link_to "Aceptar", method = supervisor_aceptar_path(:id => usuario.id), class:"btn btn-success"%> </a>
+           <td><a> <%= link_to "Rechazar", method = supervisor_rechazar_path(:id => usuario.id), class:"btn btn-danger"%> </a>
+        </tr>
+      </div> 
+       <%end%>
+    <% end %>
+    </tbody>
+</table>
+</div>
+<% end %>
 
 
 

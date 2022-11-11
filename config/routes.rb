@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   get 'supervisor/aceptar'
   get 'supervisor/rechazar'
   get 'supervisors/licencias'
+  get 'supervisor/licencias'
   get 'admin/dashboard'
   get 'admin/supervisores'
   get 'admin/vehiculos'

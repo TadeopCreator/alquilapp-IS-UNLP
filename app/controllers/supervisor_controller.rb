@@ -1,6 +1,10 @@
 class SupervisorController < ApplicationController
 
-
+  def licencias
+    unless current_user.supervisor?
+      redirect_to new_user_session_path
+    end
+  end
 
   def aceptar
     attributes = {}
