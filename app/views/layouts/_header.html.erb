@@ -25,18 +25,22 @@
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
                             </svg>
-                            <% user_ID = current_user.id
-                            sql = "SELECT * FROM users WHERE id='" + user_ID.to_s + "'"
-                            records_array = ActiveRecord::Base.connection.execute(sql)
-                            @id_rol = records_array[0]["id_rol"] %>
-                            <a class="d-inline-block nav-link" href="usuarios/<%= @id_rol %>/edit">Editar Perfil</a>
+                             <% if (current_user.user?) %>
+                              <% user_ID = current_user.id
+                              sql = "SELECT * FROM users WHERE id='" + user_ID.to_s + "'"
+                              records_array = ActiveRecord::Base.connection.execute(sql)
+                              @id_rol = records_array[0]["id_rol"] %>
+                              <a class="d-inline-block nav-link" href="/usuarios/<%= @id_rol %>/edit">Editar Perfil</a>
+                            <% else %>
+                              <a class="d-inline-block nav-link" href="/users/edit">Editar Perfil</a>
+                            <% end %>                            
                           </li>
                           <% if (current_user.user?) %>
                             <li class="nav-item ps-2 m-2">
                               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                               <path stroke-linecap="round" stroke-linejoin="round" d="M21 12a2.25 2.25 0 00-2.25-2.25H15a3 3 0 11-6 0H5.25A2.25 2.25 0 003 12m18 0v6a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 18v-6m18 0V9M3 12V9m18 0a2.25 2.25 0 00-2.25-2.25H5.25A2.25 2.25 0 003 9m18 0V6a2.25 2.25 0 00-2.25-2.25H5.25A2.25 2.25 0 003 6v3" />
                               </svg>
-                              <a class="d-inline-block nav-link" <%= link_to 'Billetera', root_path, class:'btn bg-color-alquilapp text-white' %></a>
+                              <a class="d-inline-block nav-link" <%= link_to 'Billetera Virtual',wallet_show_path, class:'btn bg-color-alquilapp text-white' %></a>
                             </li>
                             <!-- Reporte todavia no
                               <li class="nav-item ps-2 m-2">

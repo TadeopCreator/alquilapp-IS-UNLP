@@ -230,6 +230,7 @@ GEM
       railties (>= 6.0.0)
     tzinfo (2.0.5)
       concurrent-ruby (~> 1.0)
+    unaccent (0.4.0)
     warden (1.2.9)
       rack (>= 2.0.9)
     web-console (4.2.0)
@@ -257,6 +258,7 @@ DEPENDENCIES
   active_storage_validations
   bootsnap
   capybara
+  countries (~> 5.2)
   debug
   devise!
   image_processing (~> 1.12, >= 1.12.1)

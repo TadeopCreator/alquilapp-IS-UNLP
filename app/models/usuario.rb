@@ -8,8 +8,7 @@ class Usuario < ApplicationRecord
         end
     end
 
-    def expirada
-        puts("asjkldfhasdjkfhkasdjhfjkasdhfasdkfhkajksdfsa: ", 0.years.ago.year)        
+    def expirada     
         if (date_licence.year < 0.years.ago.year)
             errors.add(:date_licence, "Expiro licencia")      
         end

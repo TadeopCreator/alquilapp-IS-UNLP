@@ -10,7 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_10_040413) do
+
+ActiveRecord::Schema[7.0].define(version: 2022_11_10_223254) do
+
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -43,7 +45,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_10_040413) do
     t.string "name"
     t.string "lastname"
     t.string "dni"
-    t.string "mail"
+    t.string "email"
     t.string "phone"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -64,6 +66,15 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_10_040413) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "cards", force: :cascade do |t|
+    t.string "name"
+    t.integer "number"
+    t.date "vto"
+    t.integer "cvv"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "reports", force: :cascade do |t|
     t.string "title"
     t.string "description"
@@ -79,9 +90,9 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_10_040413) do
     t.string "name"
     t.string "surname"
     t.string "dni"
-    t.string "email"
     t.boolean "habilitado"
     t.boolean "borrado"
+    t.string "contact"
   end
 
   create_table "users", force: :cascade do |t|
@@ -116,6 +127,10 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_10_040413) do
     t.integer "send_license"
   end
 
-  add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  create_table "wallets", force: :cascade do |t|
+    t.float "saldo"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
 end

@@ -18,7 +18,9 @@ class UsuariosController < ApplicationController
 
   # GET /usuarios/1/edit
   def edit
-    
+
+    @usuario = Usuario.find(params[:id])
+
   end
 
   # POST /usuarios or /usuarios.json
@@ -57,8 +59,8 @@ class UsuariosController < ApplicationController
     respond_to do |format|
       @usuario.send_license = 1 #Establece el valor del status del envio de la licencia
       if @usuario.update(usuario_params)
-        format.html { redirect_to usuario_url(@usuario), notice: "Usuario was successfully updated." }
-        format.json { render :edit_user_registration, status: :ok, location: @usuario }
+        format.html { redirect_to autos_path, notice: "Perfil actualizado exitosamente" }
+        format.json { render autos_path, status: :ok, location: @usuario }
       else
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @usuario.errors, status: :unprocessable_entity }
