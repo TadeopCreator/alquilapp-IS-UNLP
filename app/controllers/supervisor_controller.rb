@@ -1,13 +1,14 @@
 class SupervisorController < ApplicationController
 
 
+
   def aceptar
     attributes = {}
     attributes[:send_license] = 0
     attributes[:enable] = true
     @usuario = Usuario.find(params[:id])
     @usuario.update(attributes)
-    redirect_to :supervisors
+    redirect_to :supervisors, notice: "Se ha aceptado la validación con éxito"
   end
 
   def rechazar
@@ -16,7 +17,7 @@ class SupervisorController < ApplicationController
     attributes[:enable] = false
     @usuario = Usuario.find(params[:id])
     @usuario.update(attributes)
-    redirect_to :supervisors
+    redirect_to :supervisors, notice: "Se ha rechazado la validación con éxito"
   end
   
   def dashboard

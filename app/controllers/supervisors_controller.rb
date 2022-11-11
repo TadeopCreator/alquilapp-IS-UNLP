@@ -2,6 +2,8 @@ class SupervisorsController < ApplicationController
   before_action :set_supervisor, only: %i[ show edit update destroy ]
 
 
+  def licencias
+  end
 
   # GET /supervisors or /supervisors.json
   def index
