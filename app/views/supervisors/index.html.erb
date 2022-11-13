@@ -54,9 +54,11 @@
     </thead>
     <tbody>
     <% @usuarios = Usuario.all %>
+      <% noEntro = true %>
     <% @usuarios.each do |usuario| %>      
       <%# <%= usuario.name %> <%# Debemos de cambiar esto, ya que solo me interesa en a lista dos cosas pero me cabia todo en detalles%>
       <% if usuario.send_license == 1%>
+        <% noEntro = false %>
       <div id="<%= dom_id usuario %>">
         <tr>
            <td><%= usuario.name %></td>
@@ -70,6 +72,16 @@
       </div> 
        <%end%>
     <% end %>
+       <% if (noEntro) %>
+       <td><h3>No hay validaciones pendientes</h3></td>
+       <td></td>
+       <td></td>
+       <td></td>
+       <td></td>
+       <td></td>
+       <td></td>
+       <td></td>
+       <% end %>
     </tbody>
 </table>
 </div>
