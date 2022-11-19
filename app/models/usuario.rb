@@ -9,7 +9,7 @@ class Usuario < ApplicationRecord
     end
 
     def expirada     
-        if (date_licence.year =< 0.years.ago.year)
+        if (date_licence.year <= 0.years.ago.year)
             errors.add(:date_licence, "Expiro licencia")      
         end
     end

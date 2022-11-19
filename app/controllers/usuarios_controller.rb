@@ -25,8 +25,8 @@ class UsuariosController < ApplicationController
 
   # POST /usuarios or /usuarios.json
   def create
-    @usuario = Usuario.new(usuario_params)    
-    #puts("asjkdfhasdjkfhjklasdhfdjkashjkasdfhkldahfjkasdhfjkashdjkfahsdjkfhasdfhaksjdfhkasdfjklasdhfasdfcreate: ", @usuario.to_s)
+    @usuario = Usuario.new(usuario_params)
+    @usuario.send_license = 1
 
       if @usuario.save
         redirect_to new_user_registration_path
