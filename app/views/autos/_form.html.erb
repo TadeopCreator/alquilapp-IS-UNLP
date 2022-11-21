@@ -1,15 +1,4 @@
 <%= form_with(model: auto) do |form| %>
-  <% if auto.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(auto.errors.count, "error") %> prohibited this auto from being saved:</h2>
-
-      <ul>
-        <% auto.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
 
 <div class="row">
 <div class="col-4">
