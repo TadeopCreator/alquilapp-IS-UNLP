@@ -27,33 +27,83 @@ class SupervisorsController < ApplicationController
   # POST /supervisors or /supervisors.json
   def create
 
+    error = false
+
     sql = "SELECT * FROM supervisors WHERE contact='" + supervisor_params[:contact] + "'"
     records_array = ActiveRecord::Base.connection.execute(sql)
 
     if (records_array != [])
+      error = true
       flash[:notice] = 'Ya existe un supervisor con ese email'
+    end
+
+    # Crea el user del devise con el rol de supervisor para validar si el email es invalido
+    @user = User.create(:email => supervisor_params[:contact], :password => 'abc123', :role => :supervisor)
+
+    if (@user.errors.any?)
+      error = true
+      @user.errors.each do |error|
+        if (error.full_message == "Email is invalid")
+          flash[:alert] = 'Email inválido'          
+        end
+      end
+    end
+
+    if (error)
       redirect_to new_supervisor_path
       return
     end
-
-    @supervisor = Supervisor.new(:name => supervisor_params[:name], :surname => supervisor_params[:surname], :dni => supervisor_params[:dni], :contact => supervisor_params[:contact], :borrado => supervisor_params[:borrado], :habilitado => supervisor_params[:habilitado])
-
+    
+    # Crea el supervisor
+    @supervisor = Supervisor.new(:name => supervisor_params[:name], :surname => supervisor_params[:surname], :dni => supervisor_params[:dni], :contact => supervisor_params[:contact], :borrado => supervisor_params[:borrado], :habilitado => supervisor_params[:habilitado])    
+    
     respond_to do |format|
       if @supervisor.save
+        # Si pudo crear el usuario validando q el email no este repetido y creo el supervisor, es hora de actualizar el rol_id
+        # con el id del supervisor creado
+        attributes = {}
+        attributes[:id_rol] = @supervisor[:id]
+
+        @user.update(attributes)
+
         format.html { redirect_to admin_supervisores_path, notice: "Supervisor creado correctamente. Su contraseña de ingreso es: 'abc123'. Podrá cambiarla iniciando sesión" }
         format.json { render :show, status: :created, location: @supervisor }
       else
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @supervisor.errors, status: :unprocessable_entity }
       end
-    end
+    end    
+  end
 
-    # Crea el user del devise con el rol de supervisor
-    user = User.create!(:email => @supervisor.contact, :password => 'abc123', :role => :supervisor, :id_rol => @supervisor.id)
+  def is_a_valid_email?(email)
+    email =~ URI::MailTo::EMAIL_REGEXP
   end
 
   # PATCH/PUT /supervisors/1 or /supervisors/1.json
   def update
+
+    error = false
+
+    # Validacion que el email no esta repetido
+    sql = "SELECT * FROM supervisors WHERE contact='" + supervisor_params[:contact] + "' AND id <> '" + @supervisor.id.to_s + "'"
+    records_array = ActiveRecord::Base.connection.execute(sql)
+
+    if (records_array != [])
+      error = true
+      flash[:notice] = 'Ya existe un supervisor con ese email'
+    end
+    
+    # Validacion que el email tiene un buen formato
+    if not (is_a_valid_email?(supervisor_params[:contact]))
+      error = true
+      flash[:alert] = 'Email inválido' 
+    end
+
+    if (error)
+      redirect_to new_supervisor_path
+      return
+    end
+
     respond_to do |format|
       if @supervisor.update(supervisor_params)
         format.html { redirect_to admin_supervisores_path, notice: "Supervisor actualizado correctamente" }
