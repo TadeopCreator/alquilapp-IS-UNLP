@@ -40,7 +40,6 @@
           <th scope="col">Color</th>
           <th scope="col">Alquilado</th>
           <th scope="col">Habilitado</th>
-          <th scope="col">Borrado</th>
           <th scope="col">Longitud</th>
           <th scope="col">Latitud</th>
           <th scope="col"></th>
@@ -49,8 +48,10 @@
       </thead>
       <tbody>
       <% @autos = Auto.all %>
-      <% @autos.each do |auto| %>      
-        <%= render auto %>
+      <% @autos.each do |auto| %>
+        <% if not auto.borrado %>   
+          <%= render auto %>
+        <% end %>
       <% end %>
       </tbody>
   </table>
