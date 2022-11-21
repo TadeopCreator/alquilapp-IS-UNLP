@@ -18,9 +18,7 @@ class UsuariosController < ApplicationController
 
   # GET /usuarios/1/edit
   def edit
-
     @usuario = Usuario.find(params[:id])
-
   end
 
   # POST /usuarios or /usuarios.json
@@ -62,6 +60,22 @@ class UsuariosController < ApplicationController
         format.html { redirect_to autos_path, notice: "Perfil actualizado exitosamente" }
         format.json { render autos_path, status: :ok, location: @usuario }
       else
+        error = @usuario.errors.where(:birthdate).last
+        error2 = @usuario.errors.where(:date_licence).last     
+    
+        if (error != nil)
+          if (error.type == "Es menor de edad")
+            flash[:notice] = 'No cuentas con la edad mínima para conducir en la Argentina'
+          end
+        end
+    
+        if (error2 != nil)
+          if (error2.type == "Expiro licencia")
+            flash[:notice] = 'Licencia de conducir expirada'
+          end
+        end
+        
+        #redirect_to edit_usuario_path
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @usuario.errors, status: :unprocessable_entity }
       end
