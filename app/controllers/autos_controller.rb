@@ -29,6 +29,18 @@ class AutosController < ApplicationController
         format.html { redirect_to admin_vehiculos_path, notice: "El vehículo ha sido creado" }
         format.json { render :show, status: :created, location: @auto }
       else
+        if @auto.errors.any?
+          @auto.errors.each do |error|
+            if (error.full_message == "Num rel has already been taken")
+              flash[:notice] = 'Error al agregar vehículo, numero relativo repetido'
+            end
+
+            if (error.full_message == "Patente has already been taken")
+              flash[:alert] = 'Error al agregar vehículo, patente repetida'
+            end
+          end
+        end
+
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @auto.errors, status: :unprocessable_entity }
       end
@@ -42,6 +54,18 @@ class AutosController < ApplicationController
         format.html { redirect_to admin_vehiculos_path, notice: "El vehículo ha sido actualizado correctamente" }
         format.json { render :show, status: :ok, location: @auto }
       else
+        if @auto.errors.any?
+          @auto.errors.each do |error|
+            if (error.full_message == "Num rel has already been taken")
+              flash[:notice] = 'Error al agregar vehículo, numero relativo repetido'
+            end
+
+            if (error.full_message == "Patente has already been taken")
+              flash[:alert] = 'Error al agregar vehículo, patente repetida'
+            end
+          end
+        end
+
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @auto.errors, status: :unprocessable_entity }
       end

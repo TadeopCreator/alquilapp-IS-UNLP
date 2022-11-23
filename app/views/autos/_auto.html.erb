@@ -7,37 +7,28 @@
       <td><%= auto.marca %></td>
       <td><%= auto.modelo %></td>
       <td><%= auto.color %></td>
-      <% if user_signed_in? && current_user.admin? %>
-        <td>
-          <% if auto.alquilado %>
-            ALQUILADO
-          <% else %>
-            SIN ALQUILAR
-          <% end %>
-        </td>
-        <td>
-          <% if auto.habilitado %>
-            HABILITADO
-          <% else %>
-            NO HABILITADO
-          <% end %>
-        </td>
-        <td>
-          <% if auto.borrado %>
-            BORRADO
-          <% else %>
-            NO
-          <% end %>
-        </td>
+      <% if user_signed_in? && current_user.admin? %>        
+          <td>
+            <% if auto.alquilado %>
+              ALQUILADO
+            <% else %>
+              SIN ALQUILAR
+            <% end %>
+          </td>
+          <td>
+            <% if auto.habilitado %>
+              HABILITADO
+            <% else %>
+              NO HABILITADO
+            <% end %>
+          </td>
       <% end %>
       <td><%= auto.lon %></td>
       <td><%= auto.lat %></td>
       <td>
-      <a <%= link_to "Detalles", auto_path(auto), class:"btn btn-outline-dark disabled" %> 
-      </a>
+      <a <%= link_to "Detalles", auto_path(auto), class:"btn btn-outline-dark disabled" %> </a>
       <% if user_signed_in? && current_user.admin? %>
-        <a <%= link_to "Editar", edit_auto_path(auto), class:"btn btn-outline-dark" %>
-        </a>
+        <a <%= link_to "Editar", edit_auto_path(auto), class:"btn btn-outline-dark" %></a>
       </td>
       <% end %>
       </td>

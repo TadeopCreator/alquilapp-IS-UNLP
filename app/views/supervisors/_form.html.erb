@@ -1,15 +1,4 @@
 <%= form_with(model: supervisor) do |form| %>
-  <% if supervisor.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(supervisor.errors.count, "error") %> prohibited this supervisor from being saved:</h2>
-
-      <ul>
-        <% supervisor.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
 
   <div class="col-6">
     <%= form.label :'Nombre'%><%= form.text_field :name,  class: "form-control mb-2" %>
