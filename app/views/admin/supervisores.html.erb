@@ -40,16 +40,16 @@
         <th scope="col">DNI</th>
         <th scope="col">Contacto</th>
         <th scope="col">Habilitado</th>
-        <th scope="col">Borrado</th>
-        <th scope="col"></th>
         <th scope="col"></th>
       </tr>
     </thead>
     <tbody>
     <% @supervisors = Supervisor.all %>
-    <% @supervisors.each do |supervisor| %>      
-      <%= render supervisor %> 
-    <% end %>
+      <% @supervisors.each do |supervisor| %>
+        <% if not supervisor.borrado %>   
+          <%= render supervisor %>
+        <% end %>
+      <% end %>
     </tbody>
 </table>
 </div>
