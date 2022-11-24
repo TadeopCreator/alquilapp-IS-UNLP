@@ -3,6 +3,7 @@
 <div class="row">
 <div class="col-4">
 
+<% if (current_user.admin?)  %>
 <div class="col-md-8 mb-3">
   <div>
     Numero relativo <% form.label :num_rel, style: "display: block" %>
@@ -37,24 +38,21 @@
     <%= form.text_field :color, class:"form-control" %>
   </div>
 </div>
+<% end %>
 
 </div>
 <div class="col-6">
 
+<% if (current_user.supervisor?)  %>
 <div class="col-md-6 mb-3">
   <div>
     <%= form.label :habilitado, style: "display: block", class:"form-check-label" %>
     <%= form.check_box :habilitado, class:"form-check-input" %>
   </div>
 </div>
+<% end %>
 
-<div class="col-md-6 mb-3">
-  <div>
-    <%= form.label :borrado, style: "display: block", class:"form-check-label" %>
-    <%= form.check_box :borrado, class:"form-check-input" %>
-  </div>
-</div>
-
+<% if (current_user.admin?)  %>
 <div class="col-md-6 mb-3">
   <div>
     Longitud<% form.label :lon, style: "display: block" %>
@@ -68,10 +66,17 @@
     <%= form.text_field :lat, class:"form-control" %>
   </div>
 </div>
+<% end %>
 
 <div class="row">
+  <% if (current_user.admin?)  %>
+    <div class="col-2">
+      <%= link_to "Eliminar", admin_eliminar_vehiculo_path(@auto), class:'btn btn-danger text-white' %>
+    </div>
+  <% end %>
+  
   <div class="col-2">
-      <button class='btn bg-color-alquilapp text-white' <%= form.submit %>Guardar</button>
+    <button class='btn bg-color-alquilapp text-white' <%= form.submit %>Guardar</button>
   </div>
 </div>
 

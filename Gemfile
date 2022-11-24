@@ -14,7 +14,7 @@ gem "sqlite3", "~> 1.4"
 
 gem 'shrine', '~> 3.3'
 gem 'image_processing', '~> 1.12', '>= 1.12.1'
-
+gem 'figaro'
 gem "devise", github: "heartcombo/devise", ref: "f8d1ea90bc3"
 
 # Use the Puma web server [https://github.com/puma/puma]
