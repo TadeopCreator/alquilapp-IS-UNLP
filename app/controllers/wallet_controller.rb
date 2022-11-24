@@ -1,5 +1,10 @@
 class WalletController < ApplicationController
+before_action :authenticate_user!
+
     def show
+        unless (user_signed_in? && current_user.user?)
+            redirect_to new_user_session_path
+        end
         user_ID = current_user.id
         sql = "SELECT * FROM users WHERE id='" + user_ID.to_s + "'"
         records_array = ActiveRecord::Base.connection.execute(sql)

@@ -27,6 +27,64 @@ class AdminController < ApplicationController
     end
   end
 
+  def eliminar_vehiculo
+    unless current_user.admin?
+      redirect_to new_user_session_path
+    end
+
+    # Tomo el id ddel auto a eliminar
+    auto_ID = params[:format]
+
+    # Tomo al auto de acuerdo al auto_ID del Auto
+    @auto = Auto.find(auto_ID.to_s)
+    
+    if (@auto[:alquilado])
+      flash[:notice] = 'El vehículo no puede ser eliminado porque esta siendo utilizado'
+      redirect_to edit_auto_path(@auto.id)
+    else
+      attributes = {}
+      attributes[:borrado] = true
+
+      @auto.update(attributes)
+
+      # Redireccionamiento y mensaje
+      flash[:notice] = 'Vehículo eliminado exitosamente'
+      redirect_to admin_vehiculos_path
+    end
+  end
+
+  def eliminar_supervisor
+    unless current_user.admin?
+      redirect_to new_user_session_path
+    end
+
+    # Tomo el id ddel auto a eliminar
+    supervisor_ID = params[:format]
+
+    # Tomo al auto de acuerdo al supervisor_ID del Supervisor
+    @supervisor = Supervisor.find(supervisor_ID.to_s)
+
+    attributes = {}
+    attributes[:borrado] = true
+
+    # Marco el Supervisor como borrado
+    @supervisor.update(attributes)
+
+    sql = "SELECT * FROM users WHERE id_rol='" + supervisor_ID.to_s + "'"
+    records_array = ActiveRecord::Base.connection.execute(sql)
+    id_user = records_array[0]["id"]
+
+    # Tomo al user de acuerdo al user_ID del User
+    @user = User.find(id_user.to_s)
+
+    # Destruye al user
+    @user.destroy
+
+    # Redireccionamiento y mensaje
+    flash[:notice] = 'Supervisor eliminado exitosamente'
+    redirect_to admin_supervisores_path
+  end
+
   def add_supervisor
     unless current_user.admin?
       redirect_to new_user_session_path

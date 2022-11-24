@@ -18,7 +18,7 @@
 <div><%= link_to 'Nuevo vehículo', new_auto_path, class:"btn btn-outline-primary" %></div>
 
 <% if Auto.all == [] %>
-  <div class="my-3 p-4 border border-2 border-dark rounded">
+  <div class="my-3 p-4 border border border-secondary rounded">
     <div class="col-12 text-start">
         <div class="text-start">
           Aún no hay vehículos
@@ -29,7 +29,7 @@
     </div>        
   </div>
 <% else %>
-  <div id="autos" class="my-3 p-4 border border-2 border-dark rounded">
+  <div id="autos" class="my-3 p-4 border border border-secondary rounded">
     <table class="table">
       <thead>
         <tr>
