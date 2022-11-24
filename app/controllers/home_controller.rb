@@ -3,7 +3,7 @@ require 'net/https'
 
 class HomeController < ApplicationController
   def index
-    #make_abstract_request()
+    make_abstract_request()
   end
 
 

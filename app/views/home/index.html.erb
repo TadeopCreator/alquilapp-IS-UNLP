@@ -90,27 +90,4 @@
             </div>
         </div>
         </div>
-  </div> 
-  <div id="my-map" style="width: 600px; height: 400px; position: relative;"></div>
-        <script>
-            // create a map
-            const map = L.map('my-map').setView([-34.9212720014385, -57.95469262045519], 14);
-            // cordenadas La Plata: -34.9212720014385, -57.95469262045519
-            
-            // Retina displays require different mat tiles quality
-            const isRetina = L.Browser.retina;
-
-            const marker = L.marker([-34.9212720014385, -57.96]).addTo(map)
-		    .bindPopup('<b>Vehiculo 1</b><br />Toyota blanco').openPopup();
-
-            const baseUrl = "https://maps.geoapify.com/v1/tile/osm-bright/{z}/{x}/{y}.png?apiKey=f1922b60cc5a482d9e944c4118d55f06";
-            const retinaUrl = "https://maps.geoapify.com/v1/tile/osm-bright/{z}/{x}/{y}@2x.png?apiKey=f1922b60cc5a482d9e944c4118d55f06";
-
-            // Add map tiles layer. Set 20 as the maximal zoom and provide map data attribution.
-            L.tileLayer(isRetina ? retinaUrl : baseUrl, {
-                attribution: 'Powered by <a href="https://www.geoapify.com/" target="_blank">Geoapify</a> | <a href="https://openmaptiles.org/" target="_blank">© OpenMapTiles</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">© OpenStreetMap</a>',
-                apiKey: 'f1922b60cc5a482d9e944c4118d55f06',
-                maxZoom: 20,
-                id: 'osm-bright',
-            }).addTo(map);
-        </script>
+  </div>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_24_164528) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_24_215854) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -57,7 +57,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_24_164528) do
     t.string "color"
     t.boolean "alquilado", default: false
     t.boolean "habilitado"
-    t.boolean "borrado"
+    t.boolean "borrado", default: false
     t.decimal "lon"
     t.decimal "lat"
     t.datetime "created_at", null: false
