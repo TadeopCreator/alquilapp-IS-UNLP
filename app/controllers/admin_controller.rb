@@ -27,6 +27,27 @@ class AdminController < ApplicationController
     end
   end
 
+  def eliminar_vehiculo
+    unless current_user.admin?
+      redirect_to new_user_session_path
+    end
+
+    # Tomo el id ddel auto a eliminar
+    auto_ID = params[:format]
+
+    # Tomo al auto de acuerdo al auto_ID del Auto
+    @auto = Auto.find(auto_ID.to_s)
+
+    attributes = {}
+    attributes[:borrado] = true
+
+    @auto.update(attributes)   
+
+    # Redireccionamiento y mensaje
+    flash[:notice] = 'El vehículo ha sido actualizado correctamente'
+    redirect_to admin_vehiculos_path
+  end
+
   def add_supervisor
     unless current_user.admin?
       redirect_to new_user_session_path

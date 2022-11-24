@@ -1,13 +1,13 @@
 <div id="<%= dom_id auto %>">
     <tr>
-    <% if user_signed_in? && current_user.admin? %>
+    <% if user_signed_in? %>
       <td><%= auto.num_rel %></td>
     <% end %>
       <td><%= auto.patente %></td>
       <td><%= auto.marca %></td>
       <td><%= auto.modelo %></td>
       <td><%= auto.color %></td>
-      <% if user_signed_in? && current_user.admin? %>        
+      <% if user_signed_in? %>        
           <td>
             <% if auto.alquilado %>
               ALQUILADO
@@ -26,8 +26,8 @@
       <td><%= auto.lon %></td>
       <td><%= auto.lat %></td>
       <td>
-      <a <%= link_to "Detalles", auto_path(auto), class:"btn btn-outline-dark disabled" %> </a>
-      <% if user_signed_in? && current_user.admin? %>
+      <a <%= link_to "Detalles", auto_path(auto), class:"btn btn-outline-dark" %> </a>
+      <% if user_signed_in? %>
         <a <%= link_to "Editar", edit_auto_path(auto), class:"btn btn-outline-dark" %></a>
       </td>
       <% end %>

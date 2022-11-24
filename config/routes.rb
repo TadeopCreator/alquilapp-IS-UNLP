@@ -19,6 +19,8 @@ Rails.application.routes.draw do
   get 'admin/add_supervisor'
   get 'terminos_condiciones/show'
 
+  get 'admin/eliminar_vehiculo'
+
   # rails routes to seee all the routes in the app
   root 'home#index'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
