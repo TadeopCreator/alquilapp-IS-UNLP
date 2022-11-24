@@ -13,14 +13,13 @@
       </div>
     </div>
 
-    <div class="col-md-6 mb-3">
-      <div>
-        <%= form.label :borrado, style: "display: block", class:"form-check-label" %>
-        <%= form.check_box :borrado, class:"form-check-input" %>
+    <div class="row">
+      <div class="col-2">
+        <%= link_to "Eliminar", admin_eliminar_supervisor_path(@supervisor), class:'btn btn-danger text-white' %>
+      </div>
+      <div class="col-2">
+        <button class='btn bg-color-alquilapp text-white' <%= form.submit %>Guardar</button>
       </div>
     </div>
-
-    <button class='btn bg-color-alquilapp text-white' <%= form.submit %>Guardar</button>
-
   </div>
 <% end %>

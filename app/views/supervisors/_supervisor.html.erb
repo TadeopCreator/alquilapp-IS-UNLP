@@ -11,16 +11,7 @@
            NO HABILITADO
           <% end %>
      </td>
-          <td>
-               <% if supervisor.borrado %>
-               BORRADO
-          <% else %>
-               NO BORRADO
-               <% end %>
-        </td> 
       <td>
-      <a <%= link_to "Detalles", supervisor_path(supervisor), class:"btn btn-outline-dark disabled" %>
-      </a>
       <a <%= link_to "Editar", edit_supervisor_path(supervisor), class:"btn btn-outline-dark" %>
       </a>
       </td>

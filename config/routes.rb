@@ -20,6 +20,7 @@ Rails.application.routes.draw do
   get 'terminos_condiciones/show'
 
   get 'admin/eliminar_vehiculo'
+  get 'admin/eliminar_supervisor'
 
   # rails routes to seee all the routes in the app
   root 'home#index'
