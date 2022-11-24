@@ -19,6 +19,7 @@ class UsuariosController < ApplicationController
   # GET /usuarios/1/edit
   def edit
     @usuario = Usuario.find(params[:id])
+    @foto = @usuario.image.original_filename
   end
 
   # POST /usuarios or /usuarios.json
@@ -55,7 +56,11 @@ class UsuariosController < ApplicationController
   # PATCH/PUT /usuarios/1 or /usuarios/1.json
   def update
     respond_to do |format|
-      @usuario.send_license = 1 #Establece el valor del status del envio de la licencia
+      original_imagen = @usuario.image.original_filename
+      nueva_imagen = params[:usuario][:image].original_filename
+      if (original_imagen != nueva_imagen) && (@usuario.errors.where(:date_licence).last == nil)
+        @usuario.send_license = 1 #Establece el valor del status del envio de la licencia
+      end 
       if @usuario.update(usuario_params)
         format.html { redirect_to autos_path, notice: "Perfil actualizado exitosamente" }
         format.json { render autos_path, status: :ok, location: @usuario }
