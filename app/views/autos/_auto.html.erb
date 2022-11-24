@@ -1,13 +1,13 @@
 <div id="<%= dom_id auto %>">
     <tr>
-    <% if user_signed_in? %>
+    <% if user_signed_in? && !current_user.user? %>
       <td><%= auto.num_rel %></td>
     <% end %>
       <td><%= auto.patente %></td>
       <td><%= auto.marca %></td>
       <td><%= auto.modelo %></td>
       <td><%= auto.color %></td>
-      <% if user_signed_in? %>        
+      <% if user_signed_in? && !current_user.user? %>
           <td>
             <% if auto.alquilado %>
               ALQUILADO

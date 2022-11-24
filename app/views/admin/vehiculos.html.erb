@@ -17,7 +17,15 @@
 
 <div><%= link_to 'Nuevo vehículo', new_auto_path, class:"btn btn-outline-primary" %></div>
 
-<% if Auto.all == [] %>
+<% @autos = Auto.all %>
+<% entra = false %>
+  <% @autos.each do |auto| %>
+    <% if not auto.borrado %>
+      <% entra = true %>
+    <% end %>
+<% end %>
+
+<% if Auto.all == [] || !entra %>
   <div class="my-3 p-4 border border border-secondary rounded">
     <div class="col-12 text-start">
         <div class="text-start">
