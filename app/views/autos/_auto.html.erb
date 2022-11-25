@@ -3,10 +3,29 @@
     <% if user_signed_in? && !current_user.user? %>
       <td><%= auto.num_rel %></td>
     <% end %>
-      <td><%= auto.patente %></td>
-      <td><%= auto.marca %></td>
-      <td><%= auto.modelo %></td>
-      <td><%= auto.color %></td>
+    <div class="row justify-content-center">
+      <div class="col-4"> 
+        <div>
+          Nombre: <% auto.patente %> <br/>
+        </div>
+      </div>
+    </div>
+    <p>
+    <strong>Patente:</strong>
+    <%= auto.patente %>
+    </p>
+    <p>
+    <strong>Marca:</strong>
+    <%= auto.marca %>
+    </p>
+    <p>
+    <strong>Modelo:</strong>
+    <%= auto.modelo %>
+    </p>
+    <p>
+    <strong>Color:</strong>
+    <%= auto.color %>
+    </p>
       <% if user_signed_in? && !current_user.user? %>
           <td>
             <% if auto.alquilado %>
@@ -23,14 +42,9 @@
             <% end %>
           </td>
       <% end %>
-      <td><%= auto.lon %></td>
-      <td><%= auto.lat %></td>
-      <td>
-      <% if user_signed_in? %>
-        <a <%= link_to "Editar", edit_auto_path(auto), class:"btn btn-outline-dark" %></a>
-      </td>
-      <% end %>
-      </td>
+      
+      <button type="button" class="btn btn-warning">Alquilar</button>
+      
     </tr>
 </div>
 
