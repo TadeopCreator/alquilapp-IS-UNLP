@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  ID_usr: 1
+  ID_auto: 1
+  Fin: 2022-11-25
+  TiempoAlquilado: 1
+  Precio: 1.5
+  Pextra: 1.5
+  Multa: false
+
+two:
+  ID_usr: 1
+  ID_auto: 1
+  Fin: 2022-11-25
+  TiempoAlquilado: 1
+  Precio: 1.5
+  Pextra: 1.5
+  Multa: false
