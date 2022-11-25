@@ -4,7 +4,7 @@ class CreateGlobals < ActiveRecord::Migration[7.0]
       t.float :monto_auto
       t.float :monto_multa
       t.integer :cooldown
-      t.integer :timepo_multa
+      t.integer :tiempo_multa
 
       t.timestamps
     end
