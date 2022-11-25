@@ -26,7 +26,7 @@
 
             <% while (i < cantidad) %>
               L.marker([<%= @autos[i].lat %>, <%= @autos[i].lon %>]).addTo(map)
-		          .bindPopup('<b><%= @autos[i].patente %></b><br /><%= @autos[i].marca %> <%= @autos[i].color %> </br> <a <%= link_to "Detalles", auto_path(@autos[i]), class:"btn btn-outline-dark" %></a>').openPopup();
+		          .bindPopup('<b><%= @autos[i].patente %></b><br /><%= @autos[i].marca %> </br> <a <%= link_to "Ver más", auto_path(@autos[i]), class:"btn btn-outline-dark" %></a>').openPopup();
               <% i = i + 1 %>
             <% end %>
             
