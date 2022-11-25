@@ -37,7 +37,7 @@
               <% sum = dif_lat.abs() + dif_lon.abs() %>              
               <% if (sum <= 0.008) %>
                 L.marker([<%= @autos_disponibles[i].lat %>, <%= @autos_disponibles[i].lon %>]).addTo(map)
-                .bindPopup('<b><%= @autos_disponibles[i].patente %></b><br /><%= @autos_disponibles[i].marca %> <%= @autos_disponibles[i].color %> </br> <a <%= link_to "Detalles", auto_path(@autos[i]), class:"m-2 btn btn-outline-dark" %></a>').openPopup();
+                .bindPopup('<b><%= @autos_disponibles[i].patente %></b><br /><%= @autos_disponibles[i].marca %> </br> <a <%= link_to "Detalles", auto_path(@autos[i]), class:"m-2 btn btn-outline-dark" %></a>').openPopup();
               <% end %>
               <% i = i + 1 %>
             <% end %>
