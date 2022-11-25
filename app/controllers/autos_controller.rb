@@ -1,3 +1,6 @@
+require 'net/http'
+require 'net/https'
+
 class AutosController < ApplicationController
   before_action :authenticate_user!
   before_action :set_auto, only: %i[ show edit update destroy ]
@@ -5,7 +8,28 @@ class AutosController < ApplicationController
   # GET /autos or /autos.json
   def index
     @autos = Auto.all
+
+    make_abstract_request()    
   end
+
+  def make_abstract_request
+    url = 'https://ipgeolocation.abstractapi.com/v1/?api_key=' + ENV['ABSTRACT_API_KEY']
+    uri = URI(url)
+    http = Net::HTTP.new(uri.host, uri.port)
+    http.use_ssl = true
+    http.verify_mode = OpenSSL::SSL::VERIFY_PEER
+
+    request =  Net::HTTP::Get.new(uri)
+
+    response = http.request(request)
+
+    response = JSON.parse(response.body)
+    @lon = response["longitude"]
+    @lat = response["latitude"]
+
+rescue StandardError => error
+    puts "Error (#{ error.message })"
+end
 
   # GET /autos/1 or /autos/1.json
   def show
