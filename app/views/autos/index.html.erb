@@ -3,10 +3,12 @@
 <% @autos = Auto.all %>
 <% entra = false %>
 <% cantidad = 0 %>
+<% @autos_disponibles = [] %>
   <% @autos.each do |auto| %>
     <% if (!auto.borrado && auto.habilitado) %>
       <% entra = true %>
       <% cantidad = cantidad + 1 %>
+      <% @autos_disponibles.append(auto) %>
     <% end %>    
 <% end %>
 
@@ -16,25 +18,39 @@
   </div>
 <% end %>
 <div class="d-flex aligns-items-center justify-content-center">
-  <div id="my-map" class="border border-secondary rounded" style="width: 800px; height: 500px; position: relative;"></div>
+  <div id="my-map" class="border border-secondary rounded" style="width: 1000px; height: 600px; position: relative;"></div>
         <script>
             // create a map
-            const map = L.map('my-map').setView([-34.9212720014385, -57.95469262045519], 14);
-            // cordenadas La Plata: -34.9212720014385, -57.95469262045519
+            var map = L.map('my-map').setView([<%= @lat %>, <%= @lon %>], 16);
+            // cordenadas La Plata: -34.9212720014385, -57.95469262045519        
 
             <% i = 0 %>
+            <% dif_lat = 0 %>
+            <% dif_lon = 0 %>
+            <% sum = 0 %>
+            <% puts("Lon: ", @lon) %>
+            <% puts("Lat: ", @lat) %>
 
             <% while (i < cantidad) %>
-              L.marker([<%= @autos[i].lat %>, <%= @autos[i].lon %>]).addTo(map)
-		          .bindPopup('<b><%= @autos[i].patente %></b><br /><%= @autos[i].marca %> <%= @autos[i].color %> </br> <a <%= link_to "Detalles", auto_path(@autos[i]), class:"btn btn-outline-dark" %></a>').openPopup();
+              <% dif_lat = @lat - @autos_disponibles[i].lat %>
+              <% dif_lon = @lon - @autos_disponibles[i].lon %>
+              <% sum = dif_lat.abs() + dif_lon.abs() %>              
+              <% if (sum <= 0.008) %>
+                L.marker([<%= @autos_disponibles[i].lat %>, <%= @autos_disponibles[i].lon %>]).addTo(map)
+                .bindPopup('<b><%= @autos_disponibles[i].patente %></b><br /><%= @autos_disponibles[i].marca %> <%= @autos_disponibles[i].color %> </br> <a <%= link_to "Detalles", auto_path(@autos[i]), class:"m-2 btn btn-outline-dark" %></a>').openPopup();
+              <% end %>
               <% i = i + 1 %>
             <% end %>
+
+            // Coordenas del usuario
+            L.marker([<%= @lat %>, <%= @lon %>]).addTo(map)
+		        .bindPopup('<h6>Usted</h6>').openPopup();
             
             // Retina displays require different mat tiles quality
-            const isRetina = L.Browser.retina;            
+            var isRetina = L.Browser.retina;                    
 
-            const baseUrl = "https://maps.geoapify.com/v1/tile/osm-bright/{z}/{x}/{y}.png?apiKey=f1922b60cc5a482d9e944c4118d55f06";
-            const retinaUrl = "https://maps.geoapify.com/v1/tile/osm-bright/{z}/{x}/{y}@2x.png?apiKey=f1922b60cc5a482d9e944c4118d55f06";
+            var baseUrl = "https://maps.geoapify.com/v1/tile/osm-bright/{z}/{x}/{y}.png?apiKey=f1922b60cc5a482d9e944c4118d55f06";
+            var retinaUrl = "https://maps.geoapify.com/v1/tile/osm-bright/{z}/{x}/{y}@2x.png?apiKey=f1922b60cc5a482d9e944c4118d55f06";
 
             // Add map tiles layer. Set 20 as the maximal zoom and provide map data attribution.
             L.tileLayer(isRetina ? retinaUrl : baseUrl, {
