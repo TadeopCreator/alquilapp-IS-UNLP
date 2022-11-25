@@ -1,8 +1,56 @@
 <h3>Detalles</h3>
 <br>
-<%= render @auto %>
+ <tr>
+    <% if user_signed_in? && !current_user.user? %>
+      <td><%= auto.num_rel %></td>
+    <% end %>
+    <div class="row justify-content-center">
+      <div class="col-4"> 
+        <div>
+          Nombre: <% auto.patente %> <br/>
+        </div>
+      </div>
+    </div>
+    <p>
+    <strong>Patente:</strong>
+    <%= auto.patente %>
+    </p>
+    <p>
+    <strong>Marca:</strong>
+    <%= auto.marca %>
+    </p>
+    <p>
+    <strong>Modelo:</strong>
+    <%= auto.modelo %>
+    </p>
+    <p>
+    <strong>Color:</strong>
+    <%= auto.color %>
+    </p>
+      <% if user_signed_in? && !current_user.user? %>
+          <td>
+            <% if auto.alquilado %>
+              ALQUILADO
+            <% else %>
+              SIN ALQUILAR
+            <% end %>
+          </td>
+          <td>
+            <% if auto.habilitado %>
+              HABILITADO
+            <% else %>
+              NO HABILITADO
+            <% end %>
+          </td>
+      <% end %>
+      
+      
+      
+    </tr>
+</div>
 
 <div>
 <br>
+  <button type="button" class="btn btn-warning">Alquilar</button>
   <%= link_to "Atrás", :back, class:"btn btn-outline-primary"  %>
 </div>
