@@ -1,8 +1,42 @@
-<h3>Detalles</h3>
+<h3 class="row justify-content-center">Detalles</h3>
 <br>
-<%= render @auto %>
-
+<div class="row justify-content-center">
+      <div class="col-4"> 
+        <div>
+         <b> Patente: </b> <%= @auto.patente %> <br/>
+        </div>
+      </div>
+    </div>
 <div>
 <br>
+<div class="row justify-content-center">
+      <div class="col-4"> 
+        <div>
+         <b> Marca: </b> <%= @auto.marca %> <br/>
+        </div>
+      </div>
+    </div>
+<div>
+<br>
+<div class="row justify-content-center">
+      <div class="col-4"> 
+        <div>
+          <b>Modelo:</b> <%= @auto.modelo %> <br/>
+        </div>
+      </div>
+    </div>
+<div>
+<br>
+<div class="row justify-content-center">
+      <div class="col-4"> 
+        <div>
+         <b> Color: </b> <%= @auto.color %> <br/>
+        </div>
+      </div>
+    </div>
+<br>
+ <div class="col-md-12 text-center">
+  <button type="button" class="btn btn-warning">Alquilar</button>
+ </div>
+<br>
   <%= link_to "Atrás", :back, class:"btn btn-outline-primary"  %>
-</div>
