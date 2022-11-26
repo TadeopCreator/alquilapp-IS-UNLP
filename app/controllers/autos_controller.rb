@@ -39,6 +39,7 @@ end
   # GET /autos/new
   def new
     @auto = Auto.new
+    make_abstract_request() 
   end
 
   # GET /autos/1/edit

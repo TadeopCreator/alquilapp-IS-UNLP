@@ -38,6 +38,21 @@
     <%= form.text_field :color, class:"form-control" %>
   </div>
 </div>
+
+<div class="col-md-6 mb-3">
+  <div class="field">
+    Latitud<% form.label :lat, style: "display: block" %>
+    <%= form.number_field :lat,step: :any, class:"form-control"%>
+  </div>
+</div>
+
+<div class="col-md-6 mb-3">
+  <div>
+    Longitud<% form.label :lon, style: "display: block" %>
+    <%= form.number_field :lon, step: :any, class:"form-control" %>
+  </div>
+</div>
+
 <% end %>
 
 </div>
@@ -53,29 +68,55 @@
 <% end %>
 
 <% if (current_user.admin?)  %>
-<div class="col-md-6 mb-3">
-  <div>
-    Longitud<% form.label :lon, style: "display: block" %>
-    <%= form.text_field :lon, class:"form-control" %>
-  </div>
-</div>
+  <div class="d-flex aligns-items-center justify-content-center">
+  <div id="my-map" class="border border-secondary rounded" style="width: 600px; height: 400px; position: relative;"></div>
+        <script>
 
-<div class="col-md-6 mb-3">
-  <div>
-    Latitud<% form.label :lat, style: "display: block" %>
-    <%= form.text_field :lat, class:"form-control" %>
-  </div>
+            // create a map
+            var map = L.map('my-map').setView([<%= @lat %>, <%= @lon %>], 16);
+            // cordenadas La Plata: -34.9212720014385, -57.95469262045519    
+
+            //CON EL MOUSE DA LA UBICACION PARA UTILIZARLAAAA
+            map.on('click', function (e)  {
+                console.log('click',e.latlng.lat, e.latlng.lng) 
+                document.querySelector("#auto_lat").value = `${e.latlng.lat}`;  //Actualiza el form de la latitud en base al evento del click
+                document.querySelector("#auto_lon").value = `${e.latlng.lng}`;  //Actualiza el form de la longitud en base al evento del click
+            });
+            
+            // Coordenas del usuario
+            L.marker([<%= @lat %>, <%= @lon %>]).addTo(map)
+		        .bindPopup('<h6>Usted</h6>').openPopup();
+            
+            // Retina displays require different mat tiles quality
+            var isRetina = L.Browser.retina;                    
+
+            var baseUrl = "https://maps.geoapify.com/v1/tile/osm-bright/{z}/{x}/{y}.png?apiKey=f1922b60cc5a482d9e944c4118d55f06";
+            var retinaUrl = "https://maps.geoapify.com/v1/tile/osm-bright/{z}/{x}/{y}@2x.png?apiKey=f1922b60cc5a482d9e944c4118d55f06";
+
+            // Add map tiles layer. Set 20 as the maximal zoom and provide map data attribution.
+            L.tileLayer(isRetina ? retinaUrl : baseUrl, {
+                attribution: 'Powered by AlquilAPP',
+                apiKey: 'f1922b60cc5a482d9e944c4118d55f06',
+                maxZoom: 20,
+                id: 'osm-bright',
+            }).addTo(map);
+
+
+
+        </script>
 </div>
 <% end %>
-
+<br>
 <div class="row">
-  <% if (current_user.admin?)  %>
-    <div class="col-2">
+
+  <% if (current_user.admin?) and !current_page?('/autos/new')  %>
+    <div class="col-3 me-3">
+
       <%= link_to "Eliminar", admin_eliminar_vehiculo_path(@auto), class:'btn btn-danger text-white' %>
     </div>
   <% end %>
   
-  <div class="col-2">
+  <div class="col-3">
     <button class='btn bg-color-alquilapp text-white' <%= form.submit %>Guardar</button>
   </div>
 </div>

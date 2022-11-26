@@ -1,22 +1,40 @@
 <%= form_with(model: supervisor) do |form| %>
 
+  <% if params.keys.count == 3 %>
+    <% id_supervisor = params[:id] %>
+
+    <% sql = "SELECT * FROM supervisors WHERE id='" + id_supervisor.to_s + "'" %>
+    <% records_array = ActiveRecord::Base.connection.execute(sql) %>
+
+    <% puts("Supervisor: ", records_array[0]) %>
+
+    <% params[:name] = records_array[0]["name"] %>
+    <% params[:surname] = records_array[0]["surname"] %>
+    <% params[:dni] = records_array[0]["dni"] %>
+    <% params[:contact] = records_array[0]["contact"] %>
+    <% params[:name] = records_array[0]["name"] %>
+    <% params[:habilitado] = records_array[0]["habilitado"] %>
+  <% end %>
+
   <div class="col-6">
-    <%= form.label :'Nombre'%><%= form.text_field :name,  class: "form-control mb-2" %>
-    <%= form.label :'Apellido'%><%= form.text_field :surname,  class: "form-control mb-2" %>
-    DNI<% form.label :'DNI'%><%= form.text_field :dni,  class: "form-control mb-2" %>
-    <%= form.label :'Email'%><%= form.text_field :contact,  class: "form-control mb-2" %>
+    <%= form.label :'Nombre'%><%= form.text_field :name,  class: "form-control mb-2", value:params[:name]  %>
+    <%= form.label :'Apellido'%><%= form.text_field :surname,  class: "form-control mb-2", value:params[:surname] %>
+    DNI<% form.label :'DNI'%><%= form.text_field :dni,  class: "form-control mb-2", value:params[:dni] %>
+    <%= form.label :'Email'%><%= form.text_field :contact,  class: "form-control mb-2", value:params[:contact]  %>
 
     <div class="col-md-6 mb-3">
       <div>
         <%= form.label :habilitado, style: "display: block", class:"form-check-label" %>
-        <%= form.check_box :habilitado, class:"form-check-input" %>
+        <%= form.check_box :habilitado, class:"form-check-input", value:params[:habilitado] %>
       </div>
     </div>
 
     <div class="row">
-      <div class="col-2">
-        <%= link_to "Eliminar", admin_eliminar_supervisor_path(@supervisor), class:'btn btn-danger text-white' %>
-      </div>
+      <% if (!current_page?('/supervisors/new')) %>
+        <div class="col-2 me-3">
+          <%= link_to "Eliminar", admin_eliminar_supervisor_path(@supervisor), class:'btn btn-danger text-white' %>
+        </div>
+      <% end %>
       <div class="col-2">
         <button class='btn bg-color-alquilapp text-white' <%= form.submit %>Guardar</button>
       </div>
