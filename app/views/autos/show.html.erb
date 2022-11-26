@@ -1,64 +1,65 @@
-<div class="row">
-  <div class="col-md-12 text-center"> 
-    <h3 class="row justify-content-center">Detalles del Vehiculo</h3>
-    <br>
-    <div class="row justify-content-center">
-      <div class="col-4"> 
-        <div>
-          <b> Patente: </b> <%= @auto.patente %> <br/>
+<div class="container">
+  <div class="row">
+    <div class="col-sm">
+      <h3 class="row justify-content-center">Detalles del Vehiculo</h3>
+      <br>
+      <div class="row justify-content-center">
+        <div class="col-4"> 
+          <div>
+            <b> Patente: </b> <%= @auto.patente %> <br/>
+          </div>
+        </div>
+      </div>
+      <br>
+      <div class="row justify-content-center">
+        <div class="col-4"> 
+          <div>
+            <b> Marca: </b> <%= @auto.marca %> <br/>
+          </div>
+        </div>
+      </div>
+      <br>
+      <div class="row justify-content-center">
+        <div class="col-4"> 
+          <div>
+            <b>Modelo:</b> <%= @auto.modelo %> <br/>
+          </div>
+        </div>
+      </div>
+      <br>
+      <div class="row justify-content-center">
+        <div class="col-4"> 
+          <div>
+            <b> Color: </b> <%= @auto.color %> <br/>
+          </div>
         </div>
       </div>
     </div>
-    <br>
-    <div class="row justify-content-center">
-      <div class="col-4"> 
-        <div>
-          <b> Marca: </b> <%= @auto.marca %> <br/>
+    <div class="col-sm">
+      <h3 class="row justify-content-center">Detalles del Alquiler</h3>
+      <br>
+      <div class="row justify-content-center">
+        <div class="col-4"> 
+          <div>
+            <b> Precio por hora: $<%=Global.last.monto_auto%> </b> <br/>
+          </div>
         </div>
       </div>
-    </div>
-    <br>
-    <div class="row justify-content-center">
-      <div class="col-4"> 
-        <div>
-          <b>Modelo:</b> <%= @auto.modelo %> <br/>
-        </div>
-      </div>
-    </div>
-    <br>
-    <div class="row justify-content-center">
-      <div class="col-4"> 
-        <div>
-          <b> Color: </b> <%= @auto.color %> <br/>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="col-md-12 text-center"> 
-    <h3 class="row justify-content-center">Detalles del Alquiler</h3>
-    <br>
-    <div class="row justify-content-center">
-      <div class="col-4"> 
-        <div>
-          <b> Precio: <%=@global.monto_auto%> </b> <br/>
-        </div>
-      </div>
-    </div>
-    <br>
-    <div class="row justify-content-center">
-      <div class="col-4"> 
-        <div>
-          <b> Tiempo a usar: </b> <%= form.number_field :TiempoAlquilado, class:"form-control" %> <br/>
+      <br>
+      <div class="row justify-content-center">
+        <div class="col-4"> 
+          <div>
+            <b> Tiempo a usar (en horas): </b> <%= number_field :TiempoAlquilado, class:"form-control" %> <br/>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </div>
-<br>
+
 <div class="row justify-content-center">
   <div class="col-md-12 text-center"> 
-    <button type="button" class="btn btn-warning">Alquilar</button>
     <%= link_to "Atrás", :back, class:"btn btn-outline-primary"  %>
+    <button type="button" class="btn btn-outline-primary">Alquilar</button>
   </div>
 </div>
-<br>
