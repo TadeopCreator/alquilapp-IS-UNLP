@@ -95,7 +95,7 @@ class AdminController < ApplicationController
       
       # Crea el user del devise con el rol de admin
 
-      @user = User.create!(:email => 'admin2@admin.com', :password => 'asdasd', :role => :admin)
+      @user = User.create!(:email => 'admin@admin.com', :password => 'admin123', :role => :admin)
       
       @user.update_attribute(:id_rol, admin[:id])
 
