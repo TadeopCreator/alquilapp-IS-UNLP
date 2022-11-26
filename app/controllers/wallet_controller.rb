@@ -22,6 +22,20 @@ before_action :authenticate_user!
         end
     end
 
+    def alquilar
+
+        user_ID = current_user.id
+        sql = "SELECT * FROM users WHERE id='" + user_ID.to_s + "'"
+        records_array=ActiveRecord::Base.connection.execute(sql)
+        id_rol=records_array[0]["id_rol"]
+        @usuario = Usuario.find(id_rol.to_s)
+        @wallet = Wallet.find(@usuario[:id_wallet])
+
+        attributes = {}
+        attributes[:saldo] = @wallet.saldo - params["amount"].to_s.to_f
+        @wallet.update(attributes)        
+    end
+
     def edit
         if (params != {"controller"=>"wallet", "action"=>"edit"})
             fallo = false
@@ -62,9 +76,5 @@ before_action :authenticate_user!
     private
         def wallet_params
             params.permit(:saldo)
-        end
-
-        def card_edit
-            params.require(:tarjetum).permit(:name,:number,:vto,:cvv)
         end
 end

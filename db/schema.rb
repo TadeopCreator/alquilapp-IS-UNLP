@@ -55,13 +55,13 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_25_215729) do
   end
 
   create_table "historials", force: :cascade do |t|
-    t.integer "ID_usr"
-    t.integer "ID_auto"
-    t.date "Fin"
-    t.integer "TiempoAlquilado"
-    t.float "Precio"
-    t.float "Pextra"
-    t.boolean "Multa"
+    t.integer "id_usr"
+    t.integer "id_auto"
+    t.datetime "fin"
+    t.integer "tiempoAlquilado"
+    t.float "precio"
+    t.float "pextra"
+    t.boolean "multa"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

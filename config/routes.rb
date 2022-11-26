@@ -7,6 +7,8 @@ Rails.application.routes.draw do
   get 'wallet/show'
   get 'wallet/edit'
   post 'wallet/edit'
+
+  post '/autos/:id', to: 'historials#create'
   
   devise_for :users, controllers: {registrations: 'registrations', sessions: 'users/sessions'}
   

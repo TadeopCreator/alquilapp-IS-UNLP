@@ -1,6 +1,7 @@
+<%= form_with(model: @historial) do |form| %>
 <div class="container">
   <div class="row">
-    <div class="col-sm">
+    <div class="col-lg">
       <h3 class="row justify-content-center">Detalles del Vehiculo</h3>
       <br>
       <div class="row justify-content-center">
@@ -35,11 +36,11 @@
         </div>
       </div>
     </div>
-    <div class="col-sm">
+    <div class="col-lg">
       <h3 class="row justify-content-center">Detalles del Alquiler</h3>
       <br>
       <div class="row justify-content-center">
-        <div class="col-4"> 
+        <div class="col-7"> 
           <div>
             <b> Precio por hora: $<%=Global.last.monto_auto%> </b> <br/>
           </div>
@@ -47,19 +48,23 @@
       </div>
       <br>
       <div class="row justify-content-center">
-        <div class="col-4"> 
+        <div class="col-7"> 
           <div>
-            <b> Tiempo a usar (en horas): </b> <%= number_field :TiempoAlquilado, class:"form-control" %> <br/>
+            <b><label for="tiempoAlquilado" class="form-label">Tiempo de Alquiler (en horas):</label></b>
+            <input id="tiempoAlquilado" type="integer" required <%= form.number_field :tiempoAlquilado, class:"form-control" %>
           </div>
         </div>
       </div>
     </div>
   </div>
 </div>
-
+<%= form.hidden_field :id_auto, value:@auto.id %>
 <div class="row justify-content-center">
   <div class="col-md-12 text-center"> 
     <%= link_to "Atrás", :back, class:"btn btn-outline-primary"  %>
-    <button type="button" class="btn btn-outline-primary">Alquilar</button>
+    <button class='btn bg-color-alquilapp text-white' <%= form.submit %>Alquilar</button>
   </div>
 </div>
+
+
+<% end %>
