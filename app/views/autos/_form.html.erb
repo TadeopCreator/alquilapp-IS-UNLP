@@ -69,8 +69,8 @@
 <% end %>
 
 <div class="row">
-  <% if (current_user.admin?)  %>
-    <div class="col-2">
+  <% if (current_user.admin?) and !current_page?('/autos/new')  %>
+    <div class="col-2 me-3">
       <%= link_to "Eliminar", admin_eliminar_vehiculo_path(@auto), class:'btn btn-danger text-white' %>
     </div>
   <% end %>

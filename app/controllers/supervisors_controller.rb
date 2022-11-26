@@ -46,7 +46,14 @@ class SupervisorsController < ApplicationController
     end
 
     if (error)
-      redirect_to new_supervisor_path
+      @parms = {}
+      @parms[:name] = params["supervisor"]["name"]
+      @parms[:surname] = params["supervisor"]["surname"]
+      @parms[:dni] = params["supervisor"]["dni"]
+      @parms[:contact] = params["supervisor"]["contact"]
+      @parms[:name] = params["supervisor"]["name"]
+      @parms[:habilitado] = params["supervisor"]["habilitado"]        
+      redirect_to new_supervisor_path(@parms)
       return
     end
     
@@ -78,7 +85,7 @@ class SupervisorsController < ApplicationController
   # PATCH/PUT /supervisors/1 or /supervisors/1.json
   def update
 
-    error = false
+    error = false    
 
     # Validacion que el email no esta repetido
     sql = "SELECT * FROM supervisors WHERE contact='" + supervisor_params[:contact] + "' AND id <> '" + @supervisor.id.to_s + "'"
@@ -96,7 +103,14 @@ class SupervisorsController < ApplicationController
     end
 
     if (error)
-      redirect_to new_supervisor_path
+      @parms = {}
+      @parms[:name] = params["supervisor"]["name"]
+      @parms[:surname] = params["supervisor"]["surname"]
+      @parms[:dni] = params["supervisor"]["dni"]
+      @parms[:contact] = params["supervisor"]["contact"]
+      @parms[:name] = params["supervisor"]["name"]
+      @parms[:habilitado] = params["supervisor"]["habilitado"]        
+      redirect_to edit_supervisor_path(@parms)
       return
     end
 

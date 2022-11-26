@@ -1,3 +1,16 @@
+<div class="card">
+  <div class="card-header">
+    Mi alquiler
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">ASS 666 - Toyota Camaro</h5>
+    <p class="card-text">Inicio del alquiler: [FECHA]</p>
+    <a href="#" class="btn btn-outline-primary">Extender tiempo de alquiler</a>
+  </div>
+</div>
+
+<br>
+
 <h2>Vehículos</h2>
 
 <% @autos = Auto.all %>
@@ -5,7 +18,7 @@
 <% cantidad = 0 %>
 <% @autos_disponibles = [] %>
   <% @autos.each do |auto| %>
-    <% if (!auto.borrado && auto.habilitado) %>
+    <% if (!auto.borrado && auto.habilitado && !auto.alquilado) %>
       <% entra = true %>
       <% cantidad = cantidad + 1 %>
       <% @autos_disponibles.append(auto) %>
@@ -17,27 +30,41 @@
     Aún no hay vehículos
   </div>
 <% end %>
-<div class="d-flex aligns-items-center justify-content-center">
-  <div id="my-map" class="border border-secondary rounded" style="width: 1000px; height: 600px; position: relative;"></div>
-        <script>
-            // create a map
-            var map = L.map('my-map').setView([<%= @lat %>, <%= @lon %>], 16);
-            // cordenadas La Plata: -34.9212720014385, -57.95469262045519        
 
+<div class="row">
+<div class="d-flex aligns-items-center justify-content-center">
+  <div id="my-map" class="border border-secondary rounded w-100" style="height: 600px; position: relative;"></div>
+        <script>            
             <% i = 0 %>
             <% dif_lat = 0 %>
             <% dif_lon = 0 %>
             <% sum = 0 %>
-            <% puts("Lon: ", @lon) %>
-            <% puts("Lat: ", @lat) %>
+            <% expandir_bool = false %>
+            <% mostro_autos = false %>
+
+            // Expande la vista si se recibe como parametro @expandir = 1
+            <% if (params[:@expandir] == 1.to_s) %>
+                <% expandir_bool = true %>
+                // create a map
+                var map = L.map('my-map').setView([<%= @lat %>, <%= @lon %>], 12);
+                // cordenadas La Plata: -34.9212720014385, -57.95469262045519       
+            <% else %>
+              // create a map
+              var map = L.map('my-map').setView([<%= @lat %>, <%= @lon %>], 16);
+              // cordenadas La Plata: -34.9212720014385, -57.95469262045519   
+            <% end %>
 
             <% while (i < cantidad) %>
               <% dif_lat = @lat - @autos_disponibles[i].lat %>
               <% dif_lon = @lon - @autos_disponibles[i].lon %>
-              <% sum = dif_lat.abs() + dif_lon.abs() %>              
-              <% if (sum <= 0.008) %>
+              <% sum = dif_lat.abs() + dif_lon.abs() %>         
+
+              <% if (sum <= 0.008 or expandir_bool) %>
                 L.marker([<%= @autos_disponibles[i].lat %>, <%= @autos_disponibles[i].lon %>]).addTo(map)
-                .bindPopup('<b><%= @autos_disponibles[i].patente %></b><br /><%= @autos_disponibles[i].marca %> </br> <a <%= link_to "Detalles", auto_path(@autos[i]), class:"m-2 btn btn-outline-dark" %></a>').openPopup();
+
+                .bindPopup('<b><%= @autos_disponibles[i].patente %></b><br /><%= @autos_disponibles[i].marca %> <%= @autos_disponibles[i].color %> </br> <a <%= link_to "Detalles", auto_path(@autos[i]), class:"m-2 btn btn-outline-dark" %></a>').openPopup();
+                <% mostro_autos = true %>
+                
               <% end %>
               <% i = i + 1 %>
             <% end %>
@@ -60,4 +87,16 @@
                 id: 'osm-bright',
             }).addTo(map);
         </script>
+</div>
+
+<% if (params[:@expandir] != 1.to_s && mostro_autos) %>
+  <div class="d-flex aligns-items-center justify-content-center">
+        <a href="/autos?%40expandir=1" type="button" class="m-2 btn btn-outline-dark no-deco" >
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrows-angle-expand mb-1 me-1" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M5.828 10.172a.5.5 0 0 0-.707 0l-4.096 4.096V11.5a.5.5 0 0 0-1 0v3.975a.5.5 0 0 0 .5.5H4.5a.5.5 0 0 0 0-1H1.732l4.096-4.096a.5.5 0 0 0 0-.707zm4.344-4.344a.5.5 0 0 0 .707 0l4.096-4.096V4.5a.5.5 0 1 0 1 0V.525a.5.5 0 0 0-.5-.5H11.5a.5.5 0 0 0 0 1h2.768l-4.096 4.096a.5.5 0 0 0 0 .707z"/>
+          </svg>
+          Expandir visión
+      </a>
+  </div>
+<% end %>
 </div>
