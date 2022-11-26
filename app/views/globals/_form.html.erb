@@ -1,0 +1,16 @@
+<%= form_with(model: global) do |form| %>
+
+    <div class="col-6">
+      <%= form.label :'Precio por Hora'%><%= form.number_field :monto_auto,  class: "form-control mb-2" %>
+      <%= form.label :'Precio de Multas'%><%= form.number_field :monto_multa,  class: "form-control mb-2" %>
+      <%= form.label :'Cooldown'%><%= form.number_field :cooldown,  class: "form-control mb-2" %>
+      <%= form.label :'Tiempo de Multa'%><%= form.number_field :tiempo_multa,  class: "form-control mb-2" %>
+      
+      <div class="row">
+        <div class="col-2">
+          <button class='btn bg-color-alquilapp text-white' <%= form.submit %>Guardar</button>
+        </div>
+      </div>
+    </div>
+  <% end %>
+  
