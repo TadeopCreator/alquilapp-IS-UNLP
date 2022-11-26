@@ -16,7 +16,7 @@ class HistorialsController < ApplicationController
             flash[:notice] = "Solo puede alquilar el vehiculo entre 1-24 horas"
             fallo = true
         end
-        if (@saldo.saldo < @global.monto_auto)          
+        if (@saldo.saldo < (@global.monto_auto * params[:tiempoAlquilado].to_i))          
             flash[:notice] = "Saldo insuficiente"
             fallo= true
         end
