@@ -1,42 +1,70 @@
-<h3 class="row justify-content-center">Detalles</h3>
-<br>
-<div class="row justify-content-center">
-      <div class="col-4"> 
-        <div>
-         <b> Patente: </b> <%= @auto.patente %> <br/>
+<%= form_with(model: @historial) do |form| %>
+<div class="container">
+  <div class="row">
+    <div class="col-lg">
+      <h3 class="row justify-content-center">Detalles del Vehiculo</h3>
+      <br>
+      <div class="row justify-content-center">
+        <div class="col-4"> 
+          <div>
+            <b> Patente: </b> <%= @auto.patente %> <br/>
+          </div>
+        </div>
+      </div>
+      <br>
+      <div class="row justify-content-center">
+        <div class="col-4"> 
+          <div>
+            <b> Marca: </b> <%= @auto.marca %> <br/>
+          </div>
+        </div>
+      </div>
+      <br>
+      <div class="row justify-content-center">
+        <div class="col-4"> 
+          <div>
+            <b>Modelo:</b> <%= @auto.modelo %> <br/>
+          </div>
+        </div>
+      </div>
+      <br>
+      <div class="row justify-content-center">
+        <div class="col-4"> 
+          <div>
+            <b> Color: </b> <%= @auto.color %> <br/>
+          </div>
         </div>
       </div>
     </div>
-<div>
-<br>
-<div class="row justify-content-center">
-      <div class="col-4"> 
-        <div>
-         <b> Marca: </b> <%= @auto.marca %> <br/>
+    <div class="col-lg">
+      <h3 class="row justify-content-center">Detalles del Alquiler</h3>
+      <br>
+      <div class="row justify-content-center">
+        <div class="col-7"> 
+          <div>
+            <b> Precio por hora: $<%=Global.last.monto_auto%> </b> <br/>
+          </div>
+        </div>
+      </div>
+      <br>
+      <div class="row justify-content-center">
+        <div class="col-7"> 
+          <div>
+            <b><label for="tiempoAlquilado" class="form-label">Tiempo de Alquiler (en horas):</label></b>
+            <input id="tiempoAlquilado" type="integer" required <%= form.number_field :tiempoAlquilado, class:"form-control" %>
+          </div>
         </div>
       </div>
     </div>
-<div>
-<br>
+  </div>
+</div>
+<%= form.hidden_field :id_auto, value:@auto.id %>
 <div class="row justify-content-center">
-      <div class="col-4"> 
-        <div>
-          <b>Modelo:</b> <%= @auto.modelo %> <br/>
-        </div>
-      </div>
-    </div>
-<div>
-<br>
-<div class="row justify-content-center">
-      <div class="col-4"> 
-        <div>
-         <b> Color: </b> <%= @auto.color %> <br/>
-        </div>
-      </div>
-    </div>
-<br>
- <div class="col-md-12 text-center">
-  <button type="button" class="btn btn-warning">Alquilar</button>
- </div>
-<br>
-  <%= link_to "Atrás", :back, class:"btn btn-outline-primary"  %>
+  <div class="col-md-12 text-center"> 
+    <%= link_to "Atrás", :back, class:"btn btn-outline-primary"  %>
+    <button class='btn bg-color-alquilapp text-white' <%= form.submit %>Alquilar</button>
+  </div>
+</div>
+
+
+<% end %>

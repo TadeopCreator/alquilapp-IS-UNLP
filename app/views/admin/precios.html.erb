@@ -8,28 +8,27 @@
     <a class="nav-link text-color-alquilapp" href="/admin/vehiculos">Vehículos</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link text-color-alquilapp" href="/admin/precios">Precios</a>
+    <a class="nav-link active" href="/admin/precios">Precios</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link active" href="/admin/supervisores">Supervisores</a>
+    <a class="nav-link text-color-alquilapp" href="/admin/supervisores">Supervisores</a>
   </li>
 </ul>
 
 <br/>
-<h4>Supervisores</h4>
+<h4>Precios</h4>
+
+<div><%= link_to 'Establecer nuevos precios', new_global_path, class:"btn btn-outline-primary" %></div>
 
 
-<div><%= link_to 'Añadir supervisor', new_supervisor_path, class:"btn btn-outline-primary" %></div>
-
-
-<% if Supervisor.all == [] %>
+<% if Global.all == [] %>
   <div class="my-3 p-4 border border border-secondary rounded">
     <div class="col-12 text-start">
       <div class="text-start">
-        Aún no hay supervisores
+        Aún no ha establecido precios
       </div>
       <div class="row text-start">
-        <%= link_to 'Añadir supervisor', new_supervisor_path %>
+        <%= link_to 'Establecer nuevos precios', new_global_path %>
       </div>
     </div>
   </div>
@@ -38,21 +37,16 @@
   <table class="table">
     <thead>
       <tr>
-        <th scope="col">Nombre</th>
-        <th scope="col">Apellido</th>
-        <th scope="col">DNI</th>
-        <th scope="col">Contacto</th>
-        <th scope="col">Habilitado</th>
+        <th scope="col">Precio por Hora</th>
+        <th scope="col">Precio de Multa</th>
+        <th scope="col">Cooldown</th>
+        <th scope="col">Tiempo de Multa</th>
         <th scope="col"></th>
       </tr>
     </thead>
     <tbody>
-    <% @supervisors = Supervisor.all %>
-      <% @supervisors.each do |supervisor| %>
-        <% if not supervisor.borrado %>   
-          <%= render supervisor %>
-        <% end %>
-      <% end %>
+    <% @precios = Global.last %>  
+      <%= render @precios %>
     </tbody>
 </table>
 </div>

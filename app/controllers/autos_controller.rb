@@ -33,6 +33,7 @@ end
 
   # GET /autos/1 or /autos/1.json
   def show
+    @globals = Global.last
   end
 
   # GET /autos/new
