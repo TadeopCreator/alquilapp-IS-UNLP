@@ -73,8 +73,13 @@
         <script>
 
             // create a map
+            <% if current_page?('/autos/new')%>
             var map = L.map('my-map').setView([<%= @lat %>, <%= @lon %>], 16);
             // cordenadas La Plata: -34.9212720014385, -57.95469262045519    
+            <% else %>
+            var map = L.map('my-map').setView([<%= auto.lat %>, <%= auto.lon %>], 16);
+            <% end %>
+
 
             //CON EL MOUSE DA LA UBICACION PARA UTILIZARLAAAA
             map.on('click', function (e)  {
@@ -84,9 +89,14 @@
             });
             
             // Coordenas del usuario
-            L.marker([<%= @lat %>, <%= @lon %>]).addTo(map)
-		        .bindPopup('<h6>Usted</h6>').openPopup();
-            
+            <% if current_page?('/autos/new')%>
+             L.marker([<%= @lat %>, <%= @lon %>]).addTo(map)
+		         .bindPopup('<h6>Usted</h6>').openPopup();
+            <% else %>
+             L.marker([<%= @auto.lat%>, <%= @auto.lon%>]).addTo(map)
+		         .bindPopup('<h6>Ubicacion del vehículo</h6>').openPopup();
+            <%end%>
+
             // Retina displays require different mat tiles quality
             var isRetina = L.Browser.retina;                    
 
@@ -100,9 +110,7 @@
                 maxZoom: 20,
                 id: 'osm-bright',
             }).addTo(map);
-
-
-
+            
         </script>
 </div>
 <% end %>
