@@ -36,7 +36,10 @@ class HistorialsController < ApplicationController
                 if @historial.save
                     wallet = {}
                     wallet[:saldo] = @saldo.saldo - (@global.monto_auto * params[:tiempoAlquilado].to_i)
-                    @saldo.update(wallet)  
+                    @saldo.update(wallet)
+                    alquilar = {}
+                    alquilar[:alquilado] = true
+                    @auto.update(alquilar)
                     format.html { redirect_to autos_url, notice: "Su alquiler ha comenzado" }
                     format.json { render :show, status: :created, location: @historial }
                 else
