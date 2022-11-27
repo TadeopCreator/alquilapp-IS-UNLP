@@ -26,10 +26,16 @@
       <td><%= auto.lon %></td>
       <td><%= auto.lat %></td>
       <td>
-      <% if user_signed_in? %>
+      <% if user_signed_in? && current_user.admin? %>
         <a <%= link_to "Editar", edit_auto_path(auto), class:"btn btn-outline-dark" %></a>
       </td>
-      <% end %>
+      <% else %>
+        <% if !auto.habilitado? %>
+          <a <%= link_to "Habilitar", method = supervisor_habilitar_path(:id => auto.id), class:"btn btn-success" %></a>
+        <% else %>
+          <a <%= link_to "Deshabilitar", method = supervisor_deshabilitar_path(:id => auto.id), class:"btn btn-danger" %></a>
+        <%end%>
+      <%end%>
       </td>
     </tr>
 </div>

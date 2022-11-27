@@ -42,11 +42,22 @@
 
 <h2>Vehículos</h2>
 
+<%user_ID = current_user.id%>
+<%sql = "SELECT * FROM users WHERE id='" + user_ID.to_s + "'"%>
+<%records_array=ActiveRecord::Base.connection.execute(sql)%>
+<%id_rol=records_array[0]["id_rol"]%>
+<%@usuario = Usuario.find(id_rol.to_s)%>
 <% @autos = Auto.all %>
 <% cantidad = 0 %>
+<% @global = Global.last.cooldown %>
 <% @autos_disponibles = [] %>
   <% @autos.each do |auto| %>
-    <% if (!auto.borrado && auto.habilitado && !auto.alquilado) %>
+    <%cooldown =true%>
+    <% @historial = Historial.where(id_auto: auto.id).last %>
+    <% if (@historial.id_usr == @usuario.id && @histrial.fin > @global.minutes.ago) %>
+      <% cooldown = false %>
+    <% end%>
+    <% if (!auto.borrado && auto.habilitado && !auto.alquilado && cooldown) %>
       <% cantidad = cantidad + 1 %>
       <% @autos_disponibles.append(auto) %>
     <% end %>    

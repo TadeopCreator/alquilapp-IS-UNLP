@@ -14,8 +14,10 @@ Rails.application.routes.draw do
   
   get 'supervisor/aceptar'
   get 'supervisor/rechazar'
+  get 'supervisor/habilitar'
+  get 'supervisor/deshabilitar'
   get 'supervisors/licencias'
-  get 'supervisor/licencias'
+  get 'supervisor/licencias'  
   get 'admin/dashboard'
   get 'admin/supervisores'
   get 'admin/vehiculos'
