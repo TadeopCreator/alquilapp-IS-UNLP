@@ -1,10 +1,10 @@
 <%= form_with(model: global) do |form| %>
 
     <div class="col-6">
-      <%= form.label :'Precio por Hora'%><%= form.number_field :monto_auto,  class: "form-control mb-2" %>
-      <%= form.label :'Precio de Multas'%><%= form.number_field :monto_multa,  class: "form-control mb-2" %>
-      <%= form.label :'Intervalo de Tiempo entre alquileres (minutos)'%><%= form.number_field :cooldown, min:0,  class: "form-control mb-2" %>
-      <%= form.label :'Tiempo de Multa (minutos)'%><%= form.number_field :tiempo_multa, min:0,  class: "form-control mb-2" %>
+      <%= form.label :'Precio por Hora'%><input required <%= form.number_field :monto_auto,  class: "form-control mb-2" %></input>
+      <%= form.label :'Precio de Multas'%><input required <%= form.number_field :monto_multa,  class: "form-control mb-2" %></input>
+      <%= form.label :'Intervalo de Tiempo entre alquileres (minutos)'%><input required <%= form.number_field :cooldown, min:0,  class: "form-control mb-2" %></input>
+      <%= form.label :'Tiempo de Multa (minutos)'%><input required <%= form.number_field :tiempo_multa, min:0,  class: "form-control mb-2" %></input>
       
       <div class="row">
         <div class="col-2">

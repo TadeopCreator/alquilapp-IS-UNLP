@@ -69,12 +69,14 @@
 <% if cantidad == 0 %>
     <% mostro_autos = true %>    
     <div class="alert alert-warning" role="alert">
-    No hay vehículos disponibles
+    <% if !@usuario.enable %>
+      Su licencia aún no ha sido aceptada para ver el mapa
+    <% else %>
+      No hay vehículos disponibles
+    <% end %>
   </div>
 <% else %>
   <% mostro_autos = false %>
-<% end %>
-
 <div class="row">
 <div class="d-flex aligns-items-center justify-content-center">
   <div id="my-map" class="border border-secondary rounded w-100" style="height: 600px; position: relative;"></div>
@@ -148,5 +150,7 @@
           Expandir visión
       </a>
   </div>
-<% end %>
 </div>
+<% end %>
+<% end %>
+
