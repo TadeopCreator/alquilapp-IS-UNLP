@@ -41,15 +41,15 @@
 
 <div class="col-md-6 mb-3">
   <div class="field">
-    Latitud<% form.label :lat, style: "display: block" %>
-    <%= form.number_field :lat,step: :any, class:"form-control"%>
+    <% form.label :lat, style: "display: block" %>
+    <%= form.hidden_field :lat,step: :any, class:"form-control"%>
   </div>
 </div>
 
 <div class="col-md-6 mb-3">
   <div>
-    Longitud<% form.label :lon, style: "display: block" %>
-    <%= form.number_field :lon, step: :any, class:"form-control" %>
+    <% form.label :lon, style: "display: block" %>
+    <%= form.hidden_field :lon, step: :any, class:"form-control" %>
   </div>
 </div>
 
@@ -68,25 +68,41 @@
 <% end %>
 
 <% if (current_user.admin?)  %>
+  <i> Seleccione la nueva ubicación en el mapa. Si no quiere cambios en la ubicación, no seleccione nada en el mapa. </i>
+  <br>
   <div class="d-flex aligns-items-center justify-content-center">
   <div id="my-map" class="border border-secondary rounded" style="width: 600px; height: 400px; position: relative;"></div>
         <script>
 
             // create a map
+            <% if current_page?('/autos/new')%>
             var map = L.map('my-map').setView([<%= @lat %>, <%= @lon %>], 16);
             // cordenadas La Plata: -34.9212720014385, -57.95469262045519    
+            <% else %>
+            var map = L.map('my-map').setView([<%= auto.lat %>, <%= auto.lon %>], 16);
+            <% end %>
 
+            var newMarker = null; 
             //CON EL MOUSE DA LA UBICACION PARA UTILIZARLAAAA
             map.on('click', function (e)  {
                 console.log('click',e.latlng.lat, e.latlng.lng) 
                 document.querySelector("#auto_lat").value = `${e.latlng.lat}`;  //Actualiza el form de la latitud en base al evento del click
                 document.querySelector("#auto_lon").value = `${e.latlng.lng}`;  //Actualiza el form de la longitud en base al evento del click
+                if (newMarker !== null) {
+                  map.removeLayer(newMarker);
+                }
+                newMarker = new L.marker(e.latlng).addTo(map).bindPopup('<h6>Nueva ubicación</h6>').openPopup();           
             });
             
             // Coordenas del usuario
-            L.marker([<%= @lat %>, <%= @lon %>]).addTo(map)
-		        .bindPopup('<h6>Usted</h6>').openPopup();
-            
+            <% if current_page?('/autos/new')%>
+             L.marker([<%= @lat %>, <%= @lon %>]).addTo(map)
+		         .bindPopup('<h6>Usted</h6>').openPopup();
+            <% else %>
+             L.marker([<%= @auto.lat%>, <%= @auto.lon%>]).addTo(map)
+		         .bindPopup('<h6>Ubicacion del vehículo</h6>').openPopup();
+            <%end%>
+
             // Retina displays require different mat tiles quality
             var isRetina = L.Browser.retina;                    
 
@@ -100,9 +116,7 @@
                 maxZoom: 20,
                 id: 'osm-bright',
             }).addTo(map);
-
-
-
+            
         </script>
 </div>
 <% end %>
