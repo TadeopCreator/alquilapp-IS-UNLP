@@ -7,35 +7,35 @@
 <div class="col-md-8 mb-3">
   <div>
     Numero relativo <% form.label :num_rel, style: "display: block" %>
-    <%= form.number_field :num_rel, class:"form-control" %>
+     <input required <%= form.number_field :num_rel, class:"form-control" %></input>
   </div>
 </div>
 
 <div class="col-md-8 mb-3">
   <div>
     <%= form.label :patente, style: "display: block" %>
-    <%= form.text_field :patente, class:"form-control" %>
+     <input required <%= form.text_field :patente, class:"form-control" %></input>
   </div>
 </div>
 
 <div class="col-md-8 mb-3">
   <div>
     <%= form.label :marca, style: "display: block" %>
-    <%= form.text_field :marca, class:"form-control" %>
+     <input required <%= form.text_field :marca, class:"form-control" %></input>
   </div>
 </div>
 
 <div class="col-md-8 mb-3">
   <div>
     <%= form.label :modelo, style: "display: block" %>
-    <%= form.text_field :modelo, class:"form-control" %>
+     <input required <%= form.text_field :modelo, class:"form-control" %></input>
 </div>
 </div>
 
 <div class="col-md-8 mb-3">
   <div>
     <%= form.label :color, style: "display: block" %>
-    <%= form.text_field :color, class:"form-control" %>
+     <input required <%= form.text_field :color, class:"form-control" %></input>
   </div>
 </div>
 
@@ -82,6 +82,15 @@
             var map = L.map('my-map').setView([<%= auto.lat %>, <%= auto.lon %>], 16);
             <% end %>
 
+            var autoIcon = new L.Icon({
+              iconUrl: 'https://icones.pro/wp-content/uploads/2021/03/icone-de-voiture-symbole-png-jaune.png',
+              //shadowUrl: 'https://upload.wikimedia.org/wikipedia/commons/5/5a/Car_icon_alone.png',
+              iconSize: [32, 32],
+              iconAnchor: [12, 41],
+              popupAnchor: [1, -34],
+              shadowSize: [41, 41]
+            });
+
             var newMarker = null; 
             //CON EL MOUSE DA LA UBICACION PARA UTILIZARLAAAA
             map.on('click', function (e)  {
@@ -91,7 +100,8 @@
                 if (newMarker !== null) {
                   map.removeLayer(newMarker);
                 }
-                newMarker = new L.marker(e.latlng).addTo(map).bindPopup('<h6>Nueva ubicación</h6>').openPopup();           
+                
+                newMarker = new L.marker(e.latlng, {icon: autoIcon}).addTo(map).bindPopup('<h6>Nueva ubicación</h6>').openPopup();           
             });
             
             // Coordenas del usuario
@@ -99,8 +109,7 @@
              L.marker([<%= @lat %>, <%= @lon %>]).addTo(map)
 		         .bindPopup('<h6>Usted</h6>').openPopup();
             <% else %>
-             L.marker([<%= @auto.lat%>, <%= @auto.lon%>]).addTo(map)
-		         .bindPopup('<h6>Ubicacion del vehículo</h6>').openPopup();
+             L.marker([<%= @auto.lat%>, <%= @auto.lon%>], {icon: autoIcon}).addTo(map).bindPopup('<h6>Ubicación actual</h6>').openPopup()
             <%end%>
 
             // Retina displays require different mat tiles quality
