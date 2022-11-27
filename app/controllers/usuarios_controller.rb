@@ -60,6 +60,7 @@ class UsuariosController < ApplicationController
       nueva_imagen = params[:usuario][:image].original_filename
       if (original_imagen != nueva_imagen) && (@usuario.errors.where(:date_licence).last == nil)
         @usuario.send_license = 1 #Establece el valor del status del envio de la licencia
+        @usuario.enable = false
       end 
       if @usuario.update(usuario_params)
         format.html { redirect_to autos_path, notice: "Perfil actualizado exitosamente" }
