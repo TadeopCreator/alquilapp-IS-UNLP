@@ -23,6 +23,8 @@ Rails.application.routes.draw do
   get 'admin/vehiculos'
   get 'admin/precios'
   get 'admin/add_supervisor'
+  get 'admin/habilitar'
+  get 'admin/deshabilitar'
   get 'terminos_condiciones/show'
   
   get 'admin/eliminar_vehiculo'
