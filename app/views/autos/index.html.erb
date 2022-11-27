@@ -52,9 +52,10 @@
 <% @global = Global.last.cooldown %>
 <% @autos_disponibles = [] %>
   <% @autos.each do |auto| %>
-    <%cooldown =true%>
+    <% cooldown = true %>
     <% @historial = Historial.where(id_auto: auto.id).last %>
-    <% if (@historial.id_usr == @usuario.id && @histrial.fin > @global.minutes.ago) %>
+    <% tiempo_cooldown = @global.minutes.ago - 3.hours %>
+    <% if (@historial&.id_usr == @usuario.id && @historial.fin > tiempo_cooldown) %>
       <% cooldown = false %>
     <% end%>
     <% if (!auto.borrado && auto.habilitado && !auto.alquilado && cooldown) %>
