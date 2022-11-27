@@ -23,6 +23,23 @@ class SupervisorController < ApplicationController
     @usuario.update(attributes)
     redirect_to :supervisors, notice: "Se ha rechazado la validación con éxito"
   end
+
+  def habilitar
+    attributes = {}
+    attributes[:habilitado] = true
+    @auto = Auto.find(params[:id])
+    @auto.update(attributes)
+    redirect_to :supervisors
+  end
+
+  def deshabilitar
+    attributes = {}
+    attributes[:habilitado] = false
+    @auto = Auto.find(params[:id])
+    @auto.update(attributes)
+    redirect_to :supervisors
+  end
+
   
   def dashboard
     @autos = Auto.all.order(created_at: :desc) #Se puede alterar, pero en el inicio se ve la lista de autos
