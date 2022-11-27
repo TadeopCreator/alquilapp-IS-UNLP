@@ -23,8 +23,6 @@
             <% end %>
           </td>
       <% end %>
-      <td><%= auto.lon %></td>
-      <td><%= auto.lat %></td>
       <td>
       <% if user_signed_in? && current_user.admin? %>
         <a <%= link_to "Editar", edit_auto_path(auto), class:"btn btn-outline-dark" %></a>
