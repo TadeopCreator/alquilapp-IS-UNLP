@@ -3,9 +3,12 @@ Rails.application.routes.draw do
   resources :reports
   resources :supervisors
   resources :autos
+  resources :globals
   get 'wallet/show'
   get 'wallet/edit'
   post 'wallet/edit'
+
+  post '/autos/:id', to: 'historials#create'
   
   devise_for :users, controllers: {registrations: 'registrations', sessions: 'users/sessions'}
   
@@ -16,6 +19,7 @@ Rails.application.routes.draw do
   get 'admin/dashboard'
   get 'admin/supervisores'
   get 'admin/vehiculos'
+  get 'admin/precios'
   get 'admin/add_supervisor'
   get 'terminos_condiciones/show'
 

@@ -1,0 +1,9 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  monto_auto: 1.5
+  monto_multa: 1.5
+
+two:
+  monto_auto: 1.5
+  monto_multa: 1.5
