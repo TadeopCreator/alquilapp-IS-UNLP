@@ -8,7 +8,7 @@ class GlobalsController < ApplicationController
       @global = Global.new(global_params)
       respond_to do |format|
         if @global.save
-          format.html { redirect_to admin_precios_path, notice: "Los Precios se han Actualizado" }
+          format.html { redirect_to admin_precios_path, notice: "Los precios se han actualizado" }
           format.json { render :show, status: :created, location: @global }
         else
               render :new

@@ -1,34 +1,76 @@
-<div class="card">
-  <div class="card-header">
-    Mi alquiler
+ <% user_ID = current_user.id
+  sql = "SELECT * FROM users WHERE id='" + user_ID.to_s + "'"
+  records_array = ActiveRecord::Base.connection.execute(sql)
+  id_rol = records_array[0]["id_rol"] 
+  @usuario = Usuario.find(id_rol.to_s) %>
+
+<% if (@usuario[:alquilando]) %>
+  <% sql = "SELECT * FROM historials WHERE id_usr='" + @usuario[:id].to_s + "' ORDER BY id DESC LIMIT 1" 
+    records_array = ActiveRecord::Base.connection.execute(sql)
+    id_auto = records_array[0]["id_auto"]
+    alquiler = records_array[0]
+
+    sql_auto = "SELECT * FROM autos WHERE id='" + id_auto.to_s + "'" 
+    records_array_auto = ActiveRecord::Base.connection.execute(sql_auto)
+    auto_alquilado = records_array_auto[0] %>
+
+  <div class="card">
+    <div class="card-header">
+      Mi alquiler
+    </div>
+    <div class="card-body">
+      <h5 class="card-title"><%= auto_alquilado["patente"] %> - <%= auto_alquilado["marca"] %> <%= auto_alquilado["modelo"] %> (<%= alquiler["tiempoAlquilado"] %> horas)</h5>
+      <div class="row">
+        <div class="col-3">
+          <p class="card-text">Fecha de inicio: <%= (alquiler["created_at"].to_datetime - 3.hours).to_s[0..9] %></p>
+          <p class="card-text">Hora de inicio: <%= (alquiler["created_at"].to_datetime - 3.hours).to_s[11..18]  %></p>
+        </div>
+        <div class="col-3">
+          <p class="card-text">Fecha de fin: <%= alquiler["fin"][0, 11] %></p>
+          <p class="card-text">Hora de fin: <%= alquiler["fin"][11..18] %></p>
+        </div>
+      </div>
+      <br>
+      <a href="#" class="btn bg-color-alquilapp text-white">Extender tiempo de alquiler</a>
+      <a></a>
+      <a href="/finalizar_alquiler/finalizar?auto=<%= auto_alquilado["id"] %>&usuario=<%= @usuario[:id].to_s %>" class="btn btn-danger">Finalizar alquiler</a>
+    </div>
   </div>
-  <div class="card-body">
-    <h5 class="card-title">ASS 666 - Toyota Camaro</h5>
-    <p class="card-text">Inicio del alquiler: [FECHA]</p>
-    <a href="#" class="btn btn-outline-primary">Extender tiempo de alquiler</a>
-  </div>
-</div>
+<% end %>
 
 <br>
 
 <h2>Vehículos</h2>
 
+<%user_ID = current_user.id%>
+<%sql = "SELECT * FROM users WHERE id='" + user_ID.to_s + "'"%>
+<%records_array=ActiveRecord::Base.connection.execute(sql)%>
+<%id_rol=records_array[0]["id_rol"]%>
+<%@usuario = Usuario.find(id_rol.to_s)%>
 <% @autos = Auto.all %>
-<% entra = false %>
 <% cantidad = 0 %>
+<% @global = Global.last.cooldown %>
 <% @autos_disponibles = [] %>
   <% @autos.each do |auto| %>
-    <% if (!auto.borrado && auto.habilitado && !auto.alquilado) %>
-      <% entra = true %>
+    <% cooldown = true %>
+    <% @historial = Historial.where(id_auto: auto.id).last %>
+    <% tiempo_cooldown = @global.minutes.ago - 3.hours %>
+    <% if (@historial&.id_usr == @usuario.id && @historial.fin > tiempo_cooldown) %>
+      <% cooldown = false %>
+    <% end%>
+    <% if (!auto.borrado && auto.habilitado && !auto.alquilado && cooldown) %>
       <% cantidad = cantidad + 1 %>
       <% @autos_disponibles.append(auto) %>
     <% end %>    
 <% end %>
 
 <% if cantidad == 0 %>
+    <% mostro_autos = true %>    
     <div class="alert alert-warning" role="alert">
-    Aún no hay vehículos
+    No hay vehículos disponibles
   </div>
+<% else %>
+  <% mostro_autos = false %>
 <% end %>
 
 <div class="row">
@@ -39,30 +81,36 @@
             <% dif_lat = 0 %>
             <% dif_lon = 0 %>
             <% sum = 0 %>
-            <% expandir_bool = false %>
-            <% mostro_autos = false %>
+            <% expandir_bool = false %>                        
 
             // Expande la vista si se recibe como parametro @expandir = 1
             <% if (params[:@expandir] == 1.to_s) %>
                 <% expandir_bool = true %>
                 // create a map
-                var map = L.map('my-map').setView([<%= @lat %>, <%= @lon %>], 12);
-                // cordenadas La Plata: -34.9212720014385, -57.95469262045519       
+                var map = L.map('my-map').setView([<%= @lat %>, <%= @lon %>], 12);      
             <% else %>
               // create a map
               var map = L.map('my-map').setView([<%= @lat %>, <%= @lon %>], 16);
-              // cordenadas La Plata: -34.9212720014385, -57.95469262045519   
             <% end %>
+
+            var autoIcon = new L.Icon({
+              iconUrl: 'https://icones.pro/wp-content/uploads/2021/03/icone-de-voiture-symbole-png-jaune.png',
+              //shadowUrl: 'https://upload.wikimedia.org/wikipedia/commons/5/5a/Car_icon_alone.png',
+              iconSize: [32, 32],
+              iconAnchor: [12, 41],
+              popupAnchor: [1, -34],
+              shadowSize: [41, 41]
+            });
+
 
             <% while (i < cantidad) %>
               <% dif_lat = @lat - @autos_disponibles[i].lat %>
               <% dif_lon = @lon - @autos_disponibles[i].lon %>
-              <% sum = dif_lat.abs() + dif_lon.abs() %>         
+              <% sum = dif_lat.abs() + dif_lon.abs() %>
 
               <% if (sum <= 0.008 or expandir_bool) %>
-                L.marker([<%= @autos_disponibles[i].lat %>, <%= @autos_disponibles[i].lon %>]).addTo(map)
-
-                .bindPopup('<b><%= @autos_disponibles[i].patente %></b><br /><%= @autos_disponibles[i].marca %> <%= @autos_disponibles[i].color %> </br> <a <%= link_to "Detalles", auto_path(@autos[i]), class:"m-2 btn btn-outline-dark" %></a>').openPopup();
+                L.marker([<%= @autos_disponibles[i].lat %>, <%= @autos_disponibles[i].lon %>], {icon: autoIcon}).addTo(map)
+                .bindPopup('<b><%= @autos_disponibles[i].patente %></b><br /><%= @autos_disponibles[i].marca %> <%= @autos_disponibles[i].color %> </br> <a <%= link_to "Detalles", auto_path(@autos_disponibles[i].id), class:"m-2 btn btn-outline-dark" %></a>').openPopup();
                 <% mostro_autos = true %>
                 
               <% end %>
@@ -89,7 +137,7 @@
         </script>
 </div>
 
-<% if (params[:@expandir] != 1.to_s && mostro_autos) %>
+<% if (params[:@expandir] != 1.to_s && !mostro_autos) %>
   <div class="d-flex aligns-items-center justify-content-center">
         <a href="/autos?%40expandir=1" type="button" class="m-2 btn btn-outline-dark no-deco" >
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrows-angle-expand mb-1 me-1" viewBox="0 0 16 16">
