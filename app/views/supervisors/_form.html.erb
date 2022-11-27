@@ -22,13 +22,7 @@
     DNI<% form.label :'DNI'%><%= form.text_field :dni,  class: "form-control mb-2", value:params[:dni] %>
     <%= form.label :'Email'%><%= form.text_field :contact,  class: "form-control mb-2", value:params[:contact]  %>
 
-    <div class="col-md-6 mb-3">
-      <div>
-        <%= form.label :habilitado, style: "display: block", class:"form-check-label" %>
-        <%= form.check_box :habilitado, class:"form-check-input", value:params[:habilitado] %>
-      </div>
-    </div>
-
+    <br>
     <div class="row">
       <% if (!current_page?('/supervisors/new')) %>
         <div class="col-2 me-3">
