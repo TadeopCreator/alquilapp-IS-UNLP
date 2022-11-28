@@ -94,7 +94,7 @@
             <% if (params[:@expandir] == 1.to_s) %>
                 <% expandir_bool = true %>
                 // create a map
-                var map = L.map('my-map').setView([<%= @lat %>, <%= @lon %>], 12);      
+                var map = L.map('my-map').setView([<%= @lat %>, <%= @lon %>], 14);      
             <% else %>
               // create a map
               var map = L.map('my-map').setView([<%= @lat %>, <%= @lon %>], 16);
