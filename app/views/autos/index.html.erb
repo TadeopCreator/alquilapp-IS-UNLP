@@ -4,6 +4,7 @@
   id_rol = records_array[0]["id_rol"] 
   @usuario = Usuario.find(id_rol.to_s) %>
 
+
 <% if (@usuario[:alquilando]) %>
   <% sql = "SELECT * FROM historials WHERE id_usr='" + @usuario[:id].to_s + "' ORDER BY id DESC LIMIT 1" 
     records_array = ActiveRecord::Base.connection.execute(sql)
@@ -69,11 +70,13 @@
 <% if cantidad == 0 %>
     <% mostro_autos = true %>    
     <div class="alert alert-warning" role="alert">
-    <% if !@usuario.enable %>
-      Su licencia aún no ha sido aceptada para ver el mapa
+    <% if @usuario.send_license == 0 && !@usuario.enable %>
+      Su licencia no fue aceptada, por favor verifique sus datos y envielo de nuevo
+    <% elsif !@usuario.enable%>
+        Su licencia aún no ha sido aceptada para ver el mapa
     <% else %>
       No hay vehículos disponibles
-    <% end %>
+    <%end%>  
   </div>
 <% else %>
   <% mostro_autos = false %>
