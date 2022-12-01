@@ -29,20 +29,35 @@ class SupervisorsController < ApplicationController
     records_array = ActiveRecord::Base.connection.execute(sql)
 
     if (records_array != [])
-      error = true
-      flash[:notice] = 'Ya existe un supervisor con ese email'
-    end
+      records_array.each do |record|
 
-    # Crea el user del devise con el rol de supervisor para validar si el email es invalido
-    @user = User.create(:email => supervisor_params[:contact], :password => 'abc123', :role => :supervisor)
-
-    if (@user.errors.any?)
-      error = true
-      @user.errors.each do |error|
-        if (error.full_message == "Email is invalid")
-          flash[:alert] = 'Email inválido'          
+        # Si no esta borrado quiere decir que existe un supervisor con el mismo email        
+        if (record["borrado"] == nil || record["borrado"] == 0)
+          error = true
+          flash[:notice] = 'Ya existe un supervisor con ese email'
         end
       end
+    end
+
+    # El email no esta repetido entre los supervisores no borrados
+    if !(error)
+      # Crea el user del devise con el rol de supervisor para validar si el email es invalido
+      @user = User.create(:email => supervisor_params[:contact], :password => 'abc123', :role => :supervisor)
+
+      if (@user.errors.any?)
+        error = true
+        @user.errors.each do |error|
+          if (error.full_message == "Email is invalid")
+            flash[:alert] = 'Email inválido'          
+          end
+        end
+      end
+    else # El email esta repetido
+      # Estoy reutilizando en user ya creado
+      @user = User.where(email: supervisor_params[:contact])
+      
+      # Debo de actualizar la contraseña a 'abc123'
+      @user.update_attribute(:password => 'abc123')
     end
 
     if (error)
