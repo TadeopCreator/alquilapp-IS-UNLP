@@ -18,6 +18,6 @@ class GlobalsController < ApplicationController
 
   private
       def global_params
-          params.require(:global).permit(:monto_auto, :monto_multa, :cooldown, :tiempo_multa)
+          params.require(:global).permit(:monto_auto, :monto_extension, :monto_multa, :cooldown, :tiempo_multa)
       end
 end
