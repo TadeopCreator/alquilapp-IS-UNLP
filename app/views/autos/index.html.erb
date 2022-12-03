@@ -4,6 +4,7 @@
   id_rol = records_array[0]["id_rol"] 
   @usuario = Usuario.find(id_rol.to_s) %>
 
+
 <% if (@usuario[:alquilando]) %>
   <% sql = "SELECT * FROM historials WHERE id_usr='" + @usuario[:id].to_s + "' ORDER BY id DESC LIMIT 1" 
     records_array = ActiveRecord::Base.connection.execute(sql)
@@ -69,12 +70,16 @@
 <% if cantidad == 0 %>
     <% mostro_autos = true %>    
     <div class="alert alert-warning" role="alert">
-    No hay vehículos disponibles
+    <% if @usuario.send_license == 0 && !@usuario.enable %>
+      Su licencia no fue aceptada, por favor verifique sus datos y envielo de nuevo
+    <% elsif !@usuario.enable%>
+        Su licencia aún no ha sido aceptada para ver el mapa
+    <% else %>
+      No hay vehículos disponibles
+    <%end%>  
   </div>
 <% else %>
   <% mostro_autos = false %>
-<% end %>
-
 <div class="row">
 <div class="d-flex aligns-items-center justify-content-center">
   <div id="my-map" class="border border-secondary rounded w-100" style="height: 600px; position: relative;"></div>
@@ -89,7 +94,7 @@
             <% if (params[:@expandir] == 1.to_s) %>
                 <% expandir_bool = true %>
                 // create a map
-                var map = L.map('my-map').setView([<%= @lat %>, <%= @lon %>], 12);      
+                var map = L.map('my-map').setView([<%= @lat %>, <%= @lon %>], 14);      
             <% else %>
               // create a map
               var map = L.map('my-map').setView([<%= @lat %>, <%= @lon %>], 16);
@@ -148,5 +153,7 @@
           Expandir visión
       </a>
   </div>
-<% end %>
 </div>
+<% end %>
+<% end %>
+

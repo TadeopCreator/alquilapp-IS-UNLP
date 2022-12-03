@@ -9,6 +9,23 @@ class AdminController < ApplicationController
     end
   end
 
+  def habilitar
+    attributes = {}
+    attributes[:habilitado] = true
+    @supervisors = Supervisor.find(params[:id])
+    @supervisors.update(attributes)
+    redirect_to admin_supervisores_path
+  end
+
+  def deshabilitar
+    attributes = {}
+    attributes[:habilitado] = false
+    @supervisors = Supervisor.find(params[:id])
+    @supervisors.update(attributes)
+    redirect_to admin_supervisores_path
+  end
+
+
   def dashboard
     unless current_user.admin?
       redirect_to new_user_session_path
