@@ -59,17 +59,31 @@
   </div>
 
 <br/>
-<div class="row justify-content-center">
-  <div class="col-4">
-    <div class="field"> 
-      <div>
-        Licencia de conducir<% form.label :image%> <br/>
-        <input required <%= form.file_field :image, class:"form-control" %> </input>
+
+<% if (!current_page?('/usuarios/new')) %>
+  <div class="row justify-content-center">
+    <div class="col-4">
+      <div class="field"> 
+        <div>
+          Licencia de conducir<% form.label :image %> <br/>
+          <input <%= form.file_field :image, class:"form-control" %></input>
+        </div>
+      </div>
+        <i>La licencia actual es: <%= @foto %></i>
+    </div>
+  </div>
+<% else %>
+  <div class="row justify-content-center">
+    <div class="col-4">
+      <div class="field"> 
+        <div>
+          Licencia de conducir<% form.label :image %> <br/>
+          <input required <%= form.file_field :image, class:"form-control" %></input>
+        </div>
       </div>
     </div>
-    <i>La licencia actual es: <%= @foto %></i>
   </div>
-</div>
+<% end %>
 
 <br/>
 <div class="row justify-content-center">

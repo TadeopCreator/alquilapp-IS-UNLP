@@ -57,10 +57,15 @@ class UsuariosController < ApplicationController
   def update
     respond_to do |format|
       original_imagen = @usuario.image.original_filename
-      nueva_imagen = params[:usuario][:image].original_filename
-      if (original_imagen != nueva_imagen) && (@usuario.errors.where(:date_licence).last == nil)
-        @usuario.send_license = 1 #Establece el valor del status del envio de la licencia
-      end 
+      
+      if (params[:usuario][:image] != nil)
+        nueva_imagen = params[:usuario][:image].original_filename
+        if (original_imagen != nueva_imagen) && (@usuario.errors.where(:date_licence).last == nil)
+          @usuario.send_license = 1 #Establece el valor del status del envio de la licencia
+          puts("El codigo de licencia mandado es: ",@usuario.send_license)
+          @usuario.enable = false
+        end
+      end
       if @usuario.update(usuario_params)
         format.html { redirect_to autos_path, notice: "Perfil actualizado exitosamente" }
         format.json { render autos_path, status: :ok, location: @usuario }

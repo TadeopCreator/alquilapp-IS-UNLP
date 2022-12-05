@@ -14,14 +14,16 @@ class HistorialsController < ApplicationController
         @global = Global.last
         @historial = Historial.new
         @saldo = Wallet.find(@usuario[:id_wallet])
+        @costo = @global.monto_auto * params[:tiempoAlquilado].to_i
 
         if  (params[:tiempoAlquilado].to_i < 1) || (params[:tiempoAlquilado].to_i > 24)            
             flash[:notice] = "Solo puede alquilar el vehiculo entre 1-24 horas"
             fallo = true
         end
 
-        if (@saldo.saldo < (@global.monto_auto * params[:tiempoAlquilado].to_i))          
-            flash[:notice] = "Saldo insuficiente"
+        if (@saldo.saldo < @costo)     
+            faltante = @costo - @saldo.saldo     
+            flash[:notice] = "Saldo insuficiente, necesita $#{faltante} extra"
             fallo= true
         end
 
