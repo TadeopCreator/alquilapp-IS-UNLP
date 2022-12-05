@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_03_220014) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_05_204057) do
   create_table "admins", force: :cascade do |t|
     t.string "name"
     t.string "lastname"
@@ -65,6 +65,9 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_03_220014) do
     t.boolean "multa"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "tiempo_extension"
+    t.float "precio_multa"
+    t.float "total"
   end
 
   create_table "reports", force: :cascade do |t|

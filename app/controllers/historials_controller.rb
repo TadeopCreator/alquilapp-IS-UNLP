@@ -36,7 +36,10 @@ class HistorialsController < ApplicationController
             attributes[:id_auto] = @auto.id
             attributes[:tiempoAlquilado] = params[:tiempoAlquilado]
             attributes[:precio] = @global.monto_auto
+            attributes[:pextra] = @global.monto_extension
+            attributes[:precio_multa] = @global.monto_multa
             attributes[:multa] = false
+            attributes[:tiempo_extension] = 0
             attributes[:fin] = Time.now + params[:tiempoAlquilado].to_i.hours - 3.hours
             @historial = Historial.new(attributes)
             
@@ -45,11 +48,6 @@ class HistorialsController < ApplicationController
                 puts("ALQUILANDO: ", params)
                 respond_to do |format|
                     if @historial.save
-                        # Actualiza el saldo de la wallet cobrando el alquiler
-                        wallet = {}
-                        wallet[:saldo] = @saldo.saldo - (@global.monto_auto * params[:tiempoAlquilado].to_i)
-                        @saldo.update(wallet)
-    
                         # Setea el auto como alquilado
                         alquilar = {}
                         alquilar[:alquilado] = true
@@ -76,4 +74,19 @@ class HistorialsController < ApplicationController
             end         
         end
     end
+
+
+  def receipt
+    unless (user_signed_in? && current_user.user?)
+      redirect_to new_user_session_path
+    end
+    user_ID = current_user.id
+    sql = "SELECT * FROM users WHERE id='" + user_ID.to_s + "'"
+    records_array = ActiveRecord::Base.connection.execute(sql)
+    id_rol=records_array[0]["id_rol"]
+    @usuario = Usuario.find(id_rol.to_s)
+    @historial = Historial.where(id_usr:@usuario.id)
+    puts("SI PASA POR EL CONTROLADOR")
+  end
+  
 end
