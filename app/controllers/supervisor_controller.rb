@@ -40,6 +40,25 @@ class SupervisorController < ApplicationController
     redirect_to :supervisors
   end
 
+  def bloqueo
+    attributes = {}
+    @user = User.where(role:"user").where(id_rol: params[:id]).first
+    @usuario = Usuario.find(params[:id])
+    if @usuario.alquilando
+      flash[:notice] = "No se ha podido bloquear al usuario porque se encuentra alquilando en este momento."
+    else
+      if @user.access_locked?
+        @user.unlock_access!
+        attributes[:lock] = false
+      else
+        @user.lock_access!
+        attributes[:lock] = true
+      end
+      @usuario.update(attributes)
+    end
+    redirect_to :supervisors
+  end
+
   
   def dashboard
     @autos = Auto.all.order(created_at: :desc) #Se puede alterar, pero en el inicio se ve la lista de autos
