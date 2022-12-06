@@ -1,0 +1,17 @@
+<tr>
+    <% auto =Auto.find(historial.id_auto) %>
+    <td><%= (historial.created_at - 3.hours).to_date%></td>
+    <td><%= auto.marca %> <%= auto.modelo %></td>
+    <td><%= auto.color %></td> 
+    <td>$ <%= historial.total %></td>
+    <td><%= historial.tiempoAlquilado + historial.tiempo_extension %> Horas</td>
+    <td>
+        <%= "NO" %>
+        <% if historial.multa %>
+            <% "SI" %>
+        <% end %>
+    </td>
+    <td>
+        <a <%= link_to "Ver Recibo", method = historials_recibo_path(:id => historial.id), class:"btn bg-color-alquilapp text-white" %></a>
+    </td>
+</tr>
