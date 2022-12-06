@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   post 'wallet/edit'
 
   get 'historials/receipt'
+  get 'historials/recibo'
   
   post '/autos/:id', to: 'historials#create'
   

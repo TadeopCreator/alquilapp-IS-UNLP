@@ -40,6 +40,7 @@ class HistorialsController < ApplicationController
             attributes[:precio_multa] = @global.monto_multa
             attributes[:multa] = false
             attributes[:tiempo_extension] = 0
+            attributes[:tiempo_multa] = 0
             attributes[:fin] = Time.now + params[:tiempoAlquilado].to_i.hours - 3.hours
             @historial = Historial.new(attributes)
             
@@ -75,7 +76,6 @@ class HistorialsController < ApplicationController
         end
     end
 
-
   def receipt
     unless (user_signed_in? && current_user.user?)
       redirect_to new_user_session_path
@@ -86,7 +86,15 @@ class HistorialsController < ApplicationController
     id_rol=records_array[0]["id_rol"]
     @usuario = Usuario.find(id_rol.to_s)
     @historial = Historial.where(id_usr:@usuario.id)
-    puts("SI PASA POR EL CONTROLADOR")
   end
-  
+
+  def recibo
+    unless (user_signed_in? && current_user.user?)
+      redirect_to new_user_session_path
+    end
+    @historial = Historial.find(params[:id])
+    @user = Usuario.find(@historial.id_usr)
+    @auto = Auto.find(@historial.id_auto)
+  end
+
 end
