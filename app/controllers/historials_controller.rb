@@ -85,7 +85,7 @@ class HistorialsController < ApplicationController
     records_array = ActiveRecord::Base.connection.execute(sql)
     id_rol=records_array[0]["id_rol"]
     @usuario = Usuario.find(id_rol.to_s)
-    @historial = Historial.where(id_usr:@usuario.id)
+    @historial = Historial.where(id_usr:@usuario.id).order(id: :DESC)
   end
 
   def recibo
@@ -95,6 +95,13 @@ class HistorialsController < ApplicationController
     @historial = Historial.find(params[:id])
     @user = Usuario.find(@historial.id_usr)
     @auto = Auto.find(@historial.id_auto)
+  end
+  
+  def auto
+    unless (user_signed_in? && current_user.supervisor?)
+      redirect_to new_user_session_path
+    end
+    @historial = Historial.where(id_auto:params[:id]).order(id: :DESC)
   end
 
 end
