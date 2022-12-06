@@ -141,6 +141,7 @@
                 </td>
                 <td>
                   <% if !usuario.lock %>
+                  <!-- Falta implementar cuando el vehiculo está en uso -->
                     <a <%= link_to "Bloquear", method = supervisor_bloqueo_path(:id => usuario.id), class:"btn btn-danger" %></a>
                   <% else %>
                     <a <%= link_to "Desbloquear", method = supervisor_bloqueo_path(:id => usuario.id), class:"btn btn-success" %></a>

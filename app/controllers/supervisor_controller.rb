@@ -44,14 +44,18 @@ class SupervisorController < ApplicationController
     attributes = {}
     @user = User.where(role:"user").where(id_rol: params[:id]).first
     @usuario = Usuario.find(params[:id])
-    if @user.access_locked?
-      @user.unlock_access!
-      attributes[:lock] = false
+    if @usuario.alquilando
+      flash[:notice] = "No se ha podido bloquear al usuario porque se encuentra alquilando en este momento."
     else
-      @user.lock_access!
-      attributes[:lock] = true
+      if @user.access_locked?
+        @user.unlock_access!
+        attributes[:lock] = false
+      else
+        @user.lock_access!
+        attributes[:lock] = true
+      end
+      @usuario.update(attributes)
     end
-    @usuario.update(attributes)
     redirect_to :supervisors
   end
 
