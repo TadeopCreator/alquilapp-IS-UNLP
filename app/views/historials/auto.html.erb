@@ -1,0 +1,61 @@
+<% if @historial == [] %>
+  <div class="my-3 p-4 border border border-secondary rounded">
+    <div class="col-12 text-start">
+        <div class="text-start">
+          Este vehiculo no ha sido utilizado
+        </div>
+    </div>        
+  </div>
+<% else %>
+  <div id="autos" class="table-responsive border border border-secondary rounded">
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Fecha</th>
+          <th scope="col">Hora de inicio</th>
+          <th scope="col">Hora de fin</th>
+          <th scope="col">Usuario</th>
+          <th scope="col">Tiempo</th>
+          <th scope="col">Multado</th>
+          <th scope="col">Monto</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+      <% @historial.each do |auto| %>
+        <tr>
+            <td><%= (auto.created_at - 3.hours).strftime("%d/%m/%Y") %></td>
+            <td><%= (auto.created_at - 3.hours).strftime("%H:%M") %></td>
+            <td>
+            <% if auto.total == nil %>
+              En Uso
+            <% else %>
+              <%= (auto.fin).strftime("%H:%M") %>
+            <% end %></td>
+            <% user =Usuario.find(auto.id_usr) %>
+            <td><%= user.lastname %> <%= user.name %></td>
+            <td><%= auto.tiempoAlquilado + auto.tiempo_extension %> Horas</td>
+            <td>
+                <%= "NO" %>
+                <% if auto.multa %>
+                    <% "SI" %>
+                <% end %>
+            </td>
+            <td>
+            <% if auto.total == nil %>
+              -
+            <% else %>
+              $ <%= auto.total %>
+            <% end %>
+            </td>
+            <td>
+              <% if auto.total != nil %>
+                <a <%= link_to "Multar", class:"btn bg-color-alquilapp text-white" %></a>
+              <% end %>
+            </td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+<% end %>
