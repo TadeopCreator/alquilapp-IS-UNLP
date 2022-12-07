@@ -84,6 +84,7 @@
           <th scope="col">Alquilado</th>
           <th scope="col">Habilitado</th>
           <th scope="col">Acción</th>
+          <th scope="col"></th>
         </tr>
       </thead>
       <tbody>
@@ -102,7 +103,7 @@
 
 <h4>Lista de Usuarios</h4>
   <% if Usuario.all == [] %>
-    <div class="m-2 p-3 border border-2 border-dark rounded">
+    <div class="m-2 p-3 border border-secondaryrounded">
         <div class="col-12 text-start">
           <div class="text-start">
             Aún no hay usuarios
@@ -110,7 +111,7 @@
         </div>
     </div>
   <% else %>
-     <div id="autos" class="border border-2 border-dark rounded">
+     <div id="autos" class="border border-secondary rounded">
         <table class="table">
           <thead>
             <tr>
