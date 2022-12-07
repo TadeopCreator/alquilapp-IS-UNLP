@@ -96,10 +96,46 @@
       </tbody>
   </table>
   </div>
+<<<<<<<<< Temporary merge branch 1
+<% end %>Your account is locked.
+=========
 <% end %>
 
 <br/>
+<h4>Reportes de incidentes</h4>
 
+<% if Report.all == [] %>
+  <div class="my-3 p-4 border border-secondary rounded">
+    <div class="col-12 text-start">
+        <div class="text-start">
+          Aún no hay reportes de incidentes
+        </div>
+    </div>        
+  </div>
+<% else %>
+  <div id="report" class="table-responsive border border-secondary rounded">
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Título</th>
+          <th scope="col">Patente</th>
+          <th scope="col">Fecha</th>
+          <th scope="col">Acción</th>
+        </tr>
+      </thead>
+      <tbody>
+      <% @reports = Report.all %>
+      <% @reports.reverse_each do |report| %>
+          <%= render report %>
+        <% end %>
+      </tbody>
+  </table>
+  </div>
+<% end %>
+
+>>>>>>>>> Temporary merge branch 2
+
+<br/>
 <h4>Lista de Usuarios</h4>
   <% if Usuario.all == [] %>
     <div class="m-2 p-3 border border-2 border-dark rounded">
@@ -151,38 +187,5 @@
           </tbody>
       </table>
       </div>      
-  <% end %>
-
-<br/>
-
-<h4>Reportes de incidentes</h4>
-
-<% if Report.all == [] %>
-  <div class="my-3 p-4 border border-secondary rounded">
-    <div class="col-12 text-start">
-        <div class="text-start">
-          Aún no hay reportes de incidentes
-        </div>
-    </div>        
-  </div>
-<% else %>
-  <div id="report" class="table-responsive border border-secondary rounded">
-    <table class="table">
-      <thead>
-        <tr>
-          <th scope="col">Título</th>
-          <th scope="col">Patente</th>
-          <th scope="col">Fecha</th>
-          <th scope="col">Acción</th>
-        </tr>
-      </thead>
-      <tbody>
-      <% @reports = Report.all %>
-      <% @reports.reverse_each do |report| %>
-          <%= render report %>
-        <% end %>
-      </tbody>
-  </table>
-  </div>
-<% end %>
+  <%end%>
 
