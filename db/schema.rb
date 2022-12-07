@@ -10,12 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+
 ActiveRecord::Schema[7.0].define(version: 2022_12_06_223904) do
+
   create_table "admins", force: :cascade do |t|
     t.string "name"
     t.string "lastname"
     t.string "dni"
-    t.string "email"
+    t.string "mail"
     t.string "phone"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -102,6 +104,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_06_223904) do
     t.datetime "updated_at", null: false
     t.integer "role"
     t.integer "id_rol"
+    t.datetime "locked_at"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
@@ -123,6 +126,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_06_223904) do
     t.datetime "updated_at", null: false
     t.integer "send_license"
     t.boolean "alquilando"
+    t.boolean "lock"
   end
 
   create_table "wallets", force: :cascade do |t|
@@ -131,4 +135,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_06_223904) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
 end

@@ -99,9 +99,59 @@
       </tbody>
   </table>
   </div>
-<% end %>
+<% end %>Your account is locked.
 
-
-
-
+<br/>
+<h4>Lista de Usuarios</h4>
+  <% if Usuario.all == [] %>
+    <div class="m-2 p-3 border border-2 border-dark rounded">
+        <div class="col-12 text-start">
+          <div class="text-start">
+            Aún no hay usuarios
+          </div>
+        </div>
+    </div>
+  <% else %>
+     <div id="autos" class="border border-2 border-dark rounded">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Nombre</th>
+              <th scope="col">Apellido</th>
+              <th scope="col">DNI</th>
+              <th scope="col">Contacto</th>
+              <th scope="col">Status</th>
+              <th scope="col"></th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
+          <tbody>
+          <% @usuarios.each do |usuario| %>      
+            <div id="<%= dom_id usuario %>">
+              <tr>
+                <td><%= usuario.name %></td>
+                <td><%= usuario.dni %></td>
+                <td><%= usuario.contact %></td>
+                <td>  
+                  <% if usuario.lock %>
+                    BLOQUEADO
+                  <% else %>
+                    DESBLOQUEADO
+                  <%end%>
+                </td>
+                <td>
+                  <% if !usuario.lock %>
+                  <!-- Falta implementar cuando el vehiculo está en uso -->
+                    <a <%= link_to "Bloquear", method = supervisor_bloqueo_path(:id => usuario.id), class:"btn btn-danger" %></a>
+                  <% else %>
+                    <a <%= link_to "Desbloquear", method = supervisor_bloqueo_path(:id => usuario.id), class:"btn btn-success" %></a>
+                  <%end%>
+                </td>
+              </tr>
+            </div> 
+          <% end %>
+          </tbody>
+      </table>
+      </div>      
+  <%end%>
 

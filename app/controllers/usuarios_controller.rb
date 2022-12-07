@@ -26,6 +26,7 @@ class UsuariosController < ApplicationController
   def create
     @usuario = Usuario.new(usuario_params)
     @usuario.send_license = 1
+    @usuario.lock = false
 
       if @usuario.save
         redirect_to new_user_registration_path
@@ -62,7 +63,6 @@ class UsuariosController < ApplicationController
         nueva_imagen = params[:usuario][:image].original_filename
         if (original_imagen != nueva_imagen) && (@usuario.errors.where(:date_licence).last == nil)
           @usuario.send_license = 1 #Establece el valor del status del envio de la licencia
-          puts("El codigo de licencia mandado es: ",@usuario.send_license)
           @usuario.enable = false
         end
       end
