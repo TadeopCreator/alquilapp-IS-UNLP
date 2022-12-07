@@ -36,10 +36,11 @@
             <td><%= user.lastname %> <%= user.name %></td>
             <td><%= auto.tiempoAlquilado + auto.tiempo_extension %> Horas</td>
             <td>
-                <%= "NO" %>
-                <% if auto.multa %>
-                    <% "SI" %>
+                <% multa="NO" %>
+                <% if auto.multa? %>
+                    <% multa="SI" %>
                 <% end %>
+                <%= multa %>
             </td>
             <td>
             <% if auto.total == nil %>
@@ -50,7 +51,7 @@
             </td>
             <td>
               <% if auto.total != nil %>
-                <a <%= link_to "Multar", class:"btn bg-color-alquilapp text-white" %></a>
+                <a <%= link_to "Multar", method = historials_multa_path(:id_usr => auto.id_usr,:id_hist => auto.id),  class:"btn bg-color-alquilapp text-white" %></a>
               <% end %>
             </td>
         </tr>
