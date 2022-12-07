@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_07_165218) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_07_185603) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -144,6 +144,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_07_165218) do
     t.datetime "updated_at", null: false
     t.integer "role"
     t.integer "id_rol"
+    t.datetime "locked_at"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
@@ -165,6 +166,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_07_165218) do
     t.datetime "updated_at", null: false
     t.integer "send_license"
     t.boolean "alquilando"
+    t.boolean "lock"
   end
 
   create_table "wallets", force: :cascade do |t|
