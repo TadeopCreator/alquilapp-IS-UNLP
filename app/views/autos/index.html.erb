@@ -33,7 +33,7 @@
       </div>
       <br>
       <a href="#" class="btn bg-color-alquilapp text-white">Extender tiempo de alquiler</a>
-      <a></a>
+       <%= link_to "Reportar incidente", new_report_path, class:"btn bg-color-alquilapp text-white"  %>
       <a href="/finalizar_alquiler/finalizar?auto=<%= auto_alquilado["id"] %>&usuario=<%= @usuario[:id].to_s %>" class="btn btn-danger">Finalizar alquiler</a>
     </div>
   </div>
@@ -41,13 +41,6 @@
 
 <br>
 
-<h2>Vehículos</h2>
-
-<%user_ID = current_user.id%>
-<%sql = "SELECT * FROM users WHERE id='" + user_ID.to_s + "'"%>
-<%records_array=ActiveRecord::Base.connection.execute(sql)%>
-<%id_rol=records_array[0]["id_rol"]%>
-<%@usuario = Usuario.find(id_rol.to_s)%>
 <% @autos = Auto.all %>
 <% cantidad = 0 %>
 <% @global = Global.last.cooldown %>
@@ -72,14 +65,17 @@
     <div class="alert alert-warning" role="alert">
     <% if @usuario.send_license == 0 && !@usuario.enable %>
       Su licencia no fue aceptada, por favor verifique sus datos y envielo de nuevo
-    <% elsif !@usuario.enable%>
+    <% elsif !@usuario.enable %>
         Su licencia aún no ha sido aceptada para ver el mapa
     <% else %>
       No hay vehículos disponibles
     <%end%>  
   </div>
 <% else %>
-  <% mostro_autos = false %>
+<% if !@usuario.alquilando %>
+
+<h2>Vehículos</h2>
+<% mostro_autos = false %>
 <div class="row">
 <div class="d-flex aligns-items-center justify-content-center">
   <div id="my-map" class="border border-secondary rounded w-100" style="height: 600px; position: relative;"></div>
@@ -154,6 +150,7 @@
       </a>
   </div>
 </div>
+<% end %>
 <% end %>
 <% end %>
 

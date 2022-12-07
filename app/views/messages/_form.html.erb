@@ -1,0 +1,42 @@
+<%= form_with(model: message) do |form| %>
+
+<div class="row">
+<div class="col-4">
+
+  <div class="col-md-8 mb-3">
+    <div>
+      Título <% form.label :title, style: "display: block" %>
+      <input required <%= form.text_field :title, class:"form-control" %></input>
+    </div>
+  </div>
+
+
+  <div class="col-md-8 mb-3">
+    <div>
+      Descripción <% form.label :description, style: "display: block" %>
+      <textarea required rows="3" <%= form.text_field :description, class:"form-control" %></textarea>
+    </div>
+  </div>
+
+
+  <div>
+    <%# form.label :image_data, style: "display: block" %>
+    <%# form.text_area :image_data %>
+  </div>
+
+  <% form.label :src, style: "display: block" %>
+  <input type="hidden" <%= form.text_field :message_type, class:"form-control", value:params["message_type"] %></input>
+
+  <% form.label :src, style: "display: block" %>
+  <input type="hidden" <%= form.text_field :src, class:"form-control", value:params["src"] %></input>
+
+  <% form.label :dest, style: "display: block" %>
+  <input type="hidden" <%= form.text_field :dest, class:"form-control", value:params["dest"] %></input>
+
+  <div>
+    <button class='btn bg-color-alquilapp text-white' <%= form.submit %>Enviar</button>
+  </div>
+
+</div>
+</div>
+<% end %>

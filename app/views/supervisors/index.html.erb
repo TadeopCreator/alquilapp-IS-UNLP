@@ -1,8 +1,5 @@
 <h2>Panel de control</h2>
 
-<%#<%= link_to 'Ver Reportes', reports_url, class:'btn bg-color-alquilapp text-white disabled' %>
-<%#<%= link_to 'Ver Pedidos de validación (no funcional)', reports_url, class:'btn bg-color-alquilapp text-white' %>
-
 <br/>
 <h4>Pedidos de validación de licencias</h4>
 
@@ -50,7 +47,7 @@
                 <td><%= usuario.lastname%></td>
                 <td><%= usuario.dni %></td>
                 <td><a class="rounded-circle text-white m-1" href=<%= usuario.image_url%> target="_blank"><%= image_tag usuario.image_url, style: 'height:25%;width:10%;', class:"img-responsive"%> </a> </td>
-                <td><%= usuario.date_licence%>
+                <td><%= usuario.date_licence %>
                 <td><a> <%= link_to "Aceptar", method = supervisor_aceptar_path(:id => usuario.id), class:"btn btn-success"%> </a>
                 <td><a> <%= link_to "Rechazar", method = supervisor_rechazar_path(:id => usuario.id), class:"btn btn-danger"%> </a>
               </tr>
@@ -92,16 +89,17 @@
       <tbody>
       <% @autos = Auto.all %>
       <% @autos.each do |auto| %>
-        <% if not auto.borrado %>   
+        <% if (!auto.borrado && !auto.alquilado) %>   
           <%= render auto %>
         <% end %>
       <% end %>
       </tbody>
   </table>
   </div>
-<% end %>Your account is locked.
+<% end %>
 
 <br/>
+
 <h4>Lista de Usuarios</h4>
   <% if Usuario.all == [] %>
     <div class="m-2 p-3 border border-2 border-dark rounded">
@@ -153,5 +151,37 @@
           </tbody>
       </table>
       </div>      
-  <%end%>
+  <% end %>
 
+  <br/>
+
+<h4>Reportes de incidentes</h4>
+
+<% if Report.all == [] %>
+  <div class="my-3 p-4 border border-secondary rounded">
+    <div class="col-12 text-start">
+        <div class="text-start">
+          Aún no hay reportes de incidentes
+        </div>
+    </div>        
+  </div>
+<% else %>
+  <div id="report" class="table-responsive border border-secondary rounded">
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Título</th>
+          <th scope="col">Patente</th>
+          <th scope="col">Fecha</th>
+          <th scope="col">Acción</th>
+        </tr>
+      </thead>
+      <tbody>
+      <% @reports = Report.all %>
+      <% @reports.reverse_each do |report| %>
+          <%= render report %>
+        <% end %>
+      </tbody>
+  </table>
+  </div>
+<% end %>

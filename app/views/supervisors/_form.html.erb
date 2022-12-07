@@ -6,8 +6,6 @@
     <% sql = "SELECT * FROM supervisors WHERE id='" + id_supervisor.to_s + "'" %>
     <% records_array = ActiveRecord::Base.connection.execute(sql) %>
 
-    <% puts("Supervisor: ", records_array[0]) %>
-
     <% params[:name] = records_array[0]["name"] %>
     <% params[:surname] = records_array[0]["surname"] %>
     <% params[:dni] = records_array[0]["dni"] %>
