@@ -31,7 +31,11 @@
                                                                 <td class="alignright">$<%= (@historial.pextra*@historial.tiempo_extension) %></td>
                                                             </tr>
                                                             <tr>
-                                                                <td>Multa</td>
+                                                                <td>Multa 
+                                                                <% if @historial.motive != nil %>
+                                                                    (<%= @historial.motive %>)
+                                                                <% end %>
+                                                                </td>
                                                                 <td class="alignright">$<%= (@historial.precio_multa*@historial.tiempo_multa) %></td>
                                                             </tr>
                                                             <tr class="total">

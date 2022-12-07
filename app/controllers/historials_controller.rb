@@ -1,4 +1,5 @@
 class HistorialsController < ApplicationController
+    before_action :authenticate_user!
 
     def create
         fallo = false
@@ -40,7 +41,7 @@ class HistorialsController < ApplicationController
             attributes[:precio_multa] = @global.monto_multa
             attributes[:multa] = false
             attributes[:tiempo_extension] = 0
-            attributes[:tiempo_multa] = 0
+            attributes[:tiempo_multa] = @global.tiempo_multa
             attributes[:fin] = Time.now + params[:tiempoAlquilado].to_i.hours - 3.hours
             @historial = Historial.new(attributes)
             
@@ -102,6 +103,48 @@ class HistorialsController < ApplicationController
       redirect_to new_user_session_path
     end
     @historial = Historial.where(id_auto:params[:id]).order(id: :DESC)
+  end
+
+  def multa
+    unless (user_signed_in? && current_user.supervisor?)
+      redirect_to new_user_session_path
+    end
+    @user = Usuario.find(params[:id_usr])
+    @wallet = Wallet.find(@user.id_wallet)
+    @historial = Historial.find(params[:id_hist])
+  end
+
+  def cobrar
+    unless (user_signed_in? && current_user.supervisor?)
+      redirect_to new_user_session_path
+    end
+    @historial = Historial.find(params[:id_hist])
+    @wallet = Wallet.find(params[:id_wallet])
+    @wallet.update(saldo:(@wallet.saldo-params[:amount].to_f))
+    motivo= "Varios"
+    if params[:motive].to_s == "Oil"
+      motivo="No relleno tanque"
+    else
+      if params[:motive].to_s == "Broke"
+        motivo="Vehiculo Roto"
+      else
+        if params[:motive].to_s == "Left"
+          motivo="Vehiculo fuera de La Plata"
+        end
+      end
+    end
+    hisupt = {}
+    hisupt[:multa] = 1
+    hisupt[:motive] = motivo
+    tm = @historial.tiempo_multa
+    if tm == 0
+      tm = 1
+    end
+    hisupt[:precio_multa] = @historial.precio_multa+(params[:amount].to_f/tm)
+    hisupt[:tiempo_multa] = tm
+    hisupt[:total] = @historial.total+params[:amount].to_f
+    @historial.update(hisupt)
+    redirect_to historials_auto_path(:id => @historial.id_auto)
   end
 
 end

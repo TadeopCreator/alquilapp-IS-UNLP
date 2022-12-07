@@ -1,3 +1,3 @@
-class Report < ApplicationRecord
+class Message < ApplicationRecord
     include ImageUploader::Attachment(:image)
 end

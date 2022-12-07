@@ -1,4 +1,5 @@
 class ReportsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_report, only: %i[ show edit update destroy ]
 
   # GET /reports or /reports.json
@@ -25,7 +26,7 @@ class ReportsController < ApplicationController
 
     respond_to do |format|
       if @report.save
-        format.html { redirect_to report_url(@report), notice: "Reporte creado exitosamente." }
+        format.html { redirect_to autos_path, notice: "Reporte enviado exitosamente" }
         format.json { render :show, status: :created, location: @report }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -52,7 +53,7 @@ class ReportsController < ApplicationController
     @report.destroy
 
     respond_to do |format|
-      format.html { redirect_to reports_url, notice: "Report was successfully destroyed." }
+      format.html { redirect_to supervisors_path, notice: "Reporte eliminado exitosamente" }
       format.json { head :no_content }
     end
   end
@@ -65,6 +66,6 @@ class ReportsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def report_params
-      params.require(:report).permit(:title, :description, :patente, :date)
+      params.require(:report).permit(:title, :description, :patente, :date, :image, :src)
     end
 end

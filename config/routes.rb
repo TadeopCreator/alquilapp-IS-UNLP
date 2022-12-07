@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :messages
   resources :usuarios
   resources :reports
   resources :supervisors
@@ -11,8 +12,10 @@ Rails.application.routes.draw do
   get 'historials/receipt'
   get 'historials/recibo'
   get 'historials/auto'
+  get 'historials/multa'
   
   post '/autos/:id', to: 'historials#create'
+  post '/historials/multa', to: 'historials#cobrar'
   
   devise_for :users, controllers: {registrations: 'registrations', sessions: 'users/sessions'}
   

@@ -1,10 +1,64 @@
-<p style="color: green"><%= notice %></p>
+<div class= "col-6 m-auto">
+<h2 class="text-center">Perfil</h2>
 
-<%= render @usuario %>
+<br>
 
-<div>
-  <%= link_to "Edit this usuario", edit_usuario_path(@usuario) %> |
-  <%= link_to "Back to usuarios", usuarios_path %>
+<div class="row justify-content-center border rounded p-3">
+<h5 class="text-center">Nombre y Apellido</h5>
+<%= @usuario.name %> <%= @usuario.lastname %>
 
-  <%= button_to "Destroy this usuario", @usuario, method: :delete %>
+<br>
+<br>
+<hr class="divider" />
+<br>
+
+<h5 class="text-center">DNI</h5>
+<%= @usuario.dni %>
+
+<br>
+<br>
+<hr class="divider" />
+<br>
+
+<h5 class="text-center">Fecha de nacimiento</h5>
+<%= @usuario.birthdate %>
+
+<br>
+<br>
+<hr class="divider" />
+<br>
+
+<h5 class="text-center">Contacto</h5>
+<%= @usuario.contact %>
+
+<br>
+<br>
+<hr class="divider" />
+<br>
+
+<h5 class="text-center">Licencia de conducir</h5>
+<img class="rounded-circle text-white m-1" %><%= image_tag @usuario.image_url, style: 'height:90%; width:30%;', class:"img-responsive"%></img>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<hr class="divider" />
+
+<h5 class="text-center">Vencimiento</h5>
+<%= @usuario.date_licence %>
+
+
+</div>
+
+<br>
+<br>
+
+<div class="text-center">
+  <%= link_to "Atrás", :back, class:"btn btn-outline-primary" %>
+</div>
+
+<br>
+
 </div>
