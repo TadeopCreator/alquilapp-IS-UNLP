@@ -80,6 +80,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_07_165218) do
     t.integer "tiempo_multa"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.float "monto_extension"
   end
 
   create_table "historials", force: :cascade do |t|
@@ -92,6 +93,11 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_07_165218) do
     t.boolean "multa"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "tiempo_extension"
+    t.float "precio_multa"
+    t.float "total"
+    t.integer "tiempo_multa"
+    t.string "motive"
   end
 
   create_table "messages", force: :cascade do |t|

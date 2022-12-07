@@ -1,0 +1,30 @@
+<tr>
+    <% auto =Auto.find(historial.id_auto) %>
+    <td>
+    <% if historial.total == nil %>
+      En Uso
+    <% else %>        
+        <%= (historial.created_at - 3.hours).to_date%>
+    <% end %> 
+    </td>
+    <td><%= auto.marca %> <%= auto.modelo %></td>
+    <td><%= auto.color %></td> 
+    <td>
+    <% if historial.total == nil %>
+      -
+    <% else %>
+        $ <%= historial.total %> 
+    <% end %> 
+    </td>
+    <td><%= historial.tiempoAlquilado + historial.tiempo_extension %> Horas</td>
+    <td>
+        <% multa="NO" %>
+        <% if historial.multa? %>
+            <% multa="SI" %>
+        <% end %>
+        <%= multa %>
+    </td>
+    <td>
+        <a <%= link_to "Ver Recibo", method = historials_recibo_path(:id => historial.id), class:"btn bg-color-alquilapp text-white" %></a>
+    </td>
+</tr>
