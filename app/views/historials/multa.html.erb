@@ -1,0 +1,51 @@
+<div class="col-md-7 col-lg-8 mx-auto">
+    <form <%= form_with do |form| %>
+        <h4 class="mb-3">Multando a <%= @user.lastname %> <%= @user.name %></h4>        
+
+        <div class="row g-3">    
+
+            <hr class="my-4">
+
+            <div class="my-3">
+                <div class="form-check">
+                    <input id="Oil" value="Oil" name="motive" type="radio" class="form-check-input" checked required>
+                    <label class="form-check-label" for="Oil">No cargo el tanque de combustible</label>
+                </div>
+                <div class="form-check">
+                    <input id="Broke" value="Broke"  name="motive" type="radio" class="form-check-input" required>
+                    <label class="form-check-label" for="Broke">Vehiculo Roto</label>
+                </div>
+                <div class="form-check">
+                    <input id="Left" value="Left"  name="motive" type="radio" class="form-check-input" required>
+                    <label class="form-check-label" for="Left">Vehiculo fuera de La Plata</label>
+                </div>
+                <div class="form-check">
+                    <input id="Other" value="Other"  name="motive" type="radio" class="form-check-input" required>
+                    <label class="form-check-label" for="Other">Varios</label>
+                </div>
+            </div>
+
+
+            <label for="amount" class="form-label">Monto de Multa</label>
+            <div class="col-md-7">
+                <input id="amount" value="<%= params[:amount] %>" type="float" min="0" required <%= form.number_field :amount, class:"form-control" %>
+                <div class="invalid-feedback">
+                Un monto es requerido
+                </div>
+            </div>
+
+        <%= form.hidden_field :id_wallet, value:@wallet.id %>
+        <%= form.hidden_field :id_hist, value:@historial.id %>
+
+        </div>
+        
+        <br>
+        <div class="row justify-content-center">
+          <div class="col-md-12 text-center"> 
+            <%= link_to "Atrás", :back, class:"btn btn-outline-primary"  %>
+            <button class='btn bg-color-alquilapp text-white' <%= form.submit %>Multar</button>
+          </div>
+        </div>
+    
+    <% end %></form>
+</div>
