@@ -1,0 +1,60 @@
+<div class="receipt">
+    <table class="receipt-wrap">
+        <tbody><tr>
+            <td></td>
+            <td class="rcontainer" width="600">
+                <div class="rcontent">
+                    <table class="main" width="100%" cellpadding="0" cellspacing="0">
+                        <tbody><tr>
+                            <td class="rcontent-wrap aligncenter">
+                                <table width="100%" cellpadding="0" cellspacing="0">
+                                    <tbody><tr>
+                                        <td class="rcontent-block">
+                                            <h2>Gracias por usar Alquilaap</h2>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="rcontent-block">
+                                            <table class="invoice">
+                                                <tbody><tr>
+                                                    <td><%= @user.lastname %> <%= @user.name %><br><%= (@historial.created_at - 3.hours).strftime("%B %d %Y") %><br><%= (@historial.fin).strftime("%H:%M") %></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <table class="invoice-items" cellpadding="0" cellspacing="0">
+                                                            <tbody><tr>
+                                                                <td>Alquiler</td>
+                                                                <td class="alignright">$<%= (@historial.precio*@historial.tiempoAlquilado) %></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Extension de tiempo</td>
+                                                                <td class="alignright">$<%= (@historial.pextra*@historial.tiempo_extension) %></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Multa 
+                                                                <% if @historial.motive != nil %>
+                                                                    (<%= @historial.motive %>)
+                                                                <% end %>
+                                                                </td>
+                                                                <td class="alignright">$<%= (@historial.precio_multa*@historial.tiempo_multa) %></td>
+                                                            </tr>
+                                                            <tr class="total">
+                                                                <td class="alignright" width="80%">Total</td>
+                                                                <td class="alignright">$ <%= @historial.total %></td>
+                                                            </tr>
+                                                        </tbody></table>
+                                                    </td>
+                                                </tr>
+                                            </tbody></table>
+                                        </td>
+                                    </tr>
+                                </tbody></table>
+                            </td>
+                        </tr>
+                    </tbody></table>
+                </div>
+            </td>
+            <td></td>
+        </tr>
+    </tbody></table>
+</div>

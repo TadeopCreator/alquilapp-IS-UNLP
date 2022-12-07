@@ -92,6 +92,11 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_07_165218) do
     t.boolean "multa"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "tiempo_extension"
+    t.float "precio_multa"
+    t.float "total"
+    t.integer "tiempo_multa"
+    t.string "motive"
   end
 
   create_table "messages", force: :cascade do |t|
@@ -138,6 +143,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_07_165218) do
     t.datetime "updated_at", null: false
     t.integer "role"
     t.integer "id_rol"
+    t.datetime "locked_at"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
@@ -159,6 +165,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_07_165218) do
     t.datetime "updated_at", null: false
     t.integer "send_license"
     t.boolean "alquilando"
+    t.boolean "lock"
   end
 
   create_table "wallets", force: :cascade do |t|

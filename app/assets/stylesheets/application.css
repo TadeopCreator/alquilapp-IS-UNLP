@@ -63,14 +63,77 @@ body {
     font-family: 'Poppins', sans-serif
 }
   
-  h1 {
-    max-width: 40ch;
-    text-align: center;
-    transform: scale(0.94);
-    animation: scale 3s forwards cubic-bezier(0.5, 1, 0.89, 1);
+h1 {
+  max-width: 40ch;
+  text-align: center;
+  transform: scale(0.94);
+  animation: scale 3s forwards cubic-bezier(0.5, 1, 0.89, 1);
+}
+@keyframes scale {
+  100% {
+    transform: scale(1);
   }
-  @keyframes scale {
-    100% {
-      transform: scale(1);
-    }
-  }
+}
+
+receipt {
+    margin: 0;
+    padding: 0;
+    font-family: "Helvetica Neue","Helvetica", Helvetica, Arial, sans-serif;
+    box-sizing: border-box;
+    font-size: 14px;
+}
+
+.receipt-wrap{
+  background-color: #f6f6f6;
+  width: 100%;
+}
+
+.rcontainer {
+  display: block !important;
+  max-width: 600px !important;
+  margin: 0 auto !important;
+  clear: both !important;
+}
+
+.rcontent {
+  max-width: 600px;
+  margin: 0 auto;
+  display: block;
+  padding: 20px;
+}
+
+.rcontent-wrap {
+  padding: 20px;
+}
+
+.rcontent-block {
+  padding: 0 0 20px;
+}
+
+.invoice {
+  margin: 40px auto;
+  text-align: left;
+  width: 80%;
+}
+.invoice td {
+  padding: 5px 0;
+}
+.invoice .invoice-items {
+  width: 100%;
+}
+.invoice .invoice-items td {
+  border-top: #eee 1px solid;
+}
+.invoice .invoice-items .total td {
+  border-top: 2px solid #333;
+  border-bottom: 2px solid #333;
+  font-weight: 700;
+}
+
+.alignright {
+  text-align: right;
+}
+
+.aligncenter {
+  text-align: center;
+}

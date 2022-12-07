@@ -8,8 +8,14 @@ Rails.application.routes.draw do
   get 'wallet/show'
   get 'wallet/edit'
   post 'wallet/edit'
+
+  get 'historials/receipt'
+  get 'historials/recibo'
+  get 'historials/auto'
+  get 'historials/multa'
   
   post '/autos/:id', to: 'historials#create'
+  post '/historials/multa', to: 'historials#cobrar'
   
   devise_for :users, controllers: {registrations: 'registrations', sessions: 'users/sessions'}
   
@@ -19,6 +25,8 @@ Rails.application.routes.draw do
   get 'supervisor/deshabilitar'
   get 'supervisors/licencias'
   get 'supervisor/licencias'  
+  get 'supervisor/bloqueo'
+  
   get 'admin/dashboard'
   get 'admin/supervisores'
   get 'admin/vehiculos'
