@@ -1,0 +1,29 @@
+<div id="<%= dom_id message %>">
+
+<div class="ms-auto text-center">
+
+<h2>Mensaje</h2>
+
+<br>
+
+<h5>Título</h5>
+<%= message.title %>
+
+<br>
+<br>
+
+<h5>Descripción</h5>
+<div class="mx-auto col-md-3 mb-3">
+  <p class="text-break"><%= message.description %></p>
+</div>
+
+<br>
+<br>
+
+  <% if message.image != nil %>
+    <h5>Fotografía</h5>
+    <%= image_tag message.image_url %>
+  <% end %>
+
+</div>
+</div>
