@@ -129,6 +129,7 @@
             <div id="<%= dom_id usuario %>">
               <tr>
                 <td><%= usuario.name %></td>
+                <td><%= usuario.lastname %></td>
                 <td><%= usuario.dni %></td>
                 <td><%= usuario.contact %></td>
                 <td>  
@@ -140,7 +141,6 @@
                 </td>
                 <td>
                   <% if !usuario.lock %>
-                  <!-- Falta implementar cuando el vehiculo está en uso -->
                     <a <%= link_to "Bloquear", method = supervisor_bloqueo_path(:id => usuario.id), class:"btn btn-danger" %></a>
                   <% else %>
                     <a <%= link_to "Desbloquear", method = supervisor_bloqueo_path(:id => usuario.id), class:"btn btn-success" %></a>

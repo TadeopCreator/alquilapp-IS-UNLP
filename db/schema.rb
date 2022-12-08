@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_06_182817) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_08_202257) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -34,11 +34,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_06_182817) do
   end
 
   create_table "active_storage_variant_records", force: :cascade do |t|
-<<<<<<< HEAD
-    t.bigint "blob_id", null: false
-=======
     t.integer "blob_id", null: false
->>>>>>> 250b2bf (Hecho el bloquear/desbloquear usuario)
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
@@ -125,6 +121,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_06_182817) do
     t.datetime "updated_at", null: false
     t.text "image_data"
     t.integer "src"
+    t.string "type"
   end
 
   create_table "supervisors", force: :cascade do |t|

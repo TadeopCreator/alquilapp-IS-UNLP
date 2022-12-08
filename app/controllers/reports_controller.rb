@@ -13,7 +13,16 @@ class ReportsController < ApplicationController
 
   # GET /reports/new
   def new
+    renderto = 0
+    if params[:num] != nil
+      renderto = params[:num].to_i
+    end
+    puts("El valor del renderto es: ",renderto)
+    puts("y el valos del :num es :",params[:num])
     @report = Report.new
+    respond_to do |format|
+      format.js {render inline: "location.reload();" }
+    end
   end
 
   # GET /reports/1/edit
@@ -57,6 +66,8 @@ class ReportsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  
 
   private
     # Use callbacks to share common setup or constraints between actions.

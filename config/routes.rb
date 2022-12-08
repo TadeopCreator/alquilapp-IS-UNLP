@@ -16,6 +16,9 @@ Rails.application.routes.draw do
   
   post '/autos/:id', to: 'historials#create'
   post '/historials/multa', to: 'historials#cobrar'
+
+
+  post 'reports/new', to: 'reports#new'
   
   devise_for :users, controllers: {registrations: 'registrations', sessions: 'users/sessions'}
   

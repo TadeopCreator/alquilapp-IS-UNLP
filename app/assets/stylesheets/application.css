@@ -137,3 +137,7 @@ receipt {
 .aligncenter {
   text-align: center;
 }
+
+.d-none {   
+  display: none; 
+}

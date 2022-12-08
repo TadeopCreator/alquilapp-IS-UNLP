@@ -1,6 +1,14 @@
 <h2>Reportar incidente</h2>
 
-<%= render "form", report: @report %>
+
+  <%= button_to "Incidente previo", new_report_path(:num => 1), class:"btn btn-outline-primary" %>
+  <%= button_to "Incidente actual", new_report_path(:num => 2), class:"btn btn-outline-primary" %>
+
+  <% if renderto = 1 %>
+     <%= render "previo", report: @report %>
+  <% elsif renderto = 2 %>
+      <%= render "actual", report: @report %> 
+  <% end%> 
 
 <br>
 
