@@ -15,7 +15,7 @@
           <th scope="col">Hora de inicio</th>
           <th scope="col">Hora de fin</th>
           <th scope="col">Usuario</th>
-          <th scope="col">Tiempo</th>
+          <th scope="col">Tiempo Alquilado</th>
           <th scope="col">Multado</th>
           <th scope="col">Monto</th>
           <th scope="col"></th>
@@ -34,7 +34,13 @@
             <% end %></td>
             <% user =Usuario.find(auto.id_usr) %>
             <td><%= user.lastname %> <%= user.name %></td>
-            <td><%= auto.tiempoAlquilado + auto.tiempo_extension %> Horas</td>
+            <td><% tiempo=auto.tiempoAlquilado + auto.tiempo_extension %> 
+            <% if auto.multa? && auto.motive != nil%>
+                <% tiempo=tiempo + auto.tiempo_multa %>
+            <% end %>
+            <%= tiempo %>            
+            Horas
+            </td>
             <td>
                 <% multa="NO" %>
                 <% if auto.multa? %>

@@ -25,6 +25,8 @@
         <%= multa %>
     </td>
     <td>
-        <a <%= link_to "Ver Recibo", method = historials_recibo_path(:id => historial.id), class:"btn bg-color-alquilapp text-white" %></a>
+        <% if historial.total != nil %>
+            <a <%= link_to "Ver Recibo", method = historials_recibo_path(:id => historial.id), class:"btn bg-color-alquilapp text-white" %></a>
+        <% end %> 
     </td>
 </tr>

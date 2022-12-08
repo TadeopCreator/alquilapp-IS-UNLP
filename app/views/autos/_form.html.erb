@@ -7,7 +7,7 @@
 <div class="col-md-8 mb-3">
   <div>
     Numero relativo <% form.label :num_rel, style: "display: block" %>
-     <input required <%= form.number_field :num_rel, class:"form-control" %></input>
+     <input required <%= form.number_field :num_rel, min:0, class:"form-control" %></input>
   </div>
 </div>
 
