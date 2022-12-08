@@ -28,13 +28,27 @@ class MessagesController < ApplicationController
   def create
     @message = Message.new(message_params)
 
-    respond_to do |format|
-      if @message.save
-        format.html { redirect_to supervisors_path, notice: "Mensaje enviado exitosamente" }
-        format.json { render :show, status: :created, location: @message }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @message.errors, status: :unprocessable_entity }
+    puts("Params MENSAJE: ", message_params)
+
+    if (message_params["message_type"] == "0")
+      respond_to do |format|
+        if @message.save
+          format.html { redirect_to supervisors_path, notice: "Mensaje enviado exitosamente" }
+          format.json { render :show, status: :created, location: @message }
+        else
+          format.html { render :new, status: :unprocessable_entity }
+          format.json { render json: @message.errors, status: :unprocessable_entity }
+        end
+      end
+    elsif (message_params["message_type"] == "2")
+      respond_to do |format|
+        if @message.save
+          format.html { redirect_to autos_path, notice: "Comentario enviado exitosamente" }
+          format.json { render :show, status: :created, location: @message }
+        else
+          format.html { render :new, status: :unprocessable_entity }
+          format.json { render json: @message.errors, status: :unprocessable_entity }
+        end
       end
     end
   end
