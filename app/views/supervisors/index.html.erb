@@ -5,10 +5,12 @@
 
   <% @usuarios = Usuario.all %>
     <% entro = false %>
-    <% @usuarios.each do |usuario| %>      
+    <% @usuarios.each do |usuario| %>
+    <% if (usuario.deleted == nil or !usuario.deleted) %>     
       <% if usuario.send_license == 1 and usuario.image_data != nil %>
         <% entro = true %>
       <% end %>
+    <% end %>
     <% end %>
       <% if not (entro) %>
         <div class='border border-secondary p-3 rounded'>

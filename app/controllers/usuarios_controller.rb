@@ -9,6 +9,9 @@ class UsuariosController < ApplicationController
 
   # GET /usuarios/1 or /usuarios/1.json
   def show
+    if (!user_signed_in?)
+      redirect_to user_session_path
+    end
   end
 
   # GET /usuarios/new
