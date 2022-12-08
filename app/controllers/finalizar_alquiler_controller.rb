@@ -16,16 +16,13 @@ class FinalizarAlquilerController < ApplicationController
     @historial = Historial.where(id_usr: @usuario.id).last
 
     multa = false
-    tiempo_multa = 0
+    tiempo_multa = 1
     total = ((@historial.precio * @historial.tiempoAlquilado)+(@historial.pextra * @historial.tiempo_extension))
     fin_fecha = DateTime.now - 3.hours
     if (@historial.fin < fin_fecha)
       multa = true
-      diff_m= fin_fecha.min - (Time.now - (@historial.tiempoAlquilado + @historial.tiempo_extension).hours).min
-      diff_h= (fin_fecha.hour - (Time.now - (@historial.tiempoAlquilado + @historial.tiempo_extension).hours).hour)*60
-      tiempo_multa=((diff_m+diff_h)/@historial.tiempo_multa).to_i
-      puts("LA CONCHA DE MI MADRE",tiempo_multa)
-      total = total +(@historial.precio_multa * tiempo_multa)
+      tiempo_multa=(((-(@historial.fin.to_datetime - fin_fecha)*24*60).to_i)/@historial.tiempo_multa) #Calcula la diferencia en minutos y lo divide por el intervalo en que se cobra la multa
+      total = total +(@historial.precio_multa * tiempo_multa).round(2)
     end
     
     @historial.update(fin: fin_fecha, multa: multa, total:total, tiempo_multa: tiempo_multa)

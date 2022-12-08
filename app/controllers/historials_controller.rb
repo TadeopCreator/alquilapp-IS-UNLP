@@ -118,33 +118,36 @@ class HistorialsController < ApplicationController
     unless (user_signed_in? && current_user.supervisor?)
       redirect_to new_user_session_path
     end
-    @historial = Historial.find(params[:id_hist])
-    @wallet = Wallet.find(params[:id_wallet])
-    @wallet.update(saldo:(@wallet.saldo-params[:amount].to_f))
-    motivo= "Varios"
-    if params[:motive].to_s == "Oil"
-      motivo="No relleno tanque"
+
+    if (params[:amount].to_i < 0)
+      flash[:notice] = "Por favor ingrese un valor que no sea menor a 0"
+      redirect_to "/historials/multa?id_hist="+params[:id_hist].to_s+"&id_usr="+params[:id_usr].to_s
     else
-      if params[:motive].to_s == "Broke"
-        motivo="Vehiculo Roto"
+      @historial = Historial.find(params[:id_hist])
+      @wallet = Wallet.find(params[:id_wallet])
+      @wallet.update(saldo:(@wallet.saldo-params[:amount].to_f))
+      motivo= "Varios"
+      if params[:motive].to_s == "Oil"
+        motivo="No relleno tanque"
       else
-        if params[:motive].to_s == "Left"
-          motivo="Vehiculo fuera de La Plata"
+        if params[:motive].to_s == "Broke"
+          motivo="Vehiculo Roto"
+        else
+          if params[:motive].to_s == "Left"
+            motivo="Vehiculo fuera de La Plata"
+          end
         end
       end
+      hisupt = {}
+      hisupt[:multa] = 1
+      hisupt[:motive] = motivo
+      tm = @historial.tiempo_multa
+      hisupt[:precio_multa] = @historial.precio_multa+(params[:amount].to_f/tm)
+      hisupt[:tiempo_multa] = tm
+      hisupt[:total] = @historial.total+params[:amount].to_f
+      @historial.update(hisupt)
+      redirect_to historials_auto_path(:id => @historial.id_auto)
     end
-    hisupt = {}
-    hisupt[:multa] = 1
-    hisupt[:motive] = motivo
-    tm = @historial.tiempo_multa
-    if tm == 0
-      tm = 1
-    end
-    hisupt[:precio_multa] = @historial.precio_multa+(params[:amount].to_f/tm)
-    hisupt[:tiempo_multa] = tm
-    hisupt[:total] = @historial.total+params[:amount].to_f
-    @historial.update(hisupt)
-    redirect_to historials_auto_path(:id => @historial.id_auto)
   end
 
 end
