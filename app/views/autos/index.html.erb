@@ -4,7 +4,6 @@
   id_rol = records_array[0]["id_rol"] 
   @usuario = Usuario.find(id_rol.to_s) %>
 
-
 <% if (@usuario[:alquilando]) %>
   <% sql = "SELECT * FROM historials WHERE id_usr='" + @usuario[:id].to_s + "' ORDER BY id DESC LIMIT 1" 
     records_array = ActiveRecord::Base.connection.execute(sql)
@@ -154,3 +153,6 @@
 <% end %>
 <% end %>
 
+<div class="text-end mt-3 mb-3">
+  <%= link_to "Feedback", new_message_path(:src => id_rol, :dest => 0, :message_type => 2), class:"btn bg-color-alquilapp text-white" %>
+</div>
