@@ -1,0 +1,70 @@
+<%= form_with(model: report) do |form| %>
+
+<div class="row">
+<div class="col-4">
+
+ <% user_ID = current_user.id
+  sql = "SELECT * FROM users WHERE id='" + user_ID.to_s + "'"
+  records_array = ActiveRecord::Base.connection.execute(sql)
+  id_rol = records_array[0]["id_rol"] 
+  @usuario = Usuario.find(id_rol.to_s)
+
+  sql = "SELECT * FROM historials WHERE id_usr='" + @usuario[:id].to_s + "' ORDER BY id DESC LIMIT 1" 
+  records_array = ActiveRecord::Base.connection.execute(sql)
+  id_auto = records_array[0]["id_auto"]
+
+  sql_auto = "SELECT * FROM autos WHERE id='" + id_auto.to_s + "'" 
+  records_array_auto = ActiveRecord::Base.connection.execute(sql_auto)
+  auto_alquilado = records_array_auto[0] %>
+
+
+  
+
+<div class="col-md-8 mb-3">
+  <div>
+    <%= form.hidden_field :title, class:"form-control", value:"Incidente con el Vehículo" %>
+  </div>
+</div>
+
+<div class="my-3">
+                <div class="form-check">
+                    <input id="Oil" value="Oil" name="motive" type="radio" class="form-check-input" checked required>
+                    <label class="form-check-label" for="Oil">Tanque sin Combustible</label>
+                </div>
+                <div class="form-check">
+                    <input id="Broke" value="Broke"  name="motive" type="radio" class="form-check-input" required>
+                    <label class="form-check-label" for="Broke">Vehiculo Roto</label>
+                </div>
+                <div class="form-check">
+                    <input id="Left" value="Left"  name="motive" type="radio" class="form-check-input" required>
+                    <label class="form-check-label" for="Left">Vehiculo Sucio</label>
+                </div>
+            </div>
+
+
+<div class="col-md-8 mb-3">
+  <div>
+    <%= form.hidden_field :patente, class:"form-control", value:auto_alquilado["patente"] %>
+  </div>
+</div>
+
+<div class="col-md-8 mb-3">
+  <div>
+    <%= form.hidden_field :date, class:"form-control", value:Time.now.strftime("%Y-%m-%dT%H:%M") %>
+  </div>
+</div>
+
+
+  <% form.label :src, style: "display: block" %>
+  <input type="hidden" <%= form.text_field :src, class:"form-control", value:id_rol %></input>
+
+
+ <br>
+        <div class="row justify-content-center">
+          <div class="col-md-12 text-center"> 
+            <%= link_to "Atrás", :back, class:"btn btn-outline-primary"  %>
+            <button class='btn bg-color-alquilapp text-white' <%= form.submit %>Enviar</button>
+          </div>
+        </div>
+    
+    <% end %>
