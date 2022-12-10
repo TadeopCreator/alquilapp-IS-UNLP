@@ -5,7 +5,7 @@
     <% if historial.total == nil %>
       En Uso
     <% else %>        
-        <%= (historial.created_at - 3.hours).to_date%>
+        <%= (historial.fin).strftime("%d/%m/%Y %H:%M")  %>
     <% end %> 
     </td>
     <td><%= auto.marca %> <%= auto.modelo %></td>
@@ -17,7 +17,7 @@
         $ <%= historial.total %> 
     <% end %> 
     </td>
-    <td><%= historial.tiempoAlquilado + historial.tiempo_extension %> Hora\s</td>
+    <td><%= historial.tiempoAlquilado + historial.tiempo_extension %> Hora/s</td>
     <td>
         <% multa="NO" %>
         <% if historial.multa? %>

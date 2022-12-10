@@ -13,7 +13,11 @@ class ReportsController < ApplicationController
 
   # GET /reports/new
   def new
-    @report = Report.new
+    @renderto=0
+    if params[:num] != nil
+      @renderto=params[:num]
+      @report = Report.new
+    end
   end
 
   # GET /reports/1/edit
@@ -57,6 +61,8 @@ class ReportsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  
 
   private
     # Use callbacks to share common setup or constraints between actions.
