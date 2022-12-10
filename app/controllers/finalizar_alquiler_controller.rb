@@ -17,15 +17,17 @@ class FinalizarAlquilerController < ApplicationController
 
     multa = false
     tiempo_multa = 0
+    precio_multa = 0
     total = ((@historial.precio * @historial.tiempoAlquilado)+(@historial.pextra * @historial.tiempo_extension))
     fin_fecha = DateTime.now - 3.hours
     if (@historial.fin < fin_fecha)
       multa = true
       tiempo_multa=(((-(@historial.fin.to_datetime - fin_fecha)*24*60).to_i)/@historial.tiempo_multa) #Calcula la diferencia en minutos y lo divide por el intervalo en que se cobra la multa
-      total = total +(@historial.precio_multa * tiempo_multa).round(2)
+      precio_multa = (@historial.precio_multa * (tiempo_multa+1)).round(2)
+      total = total + precio_multa
     end
     
-    @historial.update(fin: fin_fecha, multa: multa, total:total, tiempo_multa: tiempo_multa)
+    @historial.update(fin: fin_fecha, multa: multa, total:total, tiempo_multa: tiempo_multa, precio_multa: precio_multa)
 
 
     # Actualiza el saldo de la wallet cobrando el alquiler

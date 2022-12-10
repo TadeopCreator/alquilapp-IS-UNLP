@@ -1,6 +1,6 @@
 <%= form_with(model: report) do |form| %>
 
-<div class="row">
+<div class="row justify-content-center">
 <div class="col-4">
 
  <% user_ID = current_user.id
@@ -22,24 +22,22 @@
 
 <div class="col-md-8 mb-3">
   <div>
-    <%= form.hidden_field :title, class:"form-control", value:"Incidente con el Vehículo" %>
+    <%= form.hidden_field :title, class:"form-control", value:"Incidente Previo con el Vehículo" %>
   </div>
 </div>
 
-<div class="my-3">
-                <div class="form-check">
-                    <input id="Oil" value="Oil" name="motive" type="radio" class="form-check-input" checked required>
-                    <label class="form-check-label" for="Oil">Tanque sin Combustible</label>
-                </div>
-                <div class="form-check">
-                    <input id="Broke" value="Broke"  name="motive" type="radio" class="form-check-input" required>
-                    <label class="form-check-label" for="Broke">Vehiculo Roto</label>
-                </div>
-                <div class="form-check">
-                    <input id="Left" value="Left"  name="motive" type="radio" class="form-check-input" required>
-                    <label class="form-check-label" for="Left">Vehiculo Sucio</label>
-                </div>
-            </div>
+<div class="my-6">
+    <%= form.radio_button :description, 'Tanque sin Combustible' %>
+    <%= form.label :description, 'Tanque sin Combustible', :value => 'Tanque sin Combustible' %>
+    <br>
+
+    <%= form.radio_button :description, 'Vehiculo Roto' %>
+    <%= form.label :description, 'Vehiculo Roto', :value => 'Vehiculo Roto' %>
+    <br>
+    <%= form.radio_button :description, 'Vehiculo Sucio' %>
+    <%= form.label :description, 'Vehiculo Sucio', :value => 'Vehiculo Sucio' %>
+
+</div>
 
 
 <div class="col-md-8 mb-3">
@@ -60,11 +58,13 @@
 
 
  <br>
-        <div class="row justify-content-center">
-          <div class="col-md-12 text-center"> 
-            <%= link_to "Atrás", :back, class:"btn btn-outline-primary"  %>
-            <button class='btn bg-color-alquilapp text-white' <%= form.submit %>Enviar</button>
-          </div>
-        </div>
-    
-    <% end %>
+    <div class="row justify-content-center">
+      <div class="col-md-12 text-center"> 
+        <%= link_to "Atrás", autos_path, class:"btn btn-outline-primary"  %>
+        <button class='btn bg-color-alquilapp text-white' <%= form.submit %>Enviar</button>
+      </div>
+    </div>
+
+<% end %>
+<br>
+<br>
