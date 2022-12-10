@@ -1,9 +1,38 @@
 <h2>Reportar incidente</h2>
 
-<%= render "form", report: @report %>
+<% user_ID = current_user.id
+  sql = "SELECT * FROM users WHERE id='" + user_ID.to_s + "'"
+  records_array = ActiveRecord::Base.connection.execute(sql)
+  id_rol = records_array[0]["id_rol"] 
+  @usuario = Usuario.find(id_rol.to_s)
+
+  sql = "SELECT * FROM historials WHERE id_usr='" + @usuario[:id].to_s + "' ORDER BY id DESC LIMIT 1" 
+  records_array = ActiveRecord::Base.connection.execute(sql)
+  idauto = records_array[0]["id_auto"] 
+
+  sql_auto = "SELECT * FROM autos WHERE id='" + idauto.to_s + "'" 
+  records_array_auto = ActiveRecord::Base.connection.execute(sql_auto)
+  auto_alquilado = records_array_auto[0] %>
+
+<br>
+<div class="row justify-content-center">
+  <div class="col-md-12 text-center"> 
+    <% if ((Time.now - Historial.where(id_usr: @usuario[:id], id_auto: idauto).last.created_at) / 1.minutes) < 10 %>
+      <%= link_to "Incidente previo", url_for(:num => 1), class:"btn btn-outline-primary" %>
+      <%= link_to "Incidente actual", url_for(:num => 2), class:"btn btn-outline-primary" %>
+    <% end %> 
+  </div>
+</div>
+
+<br>
+<% puts("Los minutos son: ", (Time.now - Historial.where(id_usr: @usuario[:id], id_auto: idauto).last.created_at) / 1.minutes)%>
+<% if (((Time.now - Historial.where(id_usr: @usuario[:id], id_auto: idauto).last.created_at) / 1.minutes) < 10) && @renderto == "1"%>
+  <%= render "previo", report: @report %>
+<% elsif (((Time.now - Historial.where(id_usr: @usuario[:id], id_auto: idauto).last.created_at) / 1.minutes) < 10) && @renderto == "2" %>
+  <%= render "actual", report: @report %> 
+<% else %>
+  <%=  render "actual", report: @report %>
+<%end%>
 
 <br>
 
-<div>
-  <%= link_to "Atrás", reports_path %>
-</div>
