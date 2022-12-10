@@ -13,6 +13,8 @@ Rails.application.routes.draw do
   get 'historials/recibo'
   get 'historials/auto'
   get 'historials/multa'
+  get 'historials/extender'
+  post 'historials/extender', to: 'historials#confirmar_extender'
   
   post '/autos/:id', to: 'historials#create'
   post '/historials/multa', to: 'historials#cobrar'
@@ -32,6 +34,7 @@ Rails.application.routes.draw do
   get 'admin/supervisores'
   get 'admin/vehiculos'
   get 'admin/precios'
+  get 'admin/users'
   get 'admin/add_supervisor'
   get 'admin/habilitar'
   get 'admin/deshabilitar'
@@ -39,6 +42,7 @@ Rails.application.routes.draw do
   
   get 'admin/eliminar_vehiculo'
   get 'admin/eliminar_supervisor'
+  get 'admin/eliminar_usuario'
   
   get 'finalizar_alquiler/finalizar'
   

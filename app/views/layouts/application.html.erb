@@ -36,7 +36,7 @@
     
     <% if !(current_page?('/')) %>
       <div class='container mt-4'>
-        <% if notice or alert %>
+        <% if notice or alert or flash != nil %>
           <%= render 'layouts/messages' %>
         <% end %>
       </div>

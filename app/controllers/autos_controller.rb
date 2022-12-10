@@ -13,19 +13,9 @@ class AutosController < ApplicationController
   end
 
   def make_abstract_request
-    url = 'https://ipgeolocation.abstractapi.com/v1/?api_key=' + ENV['ABSTRACT_API_KEY']
-    uri = URI(url)
-    http = Net::HTTP.new(uri.host, uri.port)
-    http.use_ssl = true
-    http.verify_mode = OpenSSL::SSL::VERIFY_PEER
-
-    request =  Net::HTTP::Get.new(uri)
-
-    response = http.request(request)
-
-    response = JSON.parse(response.body)
-    @lon = response["longitude"]
-    @lat = response["latitude"]
+    
+    @lat = -34.90344407842923
+    @lon =  -57.93812138376112
 
 rescue StandardError => error
     puts "Error (#{ error.message })"

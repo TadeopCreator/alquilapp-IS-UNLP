@@ -11,11 +11,10 @@
     <table class="table">
       <thead>
         <tr>
-          <th scope="col">Fecha</th>
-          <th scope="col">Hora de inicio</th>
-          <th scope="col">Hora de fin</th>
+          <th scope="col">Inicio</th>
+          <th scope="col">Fin</th>
           <th scope="col">Usuario</th>
-          <th scope="col">Tiempo</th>
+          <th scope="col">Tiempo Alquilado</th>
           <th scope="col">Multado</th>
           <th scope="col">Monto</th>
           <th scope="col"></th>
@@ -24,17 +23,22 @@
       <tbody>
       <% @historial.each do |auto| %>
         <tr>
-            <td><%= (auto.created_at - 3.hours).strftime("%d/%m/%Y") %></td>
-            <td><%= (auto.created_at - 3.hours).strftime("%H:%M") %></td>
+            <td><%= (auto.created_at - 3.hours).strftime("%d/%m/%Y %H:%M") %></td>
             <td>
             <% if auto.total == nil %>
               En Uso
             <% else %>
-              <%= (auto.fin).strftime("%H:%M") %>
+              <%= (auto.fin).strftime("%d/%m/%Y %H:%M") %>
             <% end %></td>
             <% user =Usuario.find(auto.id_usr) %>
             <td><%= user.lastname %> <%= user.name %></td>
-            <td><%= auto.tiempoAlquilado + auto.tiempo_extension %> Horas</td>
+            <td><% tiempo=auto.tiempoAlquilado + auto.tiempo_extension %> 
+            <% if auto.multa? && auto.motive != nil%>
+                <% tiempo=tiempo + auto.tiempo_multa %>
+            <% end %>
+            <%= tiempo %>            
+            Horas
+            </td>
             <td>
                 <% multa="NO" %>
                 <% if auto.multa? %>

@@ -1,0 +1,69 @@
+<h3 class="row justify-content-center">Extendiendo tiempo de Alquiler</h3>
+<br>
+
+<div class="col-md-7 col-lg-8 mx-auto">
+    <form <%= form_with do |form| %> 
+
+      <div class="col-lg">
+          <br>
+          <div class="row justify-content-center">
+              <div class="col-7"> 
+                  <div>
+                  <b> Precio por hora: $<%=@historial.pextra %> </b>
+                  </div>
+              </div>
+          </div>
+          <br>
+          <div class="row justify-content-center">
+              <div class="col-7"> 
+                  <div>
+                      <% restante = 24 - @historial.tiempoAlquilado - @historial.tiempo_extension %>
+                      <b><label for="tiempo_extension" class="form-label">Tiempo a Extender (en horas):</label></b>
+                      <input id="tiempo_extension" type="integer", required <%= form.number_field :tiempo_extension, class:"form-control", value:params[:tiempo_extension] %>
+                      <lable>El alquiler no puede superar las 24 hrs, ustede puede extender su alquiler un maximo de <%= restante %> hrs.<label><b>
+                      <%= form.hidden_field :id, value:@historial.id %>
+                      <%= form.hidden_field :usr, value:@usuario.id %>
+                      <%= form.hidden_field :rest, value:restante %>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <br>
+      <br>
+      <div class="row justify-content-center">
+        <div class="col-md-12 text-center"> 
+          <%= link_to "Atrás", autos_path, class:"btn btn-outline-primary"  %>
+          <button class='btn bg-color-alquilapp text-white' <%= form.submit %>Extender</button>
+        </div>
+      </div>
+
+      <% if (params[:alquilar_ahora_si].to_s == "true") %>
+        <script>
+        $(document).ready(function () {
+          $("#exampleModalCenter").modal('show');
+        });
+        </script>
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModalCenter" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Extender Alquiler</h1>
+              </div>
+              <div class="modal-body">
+                Total: $<%= params[:precio_total] %>
+              </div>
+              <div class="modal-footer">
+                <a class="btn btn-secondary text-white" href="/historials/extender?id=<%= params[:id].to_s %>&usr=<%= params[:usr].to_s %>" >Cancelar</a>         
+                <%= form.hidden_field :alquilar, value:true %>
+                <button class='btn bg-color-alquilapp text-white' <%= form.submit %>Extender</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    
+    <% end %></form>
+</div>
+<br>
+<br>

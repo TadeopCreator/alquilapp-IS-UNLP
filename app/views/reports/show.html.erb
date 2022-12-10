@@ -44,7 +44,7 @@
     <%= link_to "Responder", new_message_path(:src => id_rol, :dest => @report.src, :message_type => 0), class:"btn bg-color-alquilapp text-white" %>
   </div>
 
-  <div class="col-2">
+  <div class="col-2 ms-3">
     <%= button_to "Eliminar reporte", @report, method: :delete, class:"btn btn-danger" %>
   </div>
 </div>

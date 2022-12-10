@@ -61,6 +61,9 @@ class AdminController < ApplicationController
     else
       attributes = {}
       attributes[:borrado] = true
+      num = Auto.all.order(num_rel: :DESC).first.id
+      attributes[:num_rel] = num-1
+      attributes[:patente] = @auto.patente+" (Eliminado)"
 
       @auto.update(attributes)
 
@@ -70,12 +73,59 @@ class AdminController < ApplicationController
     end
   end
 
+  def eliminar_usuario
+    unless current_user.admin?
+      redirect_to new_user_session_path
+    end
+
+    error = false
+
+    # Tomo el id del User a eliminar
+    user_ID = params[:user_id]
+
+    @user = User.find(user_ID.to_s)
+    
+    # Tomo al usuario de acuerdo al user_ID del User
+    @usuario = Usuario.find(@user.id_rol.to_s)
+
+    if (@usuario.alquilando)
+      error = true
+      flash[:alquiler] = 'Error al eliminar, el usuario se encuentra con un vehículo alquilado'      
+    end
+
+    # Tomo la wallet de acuerdo al id_wallet del Usuario
+    @wallet = Wallet.find(@usuario.id_wallet.to_s)
+
+    if (@wallet.saldo.to_i < 0)
+      error = true
+      flash[:wallet] = 'Error al eliminar, el usuario tiene abonos pendientes'
+    end
+
+    if (error)
+      redirect_to '/usuarios/'+@user.id_rol.to_s
+      return
+    end
+
+    attributes = {}
+    attributes[:deleted] = true
+
+    # Marco el Supervisor como borrado
+    @usuario.update(attributes)
+
+    # Destruye al user
+    @user.destroy
+
+    # Redireccionamiento y mensaje
+    flash[:notice] = 'Usuario eliminado exitosamente'
+    redirect_to admin_users_path
+  end
+
   def eliminar_supervisor
     unless current_user.admin?
       redirect_to new_user_session_path
     end
 
-    # Tomo el id ddel auto a eliminar
+    # Tomo el id del supervisor a eliminar
     supervisor_ID = params[:format]
 
     # Tomo al auto de acuerdo al supervisor_ID del Supervisor

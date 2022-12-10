@@ -47,7 +47,6 @@ class HistorialsController < ApplicationController
             
             # Si esta alquilando de verdad (post modal)
             if (params[:alquilar] != nil)
-                puts("ALQUILANDO: ", params)
                 respond_to do |format|
                     if @historial.save
                         # Setea el auto como alquilado
@@ -118,33 +117,83 @@ class HistorialsController < ApplicationController
     unless (user_signed_in? && current_user.supervisor?)
       redirect_to new_user_session_path
     end
-    @historial = Historial.find(params[:id_hist])
-    @wallet = Wallet.find(params[:id_wallet])
-    @wallet.update(saldo:(@wallet.saldo-params[:amount].to_f))
-    motivo= "Varios"
-    if params[:motive].to_s == "Oil"
-      motivo="No relleno tanque"
+
+    if (params[:amount].to_i < 0)
+      flash[:notice] = "Por favor ingrese un valor que no sea menor a 0"
+      redirect_to "/historials/multa?id_hist="+params[:id_hist].to_s+"&id_usr="+params[:id_usr].to_s
     else
-      if params[:motive].to_s == "Broke"
-        motivo="Vehiculo Roto"
+      @historial = Historial.find(params[:id_hist])
+      @wallet = Wallet.find(params[:id_wallet])
+      @wallet.update(saldo:(@wallet.saldo-params[:amount].to_f))
+      motivo= "Varios"
+      if params[:motive].to_s == "Oil"
+        motivo="No relleno tanque"
       else
-        if params[:motive].to_s == "Left"
-          motivo="Vehiculo fuera de La Plata"
+        if params[:motive].to_s == "Broke"
+          motivo="Vehiculo Roto"
+        else
+          if params[:motive].to_s == "Left"
+            motivo="Vehiculo fuera de La Plata"
+          end
         end
       end
+      hisupt = {}
+      hisupt[:multa] = 1
+      hisupt[:motive] = motivo
+      tm = @historial.tiempo_multa
+      hisupt[:precio_multa] = @historial.precio_multa+(params[:amount].to_f/tm)
+      hisupt[:tiempo_multa] = tm
+      hisupt[:total] = @historial.total+params[:amount].to_f
+      @historial.update(hisupt)
+      redirect_to historials_auto_path(:id => @historial.id_auto)
     end
-    hisupt = {}
-    hisupt[:multa] = 1
-    hisupt[:motive] = motivo
-    tm = @historial.tiempo_multa
-    if tm == 0
-      tm = 1
+  end
+
+  def extender
+    @historial = Historial.find(params[:id].to_i)
+    @usuario = Usuario.find(params[:usr].to_i)
+  end
+
+  def confirmar_extender
+    fallo = false
+
+    @historial = Historial.find(params[:id].to_i)
+    @usuario = Usuario.find(params[:usr].to_i)
+    @saldo = Wallet.find(@usuario[:id_wallet])
+    @costo = @historial.pextra * params[:tiempo_extension].to_i
+
+    if  (params[:tiempo_extension].to_i < 1) || (params[:tiempo_extension].to_i + @historial.tiempo_extension + @historial.tiempo_extension > 24)            
+        flash[:notice] = "Solo puede alquilar el vehiculo entre 1-#{params[:rest].to_i} horas"
+        fallo = true
     end
-    hisupt[:precio_multa] = @historial.precio_multa+(params[:amount].to_f/tm)
-    hisupt[:tiempo_multa] = tm
-    hisupt[:total] = @historial.total+params[:amount].to_f
-    @historial.update(hisupt)
-    redirect_to historials_auto_path(:id => @historial.id_auto)
+
+    if (@saldo.saldo < @costo)     
+        faltante = @costo - @saldo.saldo     
+        flash[:notice] = "Saldo insuficiente, necesita $#{faltante} extra"
+        fallo= true
+    end
+
+    if fallo            
+        redirect_to historials_extender_path(:id => @historial.id, :usr => @usuario.id)
+    else        
+      # Si esta alquilando de verdad (post modal)
+      if (params[:alquilar] != nil)
+        respond_to do |format|
+          # Creo una nuevo fila de historial de alquileres
+          attributes = {}
+          attributes[:tiempo_extension] = params[:tiempo_extension].to_i + @historial.tiempo_extension
+          attributes[:fin] = @historial.fin + params[:tiempo_extension].to_i.hours
+          @historial = Historial.update(attributes)
+
+          format.html { redirect_to autos_url, notice: "Su tiempo se a extendido" }
+          format.json { render :show, status: :created, location: @historial }
+        end
+      else
+        total = @historial.pextra * params[:tiempo_extension].to_i
+        
+        redirect_to historials_extender_path(:id => @historial.id, :usr => @usuario.id, :precio_total => total.to_s, :alquilar_ahora_si => true, :tiempo_extension => params[:tiempo_extension])
+      end         
+    end
   end
 
 end
