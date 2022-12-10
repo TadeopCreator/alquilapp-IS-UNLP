@@ -13,15 +13,10 @@ class ReportsController < ApplicationController
 
   # GET /reports/new
   def new
-    renderto = 0
+    @renderto=0
     if params[:num] != nil
-      renderto = params[:num].to_i
-    end
-    puts("El valor del renderto es: ",renderto)
-    puts("y el valos del :num es :",params[:num])
-    @report = Report.new
-    respond_to do |format|
-      format.js {render inline: "location.reload();" }
+      @renderto=params[:num]
+      @report = Report.new
     end
   end
 

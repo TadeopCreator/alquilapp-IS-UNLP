@@ -18,8 +18,6 @@ Rails.application.routes.draw do
   post '/historials/multa', to: 'historials#cobrar'
 
 
-  post 'reports/new', to: 'reports#new'
-  
   devise_for :users, controllers: {registrations: 'registrations', sessions: 'users/sessions'}
   
   get 'supervisor/aceptar'
