@@ -15,6 +15,7 @@
   auto_alquilado = records_array_auto[0] %>
 
 <br>
+<br>
 <div class="row justify-content-center">
   <div class="col-md-12 text-center"> 
     <% if ((Time.now - Historial.where(id_usr: @usuario[:id], id_auto: idauto).last.created_at) / 1.minutes) < 10 %>
@@ -26,13 +27,25 @@
 
 <br>
 <% puts("Los minutos son: ", (Time.now - Historial.where(id_usr: @usuario[:id], id_auto: idauto).last.created_at) / 1.minutes)%>
-<% if (((Time.now - Historial.where(id_usr: @usuario[:id], id_auto: idauto).last.created_at) / 1.minutes) < 10) && @renderto == "1"%>
-  <%= render "previo", report: @report %>
-<% elsif (((Time.now - Historial.where(id_usr: @usuario[:id], id_auto: idauto).last.created_at) / 1.minutes) < 10) && @renderto == "2" %>
-  <%= render "actual", report: @report %> 
-<% else %>
+<% if (((Time.now - Historial.where(id_usr: @usuario[:id], id_auto: idauto).last.created_at) / 1.minutes) > 10) %>
   <%=  render "actual", report: @report %>
+<% else %> 
+  <% if (@renderto == "1") %>
+    <%= render "previo", report: @report %>
+  <% elsif (@renderto == "2") %>
+    <%= render "actual", report: @report %> 
+  <% else %>
+    <div class="row justify-content-center">
+      <div class="col-md-12 text-center"> 
+        <br>
+        <h3>Seleccione un tipo de incidente</h3>
+        <br>
+        <%= link_to "Atrás", autos_path, class:"btn btn-outline-primary"  %>
+      </div>
+    </div>
+  <%end%>
 <%end%>
 
 <br>
-
+<br>
+<br>
