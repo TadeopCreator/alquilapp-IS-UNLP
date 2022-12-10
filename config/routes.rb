@@ -13,6 +13,8 @@ Rails.application.routes.draw do
   get 'historials/recibo'
   get 'historials/auto'
   get 'historials/multa'
+  get 'historials/extender'
+  post 'historials/extender', to: 'historials#confirmar_extender'
   
   post '/autos/:id', to: 'historials#create'
   post '/historials/multa', to: 'historials#cobrar'

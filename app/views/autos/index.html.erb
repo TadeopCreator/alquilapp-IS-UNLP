@@ -19,7 +19,7 @@
       Mi alquiler
     </div>
     <div class="card-body">
-      <h5 class="card-title"><%= auto_alquilado["patente"] %> - <%= auto_alquilado["marca"] %> <%= auto_alquilado["modelo"] %> (<%= alquiler["tiempoAlquilado"] %> horas)</h5>
+      <h5 class="card-title"><%= auto_alquilado["patente"] %> - <%= auto_alquilado["marca"] %> <%= auto_alquilado["modelo"] %> (<%= alquiler["tiempoAlquilado"] + alquiler["tiempo_extension"] %> horas)</h5>
       <div class="row">
         <div class="col-3">
           <p class="card-text">Fecha de inicio: <%= (alquiler["created_at"].to_datetime - 3.hours).to_s[0..9] %></p>
@@ -31,7 +31,7 @@
         </div>
       </div>
       <br>
-      <a href="#" class="btn bg-color-alquilapp text-white">Extender tiempo de alquiler</a>
+      <a <%= link_to "Extender tiempo de alquiler", historials_extender_path(:id => alquiler["id"].to_i, :usr => @usuario.id), class:"btn bg-color-alquilapp text-white" %></a>
        <%= link_to "Reportar incidente", new_report_path, class:"btn bg-color-alquilapp text-white"  %>
       <a href="/finalizar_alquiler/finalizar?auto=<%= auto_alquilado["id"] %>&usuario=<%= @usuario[:id].to_s %>" class="btn btn-danger">Finalizar alquiler</a>
     </div>

@@ -16,7 +16,7 @@ class FinalizarAlquilerController < ApplicationController
     @historial = Historial.where(id_usr: @usuario.id).last
 
     multa = false
-    tiempo_multa = 1
+    tiempo_multa = 0
     total = ((@historial.precio * @historial.tiempoAlquilado)+(@historial.pextra * @historial.tiempo_extension))
     fin_fecha = DateTime.now - 3.hours
     if (@historial.fin < fin_fecha)
