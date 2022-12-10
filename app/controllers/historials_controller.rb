@@ -47,7 +47,6 @@ class HistorialsController < ApplicationController
             
             # Si esta alquilando de verdad (post modal)
             if (params[:alquilar] != nil)
-                puts("ALQUILANDO: ", params)
                 respond_to do |format|
                     if @historial.save
                         # Setea el auto como alquilado
@@ -147,6 +146,53 @@ class HistorialsController < ApplicationController
       hisupt[:total] = @historial.total+params[:amount].to_f
       @historial.update(hisupt)
       redirect_to historials_auto_path(:id => @historial.id_auto)
+    end
+  end
+
+  def extender
+    @historial = Historial.find(params[:id].to_i)
+    @usuario = Usuario.find(params[:usr].to_i)
+  end
+
+  def confirmar_extender
+    fallo = false
+
+    @historial = Historial.find(params[:id].to_i)
+    @usuario = Usuario.find(params[:usr].to_i)
+    @saldo = Wallet.find(@usuario[:id_wallet])
+    @costo = @historial.pextra * params[:tiempo_extension].to_i
+
+    if  (params[:tiempo_extension].to_i < 1) || (params[:tiempo_extension].to_i + @historial.tiempo_extension + @historial.tiempo_extension > 24)            
+        flash[:notice] = "Solo puede alquilar el vehiculo entre 1-#{params[:rest].to_i} horas"
+        fallo = true
+    end
+
+    if (@saldo.saldo < @costo)     
+        faltante = @costo - @saldo.saldo     
+        flash[:notice] = "Saldo insuficiente, necesita $#{faltante} extra"
+        fallo= true
+    end
+
+    if fallo            
+        redirect_to historials_extender_path(:id => @historial.id, :usr => @usuario.id)
+    else        
+      # Si esta alquilando de verdad (post modal)
+      if (params[:alquilar] != nil)
+        respond_to do |format|
+          # Creo una nuevo fila de historial de alquileres
+          attributes = {}
+          attributes[:tiempo_extension] = params[:tiempo_extension].to_i + @historial.tiempo_extension
+          attributes[:fin] = @historial.fin + params[:tiempo_extension].to_i.hours
+          @historial = Historial.update(attributes)
+
+          format.html { redirect_to autos_url, notice: "Su tiempo se a extendido" }
+          format.json { render :show, status: :created, location: @historial }
+        end
+      else
+        total = @historial.pextra * params[:tiempo_extension].to_i
+        
+        redirect_to historials_extender_path(:id => @historial.id, :usr => @usuario.id, :precio_total => total.to_s, :alquilar_ahora_si => true, :tiempo_extension => params[:tiempo_extension])
+      end         
     end
   end
 
