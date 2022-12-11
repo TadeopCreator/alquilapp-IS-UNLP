@@ -61,7 +61,7 @@ class AdminController < ApplicationController
     else
       attributes = {}
       attributes[:borrado] = true
-      num = Auto.all.order(num_rel: :DESC).first.id
+      num = Auto.all.order(num_rel: :DESC).first.num_rel
       attributes[:num_rel] = num-1
       attributes[:patente] = @auto.patente+" (Eliminado)"
 
