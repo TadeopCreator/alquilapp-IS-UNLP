@@ -92,7 +92,7 @@
       <tbody>
       <% @autos = Auto.all %>
       <% @autos.each do |auto| %>
-        <% if (!auto.borrado && !auto.alquilado) %>   
+        <% if (!auto.borrado) %> 
           <%= render auto %>
         <% end %>
       <% end %>
@@ -117,6 +117,7 @@
         <table class="table">
           <thead>
             <tr>
+              <th scope="col">Email</th>
               <th scope="col">Nombre</th>
               <th scope="col">Apellido</th>
               <th scope="col">DNI</th>
@@ -130,6 +131,11 @@
           <% @usuarios.each do |usuario| %>      
             <div id="<%= dom_id usuario %>">
               <tr>
+                <% usuario_ID = usuario.id
+                sql = "SELECT * FROM users WHERE id_rol='" + usuario_ID.to_s + "'"
+                records_array = ActiveRecord::Base.connection.execute(sql)
+                email = records_array[0]["email"] %>
+                <td><%= email %></td>
                 <td><%= usuario.name %></td>
                 <td><%= usuario.lastname %></td>
                 <td><%= usuario.dni %></td>

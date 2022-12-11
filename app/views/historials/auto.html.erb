@@ -1,12 +1,16 @@
+
 <% if @historial == [] %>
   <div class="my-3 p-4 border border border-secondary rounded">
     <div class="col-12 text-start">
         <div class="text-start">
-          Este vehiculo no ha sido utilizado
+          El vehículo no ha sido alquilado aún
         </div>
     </div>        
   </div>
 <% else %>
+  <% auto = Auto.find(@historial.first.id_auto) %>  
+  <h2>Historial del vehículo (#<%= auto.num_rel %>)</h2>
+  <br>
   <div id="autos" class="table-responsive border border border-secondary rounded">
     <table class="table">
       <thead>
@@ -30,7 +34,7 @@
             <% else %>
               <%= (auto.fin).strftime("%d/%m/%Y %H:%M") %>
             <% end %></td>
-            <% user =Usuario.find(auto.id_usr) %>
+            <% user = Usuario.find(auto.id_usr) %>
             <td><%= user.lastname %> <%= user.name %></td>
             <td><% tiempo=auto.tiempoAlquilado + auto.tiempo_extension %> 
             <% if auto.multa? && auto.motive != nil%>

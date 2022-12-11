@@ -140,11 +140,10 @@ class HistorialsController < ApplicationController
       hisupt = {}
       hisupt[:multa] = 1
       hisupt[:motive] = motivo
-      tm = @historial.tiempo_multa
-      hisupt[:precio_multa] = @historial.precio_multa+(params[:amount].to_f/tm)
-      hisupt[:tiempo_multa] = tm
+      hisupt[:precio_multa] = @historial.precio_multa+(params[:amount].to_f)
       hisupt[:total] = @historial.total+params[:amount].to_f
       @historial.update(hisupt)
+      flash[:notice] = "Multa aplicada"
       redirect_to historials_auto_path(:id => @historial.id_auto)
     end
   end
