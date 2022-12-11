@@ -3,7 +3,7 @@
   records_array = ActiveRecord::Base.connection.execute(sql)
   id_rol = records_array[0]["id_rol"]
 
-  @usuario = Usuario.find(@report.src.to_s)%>
+  @usuario = Usuario.find(@report.src.to_i)%>
 
 <h2><%= @report.title %></h2>
 <p>Enviado por <%= @usuario.name %> <%= @usuario.lastname %></p>
