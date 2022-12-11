@@ -16,8 +16,8 @@ class ReportsController < ApplicationController
     @renderto=0
     if params[:num] != nil
       @renderto=params[:num]
-      @report = Report.new
     end
+    @report = Report.new
   end
 
   # GET /reports/1/edit
