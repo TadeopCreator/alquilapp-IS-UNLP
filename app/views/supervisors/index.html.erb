@@ -4,10 +4,9 @@
   id_rol = records_array[0]["id_rol"] 
   @supervisor = Supervisor.find(id_rol.to_s) %>
 
-
 <% if !@supervisor.habilitado %>
   <div class="alert alert-warning" role="alert">
-    Su cuenta se encuentra deshabilitada, contactese con un administrador para solucionarlo.
+    Su cuenta se encuentra deshabilitada, contáctese con un administrador para solucionarlo
   </div>
 <% else %>
 
