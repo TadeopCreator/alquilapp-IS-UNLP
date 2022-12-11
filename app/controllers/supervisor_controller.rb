@@ -12,6 +12,12 @@ class SupervisorController < ApplicationController
     attributes[:enable] = true
     @usuario = Usuario.find(params[:id])
     @usuario.update(attributes)
+
+    # Envio de mensaje
+    title = "Licencia aceptada"
+    description = "Enhorabuena su licencia de conducir ha sido autenticada y ya puede alquilar vehículos."
+    # message_type = 4 -> Mensaje de licencia aceptada
+    user = Message.create(title: title, description: description, message_type: 4, dest: params[:id])
     redirect_to :supervisors, notice: "Se ha aceptado la validación con éxito"
   end
 
@@ -21,6 +27,11 @@ class SupervisorController < ApplicationController
     attributes[:enable] = false
     @usuario = Usuario.find(params[:id])
     @usuario.update(attributes)
+    # Envio de mensaje
+    title = "Licencia rechazada"
+    description = "Lamentamos informarle que su licencia de conducir ha sido rechazada manualmente, será necesario que revise y actualice los datos correspondientes desde el Editor de perfil."
+    # message_type = 5 -> Mensaje de licencia rechazada
+    user = Message.create(title: title, description: description, message_type: 5, dest: params[:id])
     redirect_to :supervisors, notice: "Se ha rechazado la validación con éxito"
   end
 

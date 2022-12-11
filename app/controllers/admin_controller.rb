@@ -1,7 +1,7 @@
 class AdminController < ApplicationController
   before_action :authenticate_user!
   before_action :is_admin?, only: [:admin_dashboard, :admin_supervisores]
-
+  
   def is_admin?
     unless current_user.admin?
       flash.alert = "Sorry, you don't have permissions to perform this action."
@@ -61,7 +61,7 @@ class AdminController < ApplicationController
     else
       attributes = {}
       attributes[:borrado] = true
-      num = Auto.all.order(num_rel: :DESC).first.id
+      num = Auto.all.order(num_rel: :DESC).first.num_rel
       attributes[:num_rel] = num-1
       attributes[:patente] = @auto.patente+" (Eliminado)"
 
@@ -81,13 +81,14 @@ class AdminController < ApplicationController
     error = false
 
     # Tomo el id del User a eliminar
-    user_ID = params[:user_id]
+    user_ID = params[:user_id].to_i
 
-    @user = User.find(user_ID.to_s)
-    
     # Tomo al usuario de acuerdo al user_ID del User
-    @usuario = Usuario.find(@user.id_rol.to_s)
+    @usuario = Usuario.find(user_ID)
 
+
+    @user = User.where(role:"user",id_rol:user_ID).first
+    
     if (@usuario.alquilando)
       error = true
       flash[:alquiler] = 'Error al eliminar, el usuario se encuentra con un vehículo alquilado'      
@@ -137,12 +138,8 @@ class AdminController < ApplicationController
     # Marco el Supervisor como borrado
     @supervisor.update(attributes)
 
-    sql = "SELECT * FROM users WHERE id_rol='" + supervisor_ID.to_s + "'"
-    records_array = ActiveRecord::Base.connection.execute(sql)
-    id_user = records_array[0]["id"]
-
     # Tomo al user de acuerdo al user_ID del User
-    @user = User.find(id_user.to_s)
+    @user = User.where(role:"supervisor",id_rol:@supervisor.id).first
 
     # Destruye al user
     @user.destroy

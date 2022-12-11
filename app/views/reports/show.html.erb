@@ -5,14 +5,9 @@
 
   @usuario = Usuario.find(@report.src.to_i)%>
 
-<h2>Reporte de un incidente</h2>
+<h2><%= @report.title %></h2>
 <p>Enviado por <%= @usuario.name %> <%= @usuario.lastname %></p>
 
-<br>
-
-<h5><%= @report.title %></h5>
-
-<br>
 <br>
 
 <h5>Descripción</h5>
@@ -28,15 +23,17 @@
 <br>
 <br>
 
+<% if @report.title == "Incidente actual" %>
 <h5>Fotografía</h5>
   <% if @report.image != nil %>
-    <%= image_tag @report.image_url %>
+    <%= image_tag @report.image_url, width:"300", class:"rounded border"%>
   <% else %>
     Sin Fotografía adjunta
   <% end %>
+<br>
+<br>
+<% end %>
 
-<br>
-<br>
 
 <div class="row">
   <div class="col-1 me-2">

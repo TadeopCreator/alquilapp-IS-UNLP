@@ -7,7 +7,7 @@
   <% end %>
 <% end %>
 
-<% @user = User.where(:id_rol => @usuario.id).limit(1) %>
+<% @user = User.where(role:"user",id_rol: @usuario.id).first %>
 <br>
 
 <div class="row justify-content-center border rounded p-3">
@@ -36,7 +36,7 @@
 <br>
 
 <h5 class="text-center">Email</h5>
-<%= @user.first[:email] %>
+<%= @user.email %>
 
 <br>
 <br>
@@ -103,7 +103,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-        <%= link_to "Eliminar", admin_eliminar_usuario_path(:user_id => @user.first[:id]), class:'btn btn-danger text-white' %>
+        <%= link_to "Eliminar", admin_eliminar_usuario_path(:user_id => @usuario.id), class:'btn btn-danger text-white' %>
       </div>
     </div>
   </div>
