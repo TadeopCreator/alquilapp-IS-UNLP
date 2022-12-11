@@ -10,8 +10,10 @@
 <br>
 
 <div class="col-4 mx-auto" id="messages">
+  <% entro = false %>
   <% @messages.reverse_each do |message| %>
     <% if message.dest == id_rol %>
+      <% entro = true %>
       <a href="/messages/<%= message.id %>" class="col-12 mb-2 btn border rounded" <% if message.read %>style="background-color:#F0F0F0;"<% end %>>
 
         <div class=row>
@@ -32,6 +34,15 @@
         </div>
       </a>      
     <% end %>
+  <% end %>
+  <% if !entro %>
+    <div class="my-3 p-3 ps-2 border border border-secondary rounded">
+    <div class="col-12">
+        <div class="text-center">
+          Estás al día
+        </div>
+    </div>        
+  </div>
   <% end %>
 </div>
 

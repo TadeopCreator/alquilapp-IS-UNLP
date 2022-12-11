@@ -26,8 +26,8 @@
 </div>
 
 <br>
-<% puts("Los minutos son: ", (Time.now - Historial.where(id_usr: @usuario[:id], id_auto: idauto).last.created_at) / 1.minutes)%>
-<% if (((Time.now - Historial.where(id_usr: @usuario[:id], id_auto: idauto).last.created_at) / 1.minutes) > 10) %>
+
+<% if (((Time.now - Historial.where(id_usr: @usuario[:id], id_auto: idauto).last.created_at) / 1.minutes) > 10 ) %>
   <%=  render "actual", report: @report %>
 <% else %> 
   <% if (@renderto == "1") %>
