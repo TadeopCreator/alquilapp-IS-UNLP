@@ -1,7 +1,7 @@
 class AdminController < ApplicationController
   before_action :authenticate_user!
   before_action :is_admin?, only: [:admin_dashboard, :admin_supervisores]
-
+  ser.find(id_us
   def is_admin?
     unless current_user.admin?
       flash.alert = "Sorry, you don't have permissions to perform this action."
@@ -137,12 +137,8 @@ class AdminController < ApplicationController
     # Marco el Supervisor como borrado
     @supervisor.update(attributes)
 
-    sql = "SELECT * FROM users WHERE id_rol='" + supervisor_ID.to_s + "'"
-    records_array = ActiveRecord::Base.connection.execute(sql)
-    id_user = records_array[0]["id"]
-
     # Tomo al user de acuerdo al user_ID del User
-    @user = User.find(id_user.to_s)
+    @user = User.where(role:"supervisor",id_rol:@supervisor.id).first
 
     # Destruye al user
     @user.destroy
