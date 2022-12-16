@@ -115,8 +115,8 @@
             // Retina displays require different mat tiles quality
             var isRetina = L.Browser.retina;                    
 
-            var baseUrl = "https://maps.geoapify.com/v1/tile/osm-bright/{z}/{x}/{y}.png?apiKey=f1922b60cc5a482d9e944c4118d55f06";
-            var retinaUrl = "https://maps.geoapify.com/v1/tile/osm-bright/{z}/{x}/{y}@2x.png?apiKey=f1922b60cc5a482d9e944c4118d55f06";
+            var baseUrl = "https://maps.geoapify.com/v1/tile/osm-bright/{z}/{x}/{y}.png?apiKey=API_KEY";
+            var retinaUrl = "https://maps.geoapify.com/v1/tile/osm-bright/{z}/{x}/{y}@2x.png?apiKey=API_KEY";
 
             // Add map tiles layer. Set 20 as the maximal zoom and provide map data attribution.
             L.tileLayer(isRetina ? retinaUrl : baseUrl, {
