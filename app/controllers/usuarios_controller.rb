@@ -61,10 +61,15 @@ class UsuariosController < ApplicationController
   def update
     respond_to do |format|
       original_imagen = @usuario.image.original_filename
-      
-      if (params[:usuario][:image] != nil)
-        nueva_imagen = params[:usuario][:image].original_filename
-        if (original_imagen != nueva_imagen) && (@usuario.errors.where(:date_licence).last == nil)
+      original_fecha = @usuario.date_licence
+      nueva_fecha = params[:usuario][:date_licence]
+      if ((params[:usuario][:image] != nil) || (original_fecha != nueva_fecha))
+        if (params[:usuario][:image] != nil)
+          nueva_imagen = params[:usuario][:image].original_filename
+        else
+          nueva_imagen = original_imagen
+        end
+        if ((original_imagen != nueva_imagen) || (original_fecha != nueva_fecha)) && (@usuario.errors.where(:date_licence).last == nil)
           @usuario.send_license = 1 #Establece el valor del status del envio de la licencia
           @usuario.enable = false
         end
