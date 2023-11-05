@@ -1,0 +1,256 @@
+<% user_ID = current_user.id
+  sql = "SELECT * FROM users WHERE id='" + user_ID.to_s + "'"
+  records_array = ActiveRecord::Base.connection.execute(sql)
+  id_rol = records_array[0]["id_rol"] 
+  @supervisor = Supervisor.find(id_rol.to_s) %>
+
+<% if !@supervisor.habilitado %>
+  <div class="alert alert-warning" role="alert">
+    Su cuenta se encuentra deshabilitada, contáctese con un administrador para solucionarlo
+  </div>
+<% else %>
+
+  <h2>Panel de control</h2>
+
+  <br/>
+  <h4>Pedidos de validación de licencias</h4>
+
+    <% @usuarios = Usuario.all %>
+      <% entro = false %>
+      <% @usuarios.each do |usuario| %>
+      <% if (usuario.deleted == nil or !usuario.deleted) %>     
+        <% if usuario.send_license == 1 and usuario.image_data != nil %>
+          <% entro = true %>
+        <% end %>
+      <% end %>
+      <% end %>
+        <% if not (entro) %>
+          <div class='border border-secondary p-3 rounded'>
+            <h5 class='text-center'>No hay validaciones pendientes</h5>
+          </div>
+        <% else %>
+          <% if Usuario.all == [] %>
+          <div class="m-2 p-3 border border-2 border-dark rounded">
+            <div class="col-12 text-start">
+              <div class="text-start">
+                Aún no hay usuarios
+              </div>
+            </div>
+          </div>
+        <% else %>
+          <div id="autos" class="border border-2 border-dark rounded">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Nombre</th>
+                <th scope="col">Apellido</th>
+                <th scope="col">DNI</th>
+                <th scope="col">Licencia</th>
+                <th scope="col">Fecha</th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+              </tr>
+            </thead>
+            <tbody>
+            <% @usuarios.each do |usuario| %>      
+              <%# <%= usuario.name %> <%# Debemos de cambiar esto, ya que solo me interesa en a lista dos cosas pero me cabia todo en detalles%>
+              <% if usuario.send_license == 1 and usuario.image_data != nil %>
+              <div id="<%= dom_id usuario %>">
+                <tr>
+                  <td><%= usuario.name %></td>
+                  <td><%= usuario.lastname%></td>
+                  <td><%= usuario.dni %></td>
+                  <td><a class="rounded-circle text-white m-1" href=<%= usuario.image_url%> target="_blank"><%= image_tag usuario.image_url, style: 'height:25%;width:10%;', class:"img-responsive"%> </a> </td>
+                  <td><%= usuario.date_licence %>
+                  <td><a> <%= link_to "Aceptar", method = supervisor_aceptar_path(:id => usuario.id), class:"btn btn-success"%> </a>
+                  <td><a> <%= link_to "Rechazar", method = supervisor_rechazar_path(:id => usuario.id), class:"btn btn-danger"%> </a>
+                </tr>
+              </div> 
+              <% end %>
+            <% end %>
+            </tbody>
+        </table>
+        </div>
+        <% end %>
+        <% end %>
+
+  <br/>
+  <h4>Vehículos</h4>
+
+  <% if Auto.all == [] %>
+    <div class="my-3 p-4 border border-secondary rounded">
+      <div class="col-12 text-start">
+          <div class="text-start">
+            Aún no hay vehículos
+          </div>
+      </div>        
+    </div>
+  <% else %>
+    <div id="autos" class="table-responsive border border-secondary rounded">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Número relativo</th>
+            <th scope="col">Patente</th>
+            <th scope="col">Marca</th>
+            <th scope="col">Modelo</th>
+            <th scope="col">Color</th>
+            <th scope="col">Alquilado</th>
+            <th scope="col">Habilitado</th>
+            <th scope="col">Acción</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+        <% @autos = Auto.all %>
+        <% @autos.each do |auto| %>
+          <% if (!auto.borrado) %> 
+            <%= render auto %>
+          <% end %>
+        <% end %>
+        </tbody>
+    </table>
+    </div>
+  <% end %>
+
+  <br/>
+
+  <h4>Lista de Usuarios</h4>
+    <% if Usuario.all == [] %>
+      <div class="m-2 p-3 border border-secondaryrounded">
+          <div class="col-12 text-start">
+            <div class="text-start">
+              Aún no hay usuarios
+            </div>
+          </div>
+      </div>
+    <% else %>
+      <div id="autos" class="border border-secondary rounded">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Email</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Apellido</th>
+                <th scope="col">DNI</th>
+                <th scope="col">Contacto</th>
+                <th scope="col">Status</th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+              </tr>
+            </thead>
+            <tbody>
+            <% @usuarios.each do |usuario| %>      
+              <div id="<%= dom_id usuario %>">
+                <tr>
+                  <% usuario_ID = usuario.id
+                  sql = "SELECT * FROM users WHERE id_rol='" + usuario_ID.to_s + "'"
+                  records_array = ActiveRecord::Base.connection.execute(sql)
+                  email = records_array[0]["email"] %>
+                  <td><%= email %></td>
+                  <td><%= usuario.name %></td>
+                  <td><%= usuario.lastname %></td>
+                  <td><%= usuario.dni %></td>
+                  <td><%= usuario.contact %></td>
+                  <td>  
+                    <% if usuario.lock %>
+                      BLOQUEADO
+                    <% else %>
+                      DESBLOQUEADO
+                    <%end%>
+                  </td>
+                  <td>
+                    <% if !usuario.lock %>
+                      <a <%= link_to "Bloquear", method = supervisor_bloqueo_path(:id => usuario.id), class:"btn btn-danger" %></a>
+                    <% else %>
+                      <a <%= link_to "Desbloquear", method = supervisor_bloqueo_path(:id => usuario.id), class:"btn btn-success" %></a>
+                    <%end%>
+                  </td>
+                </tr>
+              </div> 
+            <% end %>
+            </tbody>
+        </table>
+        </div>      
+    <% end %>
+
+    <br/>
+
+
+  <h4>Reportes de incidentes</h4>
+
+  <% if Report.all == [] %>
+    <div class="my-3 p-4 border border-secondary rounded">
+      <div class="col-12 text-start">
+          <div class="text-start">
+            Aún no hay reportes de incidentes
+          </div>
+      </div>        
+    </div>
+  <% else %>
+    <div id="report" class="table-responsive border border-secondary rounded">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Título</th>
+            <th scope="col">Patente</th>
+            <th scope="col">Fecha</th>
+            <th scope="col">Acción</th>
+          </tr>
+        </thead>
+        <tbody>
+        <% @reports = Report.all %>
+        <% @reports.reverse_each do |report| %>        
+          <%= render report %>
+        <% end %>
+        </tbody>
+    </table>
+    </div>
+  <% end %>
+
+    <br/>
+
+  <h4>Comentarios de usuarios</h4>
+
+  <% @messages = Message.all %>
+  <% any_comment = false %>
+  <% @messages.reverse_each do |message| %>
+    <% if (message.message_type == 2) %>
+      <% any_comment = true %>
+    <% end %>
+  <% end %>
+
+  <% if !any_comment %>
+    <div class="my-3 p-4 border border-secondary rounded">
+      <div class="col-12 text-start">
+          <div class="text-start">
+            Aún no hay comentarios
+          </div>
+      </div>        
+    </div>
+  <% else %>
+    <div id="report" class="table-responsive border border-secondary rounded">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Título</th>
+            <th scope="col">por</th>
+            <th scope="col">Acción</th>
+          </tr>
+        </thead>
+        <tbody>
+        <% @messages.reverse_each do |message| %>
+            <tr>
+            <% if (message.message_type == 2) %>
+              <td><%= message.title %></td>
+              <% usuario = Usuario.find(message.src) %>
+              <td><%= usuario.name %> <%= usuario.lastname %></td>
+              <td><a <%= link_to "Ver", message_path(message.id), class:"btn btn-outline-dark" %></a></td>
+            <% end %>
+          <% end %>
+          </tr>
+        </tbody>
+    </table>
+    </div>
+  <% end %>
+<%end%>

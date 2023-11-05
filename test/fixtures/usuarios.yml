@@ -1,0 +1,29 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  lastname: MyString
+  dni: MyString
+  contact: MyString
+  lon: 9.99
+  lat: 9.99
+  deleted: false
+  enable: false
+  birthdate: 2022-11-09
+  image_data: MyText
+  date_licence: 2022-11-09
+  id_wallet: 1
+
+two:
+  name: MyString
+  lastname: MyString
+  dni: MyString
+  contact: MyString
+  lon: 9.99
+  lat: 9.99
+  deleted: false
+  enable: false
+  birthdate: 2022-11-09
+  image_data: MyText
+  date_licence: 2022-11-09
+  id_wallet: 1

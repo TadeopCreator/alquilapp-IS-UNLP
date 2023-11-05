@@ -1,0 +1,24 @@
+<div id="<%= dom_id supervisor %>">
+ <tr>
+      <td><%= supervisor.name %></td>
+      <td><%= supervisor.surname %></td>
+      <td><%= supervisor.dni %></td>
+      <td><%= supervisor.contact %></td>
+      <td>
+          <% if supervisor.habilitado %>
+           HABILITADO
+          <% else %>
+           NO HABILITADO
+          <% end %>
+     </td>
+      <td>
+      <% if !supervisor.habilitado %>
+        <a <%= link_to "Habilitar", method = admin_habilitar_path(:id => supervisor.id), class:"btn btn-success" %></a>
+      <% else %>
+        <a <%= link_to "Deshabilitar", method = admin_deshabilitar_path(:id => supervisor.id), class:"btn btn-danger" %></a>
+      <%end %>
+      <a <%= link_to "Editar", edit_supervisor_path(supervisor), class:"btn btn-outline-dark" %>
+      </a>
+      </td>
+    </tr>
+</div>

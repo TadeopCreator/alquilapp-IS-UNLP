@@ -5,12 +5,51 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
+    <%= favicon_link_tag asset_path('favicon.png') %>
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- SimpleLightbox plugin JS-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/SimpleLightbox/2.1.0/simpleLightbox.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+
+        <script src="http://code.jquery.com/jquery-1.8.3.js"></script>
+        <script src="http://code.jquery.com/ui/1.10.0/jquery-ui.js"></script>
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
-  
-  <body>
-    <%= yield %>
+
+  <body class="d-flex flex-column min-vh-100">
+      <header>
+        <%= render 'layouts/header' %>
+      </header>
+    
+    <div class='container mt-4'><br><br></div>
+    
+    <% if !(current_page?('/')) %>
+      <div class='container mt-4'>
+        <% if notice or alert or flash != nil %>
+          <%= render 'layouts/messages' %>
+        <% end %>
+      </div>
+    <% end %>
+    
+      <% if (current_page?('/')) %>
+        <%= yield %>
+      <% else %>
+        <div class='container mt-4 '>
+          <%= yield %>
+        </div>
+      <% end %>
+
+    <%= render 'layouts/footer' %>
   </body>
 </html>

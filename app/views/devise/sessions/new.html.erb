@@ -1,0 +1,35 @@
+  <div class= "w-100 m-auto">
+  <h2 class="text-center">Iniciar Sesión</h2>
+
+  <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+    <div class="row justify-content-center">
+    <div class="col-4">
+      <div class="field">
+        <%= f.label :email %><br />
+        <input required <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder:"Email", class:"form-control" %>
+      </div>
+      </div>
+    </div>
+
+    <br />
+
+    <div class="row justify-content-center">
+    <div class="col-4">
+      <div class="field">
+        Contraseña<% f.label :password %>
+        <input required <%= f.password_field :password, autocomplete: "new-password", autofocus: true, placeholder:"Contraseña", class:"form-control" %>
+      </div>
+      </div>
+    </div>
+
+    <div class="actions text-center"><br />
+      <%= f.submit "Iniciar Sesión", class:'btn bg-color-alquilapp text-white text-center col-4' %>
+    </div>
+  <% end %>
+
+   <div class="actions text-center"><br/>
+    <%- if devise_mapping.registerable? && controller_name != 'registrations' %>
+      <%= link_to "Registrarse", new_usuario_path, class:"btn btn-outline-primary" %><br />
+    <% end %>
+    </div>
+  </div>

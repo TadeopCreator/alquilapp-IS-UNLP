@@ -1,0 +1,56 @@
+<%= form_with(model: supervisor) do |form| %>
+
+  <% if params.keys.count == 3 %>
+    <% id_supervisor = params[:id] %>
+
+    <% sql = "SELECT * FROM supervisors WHERE id='" + id_supervisor.to_s + "'" %>
+    <% records_array = ActiveRecord::Base.connection.execute(sql) %>
+
+    <% params[:name] = records_array[0]["name"] %>
+    <% params[:surname] = records_array[0]["surname"] %>
+    <% params[:dni] = records_array[0]["dni"] %>
+    <% params[:contact] = records_array[0]["contact"] %>
+    <% params[:name] = records_array[0]["name"] %>
+    <% params[:habilitado] = records_array[0]["habilitado"] %>
+  <% end %>
+
+  <div class="col-6">
+    <%= form.label :'Nombre'%><%= form.text_field :name,  class: "form-control mb-2", value:params[:name]  %>
+    <%= form.label :'Apellido'%><%= form.text_field :surname,  class: "form-control mb-2", value:params[:surname] %>
+    DNI<% form.label :'DNI'%><%= form.text_field :dni,  class: "form-control mb-2", value:params[:dni] %>
+    <%= form.label :'Email'%><%= form.text_field :contact,  class: "form-control mb-2", value:params[:contact]  %>
+
+    <br>
+    <div class="row">
+      <% if (!current_page?('/supervisors/new')) %>
+        <div class="col-2 me-3">          
+          <button type="button" class='btn btn-danger text-white' data-bs-toggle="modal" data-bs-target="#exampleModal">
+            Eliminar
+          </button>
+        </div>
+      <% end %>
+      <div class="col-2">
+        <button class='btn bg-color-alquilapp text-white' <%= form.submit %>Guardar</button>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Eliminar supervisor</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        ¿Está seguro que desea eliminar el supervisor?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <%= link_to "Eliminar", admin_eliminar_supervisor_path(@supervisor), class:'btn btn-danger text-white' %>
+      </div>
+    </div>
+  </div>
+</div>

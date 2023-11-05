@@ -1,0 +1,9 @@
+<div id="<%= dom_id report %>">
+<tr>
+  <td><%= report.title %></td>
+  <td><%= report.patente %></td>    
+  <td><%= report.date %></td>
+   <td>
+        <a <%= link_to "Detalles", report_path(report), class:"btn btn-outline-dark" %></a>
+   </td>
+</div>

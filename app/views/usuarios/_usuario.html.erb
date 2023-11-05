@@ -1,0 +1,62 @@
+<div id="<%= dom_id usuario %>">
+  <p>
+    <strong>Name:</strong>
+    <%= usuario.name %>
+  </p>
+
+  <p>
+    <strong>Lastname:</strong>
+    <%= usuario.lastname %>
+  </p>
+
+  <p>
+    <strong>Dni:</strong>
+    <%= usuario.dni %>
+  </p>
+
+  <p>
+    <strong>Contact:</strong>
+    <%= usuario.contact %>
+  </p>
+
+  <p>
+    <strong>Lon:</strong>
+    <%= usuario.lon %>
+  </p>
+
+  <p>
+    <strong>Lat:</strong>
+    <%= usuario.lat %>
+  </p>
+
+  <p>
+    <strong>Deleted:</strong>
+    <%= usuario.deleted %>
+  </p>
+
+  <p>
+    <strong>Enable:</strong>
+    <%= usuario.enable %>
+  </p>
+
+  <p>
+    <strong>Birthdate:</strong>
+    <%= usuario.birthdate %>
+  </p>
+
+  <p>
+    <strong>Image data:</strong>
+    <%= image_tag usuario.image_url if usuario.image %>
+  </p>
+
+  <p>
+    <strong>Date licence:</strong>
+    <%= usuario.date_licence %>
+  </p>
+
+  <p>
+    <strong>Id wallet:</strong>
+    <%= usuario.id_wallet %>
+  </p>
+
+</div>

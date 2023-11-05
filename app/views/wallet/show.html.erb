@@ -1,0 +1,19 @@
+<div class="container text-center">
+    <div class="row" style="height: 100px;">
+    </div>
+    <div class="row">
+        <h2 class="col-xl text-center fs-1 fw-bold" style="height: 70px;">
+            $<%= @wallet[:saldo] %>
+        </h2>
+    </div>
+    <div class="d-grid gap-2 d-md-flex justify-content-md-center mb-5">
+        <div class="col-md-2 ml-md-auto">
+            <%= link_to 'Depositar Saldo', wallet_edit_path, class: "btn bg-color-alquilapp text-white mb-2 text-start"%>
+        </div>
+    </div>
+</div>
+
+<br>
+<div>
+  <%= link_to "Atrás", autos_path, class:"btn btn-outline-primary"  %>
+</div>

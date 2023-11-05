@@ -1,0 +1,48 @@
+<div id="<%= dom_id auto %>">
+    <tr>
+    <% if user_signed_in? && !current_user.user? %>
+      <td><%= auto.num_rel %></td>
+    <% end %>
+      <td><%= auto.patente %></td>
+      <td><%= auto.marca %></td>
+      <td><%= auto.modelo %></td>
+      <td><%= auto.color %></td>
+      <% if user_signed_in? && !current_user.user? %>
+          <td>
+            <% if auto.alquilado %>
+              ALQUILADO
+            <% else %>
+              SIN ALQUILAR
+            <% end %>
+          </td>
+          <td>
+            <% if auto.habilitado %>
+              HABILITADO
+            <% else %>
+              NO HABILITADO
+            <% end %>
+          </td>
+      <% end %>
+      <td>
+      <% if user_signed_in? && current_user.admin? %>
+        <a <%= link_to "Editar", edit_auto_path(auto), class:"btn btn-outline-dark" %></a>
+      </td>
+      <% else %>
+        <% if !auto.habilitado? %>
+          <a <%= link_to "Habilitar", method = supervisor_habilitar_path(:id => auto.id), class:"btn btn-success" %></a>
+        <% else %>
+          <% if !auto.alquilado? %>
+            <a <%= link_to "Deshabilitar", method = supervisor_deshabilitar_path(:id => auto.id), class:"btn btn-danger" %></a>
+          <% else %>
+            <button disabled <%= link_to "Deshabilitar", method = supervisor_deshabilitar_path(:id => auto.id), class:"btn btn-danger" %></button>
+          <% end %>
+        <% end %>
+      <% end %>
+      <td>
+        <% if user_signed_in? && current_user.supervisor? %>
+          <a <%= link_to "Historial", method = historials_auto_path(:id => auto.id), class:"btn btn-outline-dark" %></a>
+        <% end %>
+      </td>
+      </td>
+    </tr>
+</div>

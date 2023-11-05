@@ -1,0 +1,110 @@
+<div class= "col-6 m-auto">
+<% if (user_signed_in?) %>
+  <% if (current_user.user?) %>
+    <h2 class="text-center">Perfil</h2>
+  <% else %>
+    <h3 class="text-center">Datos del usuario</h3>
+  <% end %>
+<% end %>
+
+<% @user = User.where(role:"user",id_rol: @usuario.id).first %>
+<br>
+
+<div class="row justify-content-center border rounded p-3">
+<h5 class="text-center">Nombre y Apellido</h5>
+<%= @usuario.name %> <%= @usuario.lastname %>
+
+<br>
+<br>
+<hr class="divider" />
+<br>
+
+<h5 class="text-center">DNI</h5>
+<%= @usuario.dni %>
+
+<br>
+<br>
+<hr class="divider" />
+<br>
+
+<h5 class="text-center">Fecha de nacimiento</h5>
+<%= @usuario.birthdate %>
+
+<br>
+<br>
+<hr class="divider" />
+<br>
+
+<h5 class="text-center">Email</h5>
+<%= @user.email %>
+
+<br>
+<br>
+<hr class="divider" />
+<br>
+
+<h5 class="text-center">Contacto</h5>
+<%= @usuario.contact %>
+
+<br>
+<br>
+<hr class="divider" />
+<br>
+
+<h5 class="text-center">Licencia de conducir</h5>
+<img class="rounded-circle text-white m-1" %><%= image_tag @usuario.image_url, style: 'height:90%; width:30%;', class:"img-responsive"%></img>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<hr class="divider" />
+
+<h5 class="text-center">Vencimiento</h5>
+<%= @usuario.date_licence %>
+
+
+</div>
+
+<br>
+<br>
+
+<div class="row justify-content-center">
+  <% if (user_signed_in?) %>
+    <% if (current_user.admin?) %>
+      <div class="text-center col-2">          
+        <button type="button" class='btn btn-danger text-white' data-bs-toggle="modal" data-bs-target="#exampleModal">
+          Eliminar
+        </button>
+      </div>
+    <% end %>
+  <% end %>
+  <div class="text-center col-2">
+    <%= link_to "Atrás", :back, class:"btn btn-outline-primary" %>
+  </div>
+</div>
+
+
+<br>
+
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Eliminar usuario</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        ¿Está seguro que desea eliminar al usuario?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <%= link_to "Eliminar", admin_eliminar_usuario_path(:user_id => @usuario.id), class:'btn btn-danger text-white' %>
+      </div>
+    </div>
+  </div>
+</div>

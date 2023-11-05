@@ -1,0 +1,70 @@
+
+<% if @historial == [] %>
+  <div class="my-3 p-4 border border border-secondary rounded">
+    <div class="col-12 text-start">
+        <div class="text-start">
+          El vehículo no ha sido alquilado aún
+        </div>
+    </div>        
+  </div>
+<% else %>
+  <% auto = Auto.find(@historial.first.id_auto) %>  
+  <h2>Historial del vehículo (#<%= auto.num_rel %>)</h2>
+  <br>
+  <div id="autos" class="table-responsive border border border-secondary rounded">
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Inicio</th>
+          <th scope="col">Fin</th>
+          <th scope="col">Usuario</th>
+          <th scope="col">Tiempo Alquilado</th>
+          <th scope="col">Multado</th>
+          <th scope="col">Monto</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+      <% @historial.each do |auto| %>
+        <tr>
+            <td><%= (auto.created_at - 3.hours).strftime("%d/%m/%Y %H:%M") %></td>
+            <td>
+            <% if auto.total == nil %>
+              En Uso
+            <% else %>
+              <%= (auto.fin).strftime("%d/%m/%Y %H:%M") %>
+            <% end %></td>
+            <% user = Usuario.find(auto.id_usr) %>
+            <td><%= user.lastname %> <%= user.name %></td>
+            <td><% tiempo=auto.tiempoAlquilado + auto.tiempo_extension %> 
+            <% if auto.multa? && auto.motive != nil%>
+                <% tiempo=tiempo + auto.tiempo_multa %>
+            <% end %>
+            <%= tiempo %>            
+            Horas
+            </td>
+            <td>
+                <% multa="NO" %>
+                <% if auto.multa? %>
+                    <% multa="SI" %>
+                <% end %>
+                <%= multa %>
+            </td>
+            <td>
+            <% if auto.total == nil %>
+              -
+            <% else %>
+              $ <%= auto.total %>
+            <% end %>
+            </td>
+            <td>
+              <% if auto.total != nil %>
+                <a <%= link_to "Multar", method = historials_multa_path(:id_usr => auto.id_usr,:id_hist => auto.id),  class:"btn bg-color-alquilapp text-white" %></a>
+              <% end %>
+            </td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+<% end %>

@@ -1,0 +1,22 @@
+<% if resource.errors.any? %>
+  <div id="error_explanation">
+      <% resource.errors.full_messages.each do |message| %>
+        <div class="alert alert-secondary alert-dismissible fade show" role="alert">
+          <% if message == "Email has already been taken" %>
+              Ya existe una cuenta con ese email
+          <% elsif message == "Password confirmation doesn't match Password" %>
+              La confirmación de la contraseña no coincide con la contraseña
+          <% elsif message == "Password is too short (minimum is 6 characters)" %>
+            La contraseña es demasiado corta (el mínimo es de 6 caracteres)
+          <% elsif message == "Current password can't be blank" %>
+            La contraseña actual es requerida
+          <% elsif message == "Current password is invalid" %>
+            Contraseña incorrecta
+          <% else %>
+              <%= message %>
+          <% end %>
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      <% end %>      
+  </div>
+<% end %>

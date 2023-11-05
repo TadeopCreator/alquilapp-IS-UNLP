@@ -1,0 +1,52 @@
+<% supervisor_ID = current_user.id
+  sql = "SELECT * FROM users WHERE id='" + supervisor_ID.to_s + "'"
+  records_array = ActiveRecord::Base.connection.execute(sql)
+  id_rol = records_array[0]["id_rol"]
+
+  @usuario = Usuario.find(@report.src.to_i)%>
+
+<h2><%= @report.title %></h2>
+<p>Enviado por <%= @usuario.name %> <%= @usuario.lastname %></p>
+
+<br>
+
+<h5>Descripción</h5>
+<div class="col-md-3 mb-3">
+  <p class="text-break"><%= @report.description %></p>
+</div>
+
+<br>
+
+<h5>Patente</h5>
+<%= @report.patente %>
+
+<br>
+<br>
+
+<% if @report.title == "Incidente actual" %>
+<h5>Fotografía</h5>
+  <% if @report.image != nil %>
+    <%= image_tag @report.image_url, width:"300", class:"rounded border"%>
+  <% else %>
+    Sin Fotografía adjunta
+  <% end %>
+<br>
+<br>
+<% end %>
+
+
+<div class="row">
+  <div class="col-1 me-2">
+    <%= link_to "Responder", new_message_path(:src => id_rol, :dest => @report.src, :message_type => 0), class:"btn bg-color-alquilapp text-white" %>
+  </div>
+
+  <div class="col-2 ms-3">
+    <%= button_to "Eliminar reporte", @report, method: :delete, class:"btn btn-danger" %>
+  </div>
+</div>
+
+<br>
+
+<div>
+  <%= link_to "Atrás", supervisors_path, class:"btn btn-outline-primary" %>
+</div>

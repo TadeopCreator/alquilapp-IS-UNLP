@@ -1,0 +1,13 @@
+<% if (params["message_type"] == "0") %>
+  <h2>Enviar Mensaje</h2>
+<% elsif (params["message_type"] == "2") %> 
+  <h2>Enviar Comentario</h2>
+<% end %>
+
+<%= render "form", message: @message %>
+
+<br>
+
+<div>
+  <%= link_to "Atrás", :back, class:"btn btn-outline-primary" %>
+</div>

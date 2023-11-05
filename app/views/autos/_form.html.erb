@@ -1,0 +1,150 @@
+<%= form_with(model: auto) do |form| %>
+
+<div class="row">
+<div class="col-4">
+
+<% if (current_user.admin?)  %>
+<div class="col-md-8 mb-3">
+  <div>
+    Numero relativo <% form.label :num_rel, style: "display: block" %>
+     <input required <%= form.number_field :num_rel, min:0, class:"form-control" %></input>
+  </div>
+</div>
+
+<div class="col-md-8 mb-3">
+  <div>
+    <%= form.label :patente, style: "display: block" %>
+     <input required <%= form.text_field :patente, class:"form-control" %></input>
+  </div>
+</div>
+
+<div class="col-md-8 mb-3">
+  <div>
+    <%= form.label :marca, style: "display: block" %>
+     <input required <%= form.text_field :marca, class:"form-control" %></input>
+  </div>
+</div>
+
+<div class="col-md-8 mb-3">
+  <div>
+    <%= form.label :modelo, style: "display: block" %>
+     <input required <%= form.text_field :modelo, class:"form-control" %></input>
+</div>
+</div>
+
+<div class="col-md-8 mb-3">
+  <div>
+    <%= form.label :color, style: "display: block" %>
+     <input required <%= form.text_field :color, class:"form-control" %></input>
+  </div>
+</div>
+
+<div class="col-md-6 mb-3">
+  <div class="field">
+    <% form.label :lat, style: "display: block" %>
+    <%= form.hidden_field :lat,step: :any, class:"form-control"%>
+  </div>
+</div>
+
+<div class="col-md-6 mb-3">
+  <div>
+    <% form.label :lon, style: "display: block" %>
+    <%= form.hidden_field :lon, step: :any, class:"form-control" %>
+  </div>
+</div>
+
+<% end %>
+
+</div>
+<div class="col-6">
+
+<% if (current_user.supervisor?)  %>
+<div class="col-md-6 mb-3">
+  <div>
+    <%= form.label :habilitado, style: "display: block", class:"form-check-label" %>
+    <%= form.check_box :habilitado, class:"form-check-input" %>
+  </div>
+</div>
+<% end %>
+
+<% if (current_user.admin?)  %>
+  <i> Seleccione la nueva ubicación en el mapa. Si no quiere cambios en la ubicación, no seleccione nada en el mapa. </i>
+  <br>
+  <div class="d-flex aligns-items-center justify-content-center">
+  <div id="my-map" class="border border-secondary rounded" style="width: 600px; height: 400px; position: relative;"></div>
+        <script>
+
+            // create a map
+            <% if current_page?('/autos/new')%>
+            var map = L.map('my-map').setView([<%= @lat %>, <%= @lon %>], 16);
+            // cordenadas La Plata: -34.9212720014385, -57.95469262045519    
+            <% else %>
+            var map = L.map('my-map').setView([<%= auto.lat %>, <%= auto.lon %>], 16);
+            <% end %>
+
+            var autoIcon = new L.Icon({
+              iconUrl: 'https://icones.pro/wp-content/uploads/2021/03/icone-de-voiture-symbole-png-jaune.png',
+              //shadowUrl: 'https://upload.wikimedia.org/wikipedia/commons/5/5a/Car_icon_alone.png',
+              iconSize: [32, 32],
+              iconAnchor: [12, 41],
+              popupAnchor: [1, -34],
+              shadowSize: [41, 41]
+            });
+
+            var newMarker = null; 
+            //CON EL MOUSE DA LA UBICACION PARA UTILIZARLAAAA
+            map.on('click', function (e)  {
+                console.log('click',e.latlng.lat, e.latlng.lng) 
+                document.querySelector("#auto_lat").value = `${e.latlng.lat}`;  //Actualiza el form de la latitud en base al evento del click
+                document.querySelector("#auto_lon").value = `${e.latlng.lng}`;  //Actualiza el form de la longitud en base al evento del click
+                if (newMarker !== null) {
+                  map.removeLayer(newMarker);
+                }
+                
+                newMarker = new L.marker(e.latlng, {icon: autoIcon}).addTo(map).bindPopup('<h6>Nueva ubicación</h6>').openPopup();           
+            });
+            
+            // Coordenas del usuario
+            <% if current_page?('/autos/new')%>
+             L.marker([<%= @lat %>, <%= @lon %>]).addTo(map)
+		         .bindPopup('<h6>Usted</h6>').openPopup();
+            <% else %>
+             L.marker([<%= @auto.lat%>, <%= @auto.lon%>], {icon: autoIcon}).addTo(map).bindPopup('<h6>Ubicación actual</h6>').openPopup()
+            <%end%>
+
+            // Retina displays require different mat tiles quality
+            var isRetina = L.Browser.retina;                    
+
+            var baseUrl = "https://maps.geoapify.com/v1/tile/osm-bright/{z}/{x}/{y}.png?apiKey=API_KEY";
+            var retinaUrl = "https://maps.geoapify.com/v1/tile/osm-bright/{z}/{x}/{y}@2x.png?apiKey=API_KEY";
+
+            // Add map tiles layer. Set 20 as the maximal zoom and provide map data attribution.
+            L.tileLayer(isRetina ? retinaUrl : baseUrl, {
+                attribution: 'Powered by AlquilAPP',
+                apiKey: 'f1922b60cc5a482d9e944c4118d55f06',
+                maxZoom: 20,
+                id: 'osm-bright',
+            }).addTo(map);
+            
+        </script>
+</div>
+<% end %>
+<br>
+<div class="row">
+
+  <% if (current_user.admin?) and !current_page?('/autos/new')  %>
+    <div class="col-3 me-3">
+
+      <%= link_to "Eliminar", admin_eliminar_vehiculo_path(@auto), class:'btn btn-danger text-white' %>
+    </div>
+  <% end %>
+  
+  <div class="col-3">
+    <button class='btn bg-color-alquilapp text-white' <%= form.submit %>Guardar</button>
+  </div>
+</div>
+
+</div>
+</div>
+
+<% end %>

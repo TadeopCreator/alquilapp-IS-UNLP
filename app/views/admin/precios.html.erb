@@ -1,0 +1,57 @@
+<h2>Panel de control</h2>
+
+<ul class="nav nav-tabs">
+  <li class="nav-item">
+    <a class="nav-link text-color-alquilapp" href="/admin/dashboard">Inicio</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link text-color-alquilapp" href="/admin/vehiculos">Vehículos</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link active" href="/admin/precios">Precios</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link text-color-alquilapp" href="/admin/supervisores">Supervisores</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link text-color-alquilapp" href="/admin/users">Usuarios</a>
+  </li>
+</ul>
+
+<br/>
+<h4>Precios</h4>
+
+<div><%= link_to 'Establecer nuevos precios', new_global_path, class:"btn btn-outline-primary" %></div>
+
+
+<% if Global.all == [] %>
+  <div class="my-3 p-4 border border border-secondary rounded">
+    <div class="col-12 text-start">
+      <div class="text-start">
+        Aún no ha establecido precios
+      </div>
+      <div class="row text-start">
+        <%= link_to 'Establecer nuevos precios', new_global_path %>
+      </div>
+    </div>
+  </div>
+<% else %>
+  <div id="autos" class="my-3 p-4 border border border-secondary rounded">
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Precio por Hora</th>
+        <th scope="col">Precio de Extension</th>
+        <th scope="col">Precio de Multa</th>
+        <th scope="col">Bloqueo de Vehiculo</th>
+        <th scope="col">Tiempo de Multa</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+    <% @precios = Global.last %>  
+      <%= render @precios %>
+    </tbody>
+</table>
+</div>
+<% end %>

@@ -1,0 +1,83 @@
+<div class= "w-100 m-auto">
+<h2 class="text-center">Registrarse</h2>
+
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+  <%= render "devise/shared/error_messages", resource: resource %>
+
+  <div class="row justify-content-center">
+    <div class="col-4">
+    <div class="field">
+      <%= f.label :email %><br />
+      <input required <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder:"Email", class:"form-control" %>
+    </div>
+    </div>
+  </div>
+
+  <div class="row justify-content-center">
+    <div class="col-4">
+    <div class="field">
+      Contraseña<% f.label :password %>
+      <% if @minimum_password_length %>
+      <p>(<%= @minimum_password_length %> carácteres mínimo)</p>
+      <% end %>
+      <input required <%= f.password_field :password, autocomplete: "new-password", autofocus: true, placeholder:"Contraseña", class:"form-control" %>
+    </div>
+    </div>
+  </div>
+
+  <div class="row justify-content-center">
+    <div class="col-4">
+    <div class="field">
+      Confirmar contraseña<% f.label :password_confirmation %><br />
+      <input required <%= f.password_field :password_confirmation, autocomplete: "new-password", autofocus: true, placeholder:"Confirmar contraseña", class:"form-control" %>
+    </div>
+    </div>
+  </div>
+
+  <br />
+
+  <div class="row justify-content-center">
+  <div class="col-4">
+  <div class="form-group">
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
+      <label class="form-check-label" for="invalidCheck">
+        Aceptar <%= link_to "Términos y Condiciones", terminos_condiciones_show_path %>
+      </label>
+    </div>
+    </div>
+    </div>
+  </div>
+
+  <div class="actions text-center"><br />
+    <%= f.submit "Registrarse", class:'btn bg-color-alquilapp text-white text-center col-4' %>
+  </div>
+<% end %>
+</div>
+<div class="actions text-center"><br />
+  <%- if controller_name != 'sessions' %>
+    <%= link_to "Iniciar sesión", new_session_path(resource_name), class:"btn btn-outline-primary" %><br />
+  <% end %>
+</div>
+  <br /><br /><br />
+<script>
+// Example starter JavaScript for disabling form submissions if there are invalid fields
+(function() {
+  'use strict';
+  window.addEventListener('load', function() {
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    var forms = document.getElementsByClassName('needs-validation');
+    // Loop over them and prevent submission
+    var validation = Array.prototype.filter.call(forms, function(form) {
+      form.addEventListener('submit', function(event) {
+        
+        if (form.checkValidity() === false) {
+          event.preventDefault();
+          event.stopPropagation();
+        }
+        form.classList.add('was-validated');
+      }, false);
+    });
+  }, false);
+})();
+</script>
